@@ -57,10 +57,10 @@ export default function CompanyOverview() {
   const indicatorRef = useRef<HTMLDivElement | null>(null);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
+  // ── Move tab indicator (pure GSAP, no state side-effects) ─────────────────
   const moveIndicator = (index: number) => {
     const tab = tabRefs.current[index];
     if (!tab || !indicatorRef.current) return;
-
     gsap.to(indicatorRef.current, {
       x: tab.offsetLeft,
       width: tab.offsetWidth,
@@ -69,6 +69,7 @@ export default function CompanyOverview() {
     });
   };
 
+  // ── Tab switch: only animates content, never re-triggers entrance ──────────
   const handleTab = (id: string) => {
     if (id === activeTab || !tabContentRef.current) return;
 
@@ -83,9 +84,7 @@ export default function CompanyOverview() {
       onComplete: () => {
         setDisplayTab(id);
         setActiveTab(id);
-
         if (!tabContentRef.current) return;
-
         gsap.fromTo(
           tabContentRef.current,
           { opacity: 0, y: 14 },
@@ -95,12 +94,14 @@ export default function CompanyOverview() {
     });
   };
 
+  // ── Entrance animations — runs ONCE on mount only (empty dep array) ───────
   useEffect(() => {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
       const st = { trigger: sectionRef.current, start: "top 78%", once: true };
 
+      // Image clip reveal
       gsap.fromTo(
         imgWrapRef.current,
         { clipPath: "inset(100% 0% 0% 0%)", opacity: 0 },
@@ -113,6 +114,7 @@ export default function CompanyOverview() {
         },
       );
 
+      // EST badge
       gsap.fromTo(
         estRef.current,
         { y: 30, opacity: 0 },
@@ -126,17 +128,16 @@ export default function CompanyOverview() {
         },
       );
 
-      const rightEls = [
-        eyebrowRef.current,
-        headingRef.current,
-        tabBarRef.current,
-        tabContentRef.current,
-        factsRef.current,
-        btnRef.current,
-      ];
-
+      // Right column stagger
       gsap.fromTo(
-        rightEls,
+        [
+          eyebrowRef.current,
+          headingRef.current,
+          tabBarRef.current,
+          tabContentRef.current,
+          factsRef.current,
+          btnRef.current,
+        ],
         { x: 40, opacity: 0 },
         {
           x: 0,
@@ -149,6 +150,7 @@ export default function CompanyOverview() {
         },
       );
 
+      // Facts rows
       const factRows = factsRef.current?.querySelectorAll("[data-fact]");
       if (factRows?.length) {
         gsap.fromTo(
@@ -166,7 +168,8 @@ export default function CompanyOverview() {
         );
       }
 
-      const activeIndex = TABS.findIndex((tab) => tab.id === activeTab);
+      // Set initial indicator position — runs once after refs are ready
+      const activeIndex = TABS.findIndex((tab) => tab.id === "vision");
       const activeTabEl = tabRefs.current[activeIndex];
       if (activeTabEl && indicatorRef.current) {
         gsap.set(indicatorRef.current, {
@@ -177,13 +180,14 @@ export default function CompanyOverview() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [activeTab]);
+  }, []); // ← empty: runs once on mount, never on tab change
 
   const currentTab = TABS.find((tab) => tab.id === displayTab);
 
   return (
     <section ref={sectionRef} className="w-full overflow-hidden bg-white">
       <div className="grid min-h-[700px] grid-cols-1 lg:grid-cols-2">
+        {/* ── LEFT: Image ── */}
         <div
           ref={imgWrapRef}
           className="relative min-h-[420px] w-full overflow-hidden lg:min-h-0"
@@ -195,7 +199,6 @@ export default function CompanyOverview() {
             className="object-cover object-center"
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
-
           <div
             className="pointer-events-none absolute inset-0"
             style={{
@@ -203,14 +206,13 @@ export default function CompanyOverview() {
                 "linear-gradient(to top, rgba(0,0,0,0.38) 0%, transparent 55%)",
             }}
           />
-
           <div
             ref={estRef}
             className="absolute bottom-0 left-0 flex flex-col px-7 py-5"
             style={{ background: "#1a3fa8", minWidth: "120px" }}
           >
             <span
-              className="text-white font-black leading-none"
+              className="font-black leading-none text-white"
               style={{
                 fontSize: "clamp(32px, 5vw, 48px)",
                 fontFamily: "'Barlow Condensed', sans-serif",
@@ -230,7 +232,9 @@ export default function CompanyOverview() {
           </div>
         </div>
 
+        {/* ── RIGHT: Content ── */}
         <div className="flex flex-col justify-center px-8 py-14 sm:px-12 lg:px-14 lg:py-16 xl:px-16">
+          {/* Eyebrow */}
           <div ref={eyebrowRef} className="mb-5 flex items-center gap-3">
             <span className="block h-[2.5px] w-6 flex-shrink-0 rounded-full bg-red-600" />
             <span
@@ -241,13 +245,11 @@ export default function CompanyOverview() {
             </span>
           </div>
 
+          {/* Heading */}
           <h2
             ref={headingRef}
             className="mb-8 font-black leading-[1.05]"
-            style={{
-              fontSize: "clamp(32px, 3.8vw, 52px)",
-              color: "#111",
-            }}
+            style={{ fontSize: "clamp(32px, 3.8vw, 52px)", color: "#111" }}
           >
             Building Nigeria&apos;s{" "}
             <span style={{ color: "#006633" }}>
@@ -257,6 +259,7 @@ export default function CompanyOverview() {
             </span>
           </h2>
 
+          {/* Tab bar */}
           <div ref={tabBarRef} className="relative mb-7">
             <div className="flex items-center gap-0 border-b border-gray-200">
               {TABS.map((tab, index) => (
@@ -273,7 +276,6 @@ export default function CompanyOverview() {
                 </button>
               ))}
             </div>
-
             <div
               ref={indicatorRef}
               className="absolute bottom-0 left-0 h-[2.5px] rounded-full"
@@ -281,6 +283,7 @@ export default function CompanyOverview() {
             />
           </div>
 
+          {/* Tab content */}
           <div ref={tabContentRef} className="mb-8 min-h-[120px] space-y-4">
             {currentTab?.paragraphs.map((paragraph) => (
               <p
@@ -293,6 +296,7 @@ export default function CompanyOverview() {
             ))}
           </div>
 
+          {/* Facts */}
           <div ref={factsRef} className="mb-9 border-t border-gray-100">
             {FACTS.map((fact) => (
               <div
@@ -307,7 +311,7 @@ export default function CompanyOverview() {
                   {fact.label}
                 </span>
                 <span
-                  className="text-[14px] text-right"
+                  className="text-right text-[14px]"
                   style={{ color: "#555", fontFamily: "'Barlow', sans-serif" }}
                 >
                   {fact.value}
@@ -316,6 +320,7 @@ export default function CompanyOverview() {
             ))}
           </div>
 
+          {/* CTA */}
           <div ref={btnRef}>
             <button
               className="group inline-flex items-center gap-3 px-8 py-4 text-[11.5px] font-bold uppercase tracking-[0.18em] text-white transition-all duration-200 hover:brightness-110 active:scale-[0.97]"

@@ -4,39 +4,13 @@ import { FolderKey, HomeIcon } from "lucide-react";
 export const DATA = {
   name: "Network E&P Nigeria Limited",
   initials: "NEPN",
-  url: "https://victor-adeshina.vercel.app",
+  url: "https://google.com",
   location: "Lagos Nigeria",
   locationLink:
     "https://www.google.com/maps/place/Alimosho,+Ipaja+South+102213,+Lagos",
   description:
     "Network E&P Nigeria Limited (NEPN) is a fully Nigerian-owned oil and gas company dedicated to promoting sustainable energy solutions throughout Nigeria.",
-  summary:
-    "Software Engineer crafting scalable digital products where clean design meets intelligent systems. Experienced in designing robust architectures, leading end-to-end delivery, and building software that scales with business growth.",
-  avatarUrl: "/victor.jpg",
-  skills: [
-    "React",
-    "React Native",
-    "Next.js",
-    "Typescript",
-    "Node.js",
-    "Express.js",
-    "MongoDB",
-    "SharePoint Framework",
-    "Firebase",
-    "Git",
-    // "Angular",
-    "MongoDB",
-    "Azure",
-    // "Go",
-    // "Postgres",
-    // "Docker",
-    // "Kubernetes",
-  ],
-  navbar: [
-    { href: "/", icon: HomeIcon, label: "Home" },
-    { href: "/victor-cv.pdf", icon: FolderKey, label: "Résumé" },
-    // { href: "/blog", icon: NotebookIcon, label: "Blog" },
-  ],
+  navbar: [{ href: "/", icon: HomeIcon, label: "Home" }],
   contact: {
     email: "victoradeshina922@gmail.com",
     tel: "+2349135409822",
@@ -71,92 +45,4 @@ export const DATA = {
       },
     },
   },
-  work: [
-    {
-      company: "Lotus Beta Analytics",
-      href: "https://www.lotusbetaanalytics.com",
-      badges: ["Assistant Tech Lead"],
-      location: "Remote",
-      title: "Business Solutions and Application Developer",
-      logoUrl: "/lba.png",
-      start: "May 2025",
-      end: "Till Date",
-      description:
-        "Customized SharePoint solutions to automate internal processes and enhance team collaboration. Built and maintained full-stack applications using Next.js, React.js, Node.js, and MongoDB. Developed cross-platform mobile apps with React Native and Firebase. Contributed to architecture decisions and delivery of scalable features.",
-    },
-    {
-      company: "Freelance",
-      badges: [],
-      href: "#",
-      location: "Remote",
-      title: "Software Engineer",
-      logoUrl: "/victor.jpg",
-      start: "January 2023",
-      end: "May 2025",
-      description:
-        "Delivered full-stack web and mobile solutions for clients using Next.js, React.js, React Native, Node.js, Firebase, and MongoDB. Built custom APIs and deployed scalable applications. Collaborated closely with clients to understand business needs and translate them into functional, user-friendly products.",
-    },
-  ],
-  education: [
-    {
-      school: "Open University of Nigeria",
-      href: "https://nou.edu.ng",
-      degree: "Bachelor's Degree of Computer Science (BCS)",
-      logoUrl: "/noun.png",
-      start: "2023",
-      end: "2026",
-    },
-  ],
-  projects: [
-    {
-      title: "smartflow.io",
-      href: "#",
-      dates: "August 2025 - Till Date",
-      active: false,
-      description:
-        "SmartFlow is a modern, intelligent project management application designed to solve real-world collaboration challenges in software development teams. Built with the MERN stack and enhanced with AI capabilities, it bridges the gap between project planning and actual development work through seamless GitHub integration and real-time collaboration features.",
-      technologies: [
-        "React.JS",
-        "Typescript",
-        "Redux",
-        "Node.JS",
-        "Express",
-        "Mongoose",
-        "MongoDB",
-        "Socket.io",
-        "TailwindCSS",
-        "Shadcn UI",
-        "Magic UI",
-        "Stripe",
-        "Open AI",
-      ],
-      links: [
-        {
-          type: "Website",
-          href: "https://victor-adeshina.vercel.app",
-          icon: <Icons.globe className="size-3" />,
-        },
-        {
-          type: "Source",
-          href: "https://github.com/v-techhub",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "",
-      video: "https://cdn.llm.report/openai-demo.mp4",
-    },
-  ],
-  hackathons: [
-    {
-      title: "Hack Western 5",
-      dates: "November 23rd - 25th, 2018",
-      location: "London, Ontario",
-      description:
-        "Developed a mobile application which delivered bedtime stories to children using augmented reality.",
-      image:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/hackline/hack-western.png",
-      mlh: "https://s3.amazonaws.com/logged-assets/trust-badge/2019/mlh-trust-badge-2019-white.svg",
-      links: [],
-    },
-  ],
 } as const;
