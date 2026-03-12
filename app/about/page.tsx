@@ -1,7 +1,5 @@
-import React from "react";
+import WhoWeAre from "@/core/components/who-we-are";
 
-const AboutPage = () => {
-  return <div>Who we are</div>;
-};
-
-export default AboutPage;
+export default function AboutPage() {
+  return <WhoWeAre />;
+}
