@@ -57,6 +57,8 @@ export default function HeroCarousel() {
   const [animating, setAnimating] = useState(false);
   const [statsVisible, setStatsVisible] = useState(false);
 
+  const [animatedStats, setAnimatedStats] = useState(STATS.map(() => 0));
+
   const slideRefs = useRef([]);
   const contentRef = useRef(null);
   const badgeRef = useRef(null);
@@ -172,7 +174,12 @@ export default function HeroCarousel() {
         duration: 1,
         ease: "power3.out",
         delay: 0.8,
-        onComplete: () => setStatsVisible(true),
+        onComplete: () => {
+          setStatsVisible(true);
+
+          // trigger number animation
+          setAnimatedStats(STATS.map((s) => s.value));
+        },
       },
     );
 
@@ -386,7 +393,7 @@ export default function HeroCarousel() {
           className="hidden lg:flex flex-col justify-center gap-0 w-[240px] xl:w-[280px] flex-shrink-0"
           style={{
             background: "rgba(40,40,40,0.72)",
-            backdropFilter: "blur(12px)",
+            backdropFilter: "blur(8px)",
           }}
         >
           {STATS.map((stat, i) => (
@@ -411,7 +418,7 @@ export default function HeroCarousel() {
                 >
                   {statsVisible ? (
                     <NumberFlow
-                      value={stat.value}
+                      value={animatedStats[i]}
                       format={{ notation: "standard" }}
                       transformTiming={{ duration: 1200, easing: "ease-out" }}
                     />
@@ -466,7 +473,7 @@ export default function HeroCarousel() {
               <span className="text-white font-black text-3xl leading-none">
                 {statsVisible ? (
                   <NumberFlow
-                    value={stat.value}
+                    value={animatedStats[i]}
                     format={{ notation: "standard" }}
                     transformTiming={{ duration: 1200, easing: "ease-out" }}
                   />

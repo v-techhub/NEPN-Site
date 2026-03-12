@@ -146,7 +146,7 @@ export default function CTABanner() {
     <section
       ref={sectionRef}
       className="relative w-full overflow-hidden py-20 lg:py-24"
-      style={{ background: "#0e8a42", fontFamily: "'Barlow', sans-serif" }}
+      style={{ background: "#0e8a42" }}
     >
       {/* ── Decorative ghost circles ──────────────────────────────────────── */}
       {/* Left circle */}
@@ -155,7 +155,7 @@ export default function CTABanner() {
         className="absolute pointer-events-none"
         style={{
           left: "-80px",
-          top: "50%",
+          top: "80%",
           transform: "translateY(-50%)",
           width: "340px",
           height: "340px",
@@ -180,7 +180,7 @@ export default function CTABanner() {
         className="absolute pointer-events-none"
         style={{
           right: "-90px",
-          top: "50%",
+          top: "20%",
           transform: "translateY(-50%)",
           width: "300px",
           height: "300px",
