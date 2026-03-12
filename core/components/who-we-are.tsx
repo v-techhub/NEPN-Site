@@ -78,22 +78,28 @@ const LEADERSHIP = [
     image: "/slides/slide-3.jpg",
     alt: "Executive leadership team",
     name: "Executive Director",
-    role: "OIL AND GAS VISIONARY",
-    body: "Visionary leadership driving NEPN's strategic growth and regional influence, backed by over 25 years in the sector.",
+    role: "CHIEF EXECUTIVE",
+    roleColor: "#117E43",
+    body: "Visionary leadership driving NEPN's strategic growth and Nigeria's indigenous content agenda with over 25 years in the sector.",
+    objectPosition: "center 44%",
   },
   {
     image: "/images/operation director.png",
     alt: "Operations director supervising field personnel",
     name: "Operations Director",
-    role: "UPSTREAM SPECIALIST",
-    body: "Engineering excellence and operational safety, overseeing all field operations and drilling programmes in OML 13.",
+    role: "TECHNICAL OPERATIONS",
+    roleColor: "#ED1D24",
+    body: "Engineering excellence and operational safety, overseeing all field operations and drilling programmes at OML 13.",
+    objectPosition: "center center",
   },
   {
     image: "/images/finance director.png",
     alt: "Finance director reviewing field instrumentation",
     name: "Finance Director",
-    role: "RESOURCE STRATEGIST",
+    role: "CFO & FINANCIAL STRATEGY",
+    roleColor: "#0000FE",
     body: "Ensuring financial discipline, investor confidence, and capital allocation efficiency to support long-term growth.",
+    objectPosition: "center 46%",
   },
 ];
 
@@ -322,12 +328,12 @@ export default function WhoWeAre() {
             }}
           />
 
-          <div className="absolute inset-x-0 bottom-0 z-20">
-            <div className="mx-auto flex w-full max-w-[1250px] items-end px-5 pb-6 pt-20 sm:px-8 sm:pb-8 sm:pt-24 md:px-10 md:pb-9 md:pt-28 lg:px-10 lg:pb-10">
-              <div className="max-w-[760px]">
+          <div className="absolute inset-0 z-20">
+            <div className="mx-auto flex h-full w-full max-w-[1250px] items-center justify-center px-5 py-10 text-center sm:px-8 md:px-10 lg:px-10">
+              <div className="flex w-full flex-col items-center justify-center translate-y-[28px] sm:translate-y-[34px] md:translate-y-[40px] lg:translate-y-[46px]">
                 <div
                   data-hero-copy
-                  className="mb-2.5 flex flex-wrap items-center gap-2 text-[8px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:mb-3 sm:text-[9px] md:text-[10px]"
+                  className="mb-[22px] flex flex-wrap items-center justify-center gap-2 text-[8px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-[9px] md:text-[10px]"
                   style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                 >
                   <Link href="/" className="transition-colors duration-200 hover:text-white">
@@ -339,14 +345,33 @@ export default function WhoWeAre() {
 
                 <h1
                   data-hero-copy
-                  className="font-black leading-[0.94] tracking-[-0.035em] text-white"
+                  className="text-white"
                   style={{
-                    fontFamily: "'Barlow Condensed', sans-serif",
-                    fontSize: "clamp(2.45rem, 6vw, 4.5rem)",
+                    width: "auto",
+                    minHeight: "58.875px",
+                    whiteSpace: "nowrap",
+                    textAlign: "center",
+                    fontFamily: "'Poppins', sans-serif",
+                    fontWeight: 700,
+                    fontSize: "51.2px",
+                    lineHeight: "58.88px",
+                    letterSpacing: "0%",
                     textShadow: "0 10px 30px rgba(0,0,0,0.28)",
                   }}
                 >
-                  Who We <span className="text-[#71f0bc]">Are</span>
+                  Who We{" "}
+                  <span
+                    style={{
+                      color: "#82E8B4",
+                      fontFamily: "'Poppins', sans-serif",
+                      fontWeight: 700,
+                      fontSize: "51.2px",
+                      lineHeight: "58.88px",
+                      letterSpacing: "0%",
+                    }}
+                  >
+                    Are
+                  </span>
                 </h1>
               </div>
             </div>
@@ -503,9 +528,9 @@ export default function WhoWeAre() {
       </section>
 
       <section ref={detailRef} className="bg-[#ededed] py-0">
-        <div className="mx-auto max-w-[1280px] overflow-hidden">
+        <div className="w-full overflow-hidden">
           <div>
-            <div className="grid grid-cols-1 lg:grid-cols-[711.114624px_568.885437px] lg:grid-rows-[480px]">
+            <div className="grid grid-cols-1 lg:grid-cols-[55.556%_44.444%] lg:grid-rows-[480px]">
               <div
                 data-grid-cell
                 className="relative min-h-[270px] overflow-hidden sm:min-h-[330px] lg:h-[480px] lg:min-h-0"
@@ -515,7 +540,7 @@ export default function WhoWeAre() {
                   alt={FEATURE_SPLITS[0].alt}
                   fill
                   className="object-cover object-center"
-                  sizes="(max-width: 768px) 100vw, 711px"
+                  sizes="(max-width: 768px) 100vw, 56vw"
                 />
               </div>
 
@@ -553,7 +578,7 @@ export default function WhoWeAre() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-[568.885437px_711.114624px] lg:grid-rows-[480px]">
+            <div className="grid grid-cols-1 lg:grid-cols-[44.444%_55.556%] lg:grid-rows-[480px]">
               <div
                 data-grid-cell
                 className="relative min-h-[270px] overflow-hidden sm:min-h-[330px] lg:h-[480px] lg:min-h-0"
@@ -563,7 +588,7 @@ export default function WhoWeAre() {
                   alt={FEATURE_SPLITS[1].alt}
                   fill
                   className="object-cover object-center"
-                  sizes="(max-width: 768px) 100vw, 569px"
+                  sizes="(max-width: 768px) 100vw, 44vw"
                 />
               </div>
 
@@ -632,37 +657,62 @@ export default function WhoWeAre() {
                 Guided by <span className="text-[#168241]">Experienced Hands</span>
               </h2>
 
-              <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+              <div className="mt-8 grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-[9px]">
                 {LEADERSHIP.map((member) => (
                   <article
                     data-leadership-card
                     key={member.name}
-                    className="group"
+                    className="group bg-[#f4f4f4]"
                   >
-                    <div className="relative aspect-[1.18/1] overflow-hidden bg-white">
+                    <div className="relative h-[248px] overflow-hidden bg-white sm:h-[258px] lg:h-[252px]">
                       <Image
                         src={member.image}
                         alt={member.alt}
                         fill
-                        className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+                        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        style={{ objectPosition: member.objectPosition }}
                         sizes="(max-width: 768px) 100vw, 30vw"
                       />
                     </div>
 
-                    <div className="pt-3">
+                    <div className="min-h-[148px] px-[20px] pb-[16px] pt-[18px]">
                       <h3
-                        className="text-[13px] font-black leading-tight text-[#222a28]"
-                        style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                        className="h-[25px] max-w-[170px]"
+                        style={{
+                          color: "#1E2620",
+                          fontFamily: "'Poppins', sans-serif",
+                          fontWeight: 700,
+                          fontSize: "16.8px",
+                          lineHeight: "100%",
+                          letterSpacing: "0%",
+                        }}
                       >
                         {member.name}
                       </h3>
                       <p
-                        className="mt-1 text-[8.5px] font-bold uppercase tracking-[0.24em] text-[#ef3b3b]"
-                        style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                        className="mt-[2px] h-[15px] uppercase"
+                        style={{
+                          color: member.roleColor,
+                          fontFamily: "'Poppins', sans-serif",
+                          fontWeight: 700,
+                          fontSize: "10.08px",
+                          lineHeight: "100%",
+                          letterSpacing: "1.01px",
+                        }}
                       >
                         {member.role}
                       </p>
-                      <p className="mt-2 max-w-[250px] text-[11px] leading-[1.65] text-[#5c6661]">
+                      <p
+                        className="mt-[10px] max-w-[340px]"
+                        style={{
+                          color: "#4A5550",
+                          fontFamily: "'Poppins', sans-serif",
+                          fontWeight: 400,
+                          fontSize: "12.8px",
+                          lineHeight: "20.74px",
+                          letterSpacing: "0%",
+                        }}
+                      >
                         {member.body}
                       </p>
                     </div>
@@ -674,35 +724,73 @@ export default function WhoWeAre() {
         </div>
       </section>
 
-      <section ref={ctaRef} className="bg-[#eb1f25]">
-        <div className="mx-auto flex max-w-[1250px] flex-col gap-5 px-5 py-5 sm:px-8 sm:py-6 md:flex-row md:items-center md:justify-between md:px-10 lg:px-12">
-          <div data-cta-part>
-            <p
-              className="text-[17px] font-black tracking-[-0.02em] text-white sm:text-[20px]"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-            >
-              Interested in Partnering?
-            </p>
-            <p className="mt-1 max-w-[520px] text-[12px] leading-[1.7] text-white/75 sm:text-[13px]">
-              Speak with our team about operations, partnerships, and long-term
-              energy development opportunities.
-            </p>
-          </div>
+      <section ref={ctaRef} className="bg-[#ED1D24]">
+        <div className="mx-auto flex min-h-[140.666672px] w-full max-w-[1280px] items-center px-[10px]">
+          <div className="flex w-full justify-center">
+            <div className="flex w-full max-w-[1184px] flex-col gap-6 py-8 md:h-[56.666668px] md:flex-row md:items-center md:justify-between md:gap-8 md:py-0">
+              <div data-cta-part className="w-full max-w-[408.072937px]">
+                <p
+                  className="text-white"
+                  style={{
+                    width: "auto",
+                    minHeight: "40px",
+                    whiteSpace: "nowrap",
+                    fontFamily: "'Poppins', sans-serif",
+                    fontWeight: 700,
+                    fontSize: "26.4px",
+                    lineHeight: "100%",
+                    letterSpacing: "0%",
+                  }}
+                >
+                  Interested in Partnering?
+                </p>
+                <p
+                  className="mt-[6px] max-w-[408px]"
+                  style={{
+                    color: "rgba(255,255,255,0.74)",
+                    fontFamily: "'Poppins', sans-serif",
+                    fontWeight: 400,
+                    fontSize: "12px",
+                    lineHeight: "16px",
+                    letterSpacing: "0%",
+                  }}
+                >
+                  Explore joint venture and collaboration opportunities with
+                  NEPN.
+                </p>
+              </div>
 
-          <div data-cta-part>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center border border-white/35 bg-[#111111] px-6 py-3 text-[10px] font-bold uppercase tracking-[0.22em] text-white transition-all duration-200 hover:bg-white hover:text-[#eb1f25]"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-            >
-              Contact Us
-            </Link>
+              <div data-cta-part className="md:ml-auto md:flex md:items-center">
+                <Link
+                  href="/contact"
+                  className="inline-flex h-[46px] w-[157.947922px] items-center justify-center gap-[10px] rounded-[2px] border-2 border-white/55 bg-transparent transition-all duration-200 hover:bg-white hover:text-[#ED1D24]"
+                  style={{
+                    color: "#FFFFFF",
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontWeight: 700,
+                    fontSize: "12px",
+                    lineHeight: "100%",
+                    letterSpacing: "0.84px",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  <span>Contact Us</span>
+                  <Image
+                    src="/images/Vector (4).png"
+                    alt=""
+                    width={8.75}
+                    height={7}
+                    className="h-[7px] w-[8.75px] object-contain"
+                  />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800;900&family=Poppins:wght@400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@700&family=Poppins:wght@400;700&display=swap');
       `}</style>
     </div>
   );
