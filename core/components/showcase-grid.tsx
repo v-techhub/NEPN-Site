@@ -275,14 +275,14 @@ export default function ShowcaseGrid() {
         {TOP_CARDS.map((card, i) => (
           <div
             key={card.num}
-            ref={(el) => (topCardRefs.current[i] = el)}
+            ref={(el) => (topCardRefs.current[i] = el) as any}
             className="relative overflow-hidden cursor-pointer"
             onMouseEnter={() => handleCardEnter(i)}
             onMouseLeave={() => handleCardLeave(i)}
           >
             {/* Image */}
             <div
-              ref={(el) => (topImgRefs.current[i] = el)}
+              ref={(el) => (topImgRefs.current[i] = el) as any}
               className="absolute inset-0 w-full h-full"
             >
               <Image
@@ -296,7 +296,7 @@ export default function ShowcaseGrid() {
 
             {/* Card-specific gradient overlay */}
             <div
-              ref={(el) => (topOverlayRefs.current[i] = el)}
+              ref={(el) => (topOverlayRefs.current[i] = el) as any}
               className="absolute inset-0"
               style={{ background: card.gradient }}
             />

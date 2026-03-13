@@ -238,7 +238,7 @@ export default function Testimonials() {
           {TESTIMONIALS.map((t, i) => (
             <div
               key={t.id}
-              ref={(el) => (cardRefs.current[i] = el)}
+              ref={(el) => (cardRefs.current[i] = el) as any}
               className="relative flex flex-col justify-between p-8 lg:p-9 border rounded-sm cursor-pointer"
               style={{
                 borderColor: "rgba(0,0,0,0.09)",
@@ -250,7 +250,7 @@ export default function Testimonials() {
             >
               {/* Quote icon — top right */}
               <div
-                ref={(el) => (quoteIconRefs.current[i] = el)}
+                ref={(el) => (quoteIconRefs.current[i] = el) as any}
                 className="absolute top-6 right-7 select-none pointer-events-none"
                 style={{
                   color: "#d1d5db",
@@ -276,7 +276,7 @@ export default function Testimonials() {
               <div className="flex items-center gap-3.5">
                 {/* Avatar circle */}
                 <div
-                  ref={(el) => (avatarRefs.current[i] = el)}
+                  ref={(el) => (avatarRefs.current[i] = el) as any}
                   className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white text-[12px] font-bold select-none"
                   style={{
                     background: t.avatarBg,

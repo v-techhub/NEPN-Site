@@ -200,7 +200,7 @@ export default function WhatWeDo() {
           {CARDS.map((card, i) => (
             <div
               key={card.number}
-              ref={(el) => (cardRefs.current[i] = el)}
+              ref={(el) => (cardRefs.current[i] = el) as any}
               className="relative flex flex-col px-8 pt-10 pb-10 cursor-pointer overflow-hidden"
               style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}
               onMouseEnter={() => handleEnter(i)}
@@ -208,7 +208,7 @@ export default function WhatWeDo() {
             >
               {/* Accent top border — animated */}
               <div
-                ref={(el) => (accentRefs.current[i] = el)}
+                ref={(el) => (accentRefs.current[i] = el) as any}
                 className="absolute top-0 left-0 right-0 h-[3px]"
                 style={{
                   background: card.accent,
@@ -219,7 +219,7 @@ export default function WhatWeDo() {
 
               {/* Ghost number */}
               <div
-                ref={(el) => (numberRefs.current[i] = el)}
+                ref={(el) => (numberRefs.current[i] = el) as any}
                 className="mb-10 select-none leading-none font-black"
                 style={{
                   fontSize: "clamp(72px, 8vw, 110px)",

@@ -280,7 +280,7 @@ export default function LatestNews() {
           {NEWS.map((item, i) => (
             <article
               key={item.id}
-              ref={(el) => (cardRefs.current[i] = el)}
+              ref={(el) => (cardRefs.current[i] = el) as any}
               className="flex flex-col bg-white border border-gray-100 cursor-pointer overflow-hidden"
               style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}
               onMouseEnter={() => handleEnter(i)}
@@ -288,12 +288,12 @@ export default function LatestNews() {
             >
               {/* Image */}
               <div
-                ref={(el) => (imgWrapRefs.current[i] = el)}
+                ref={(el) => (imgWrapRefs.current[i] = el) as any}
                 className="relative overflow-hidden"
                 style={{ height: "clamp(200px, 22vw, 280px)" }}
               >
                 <div
-                  ref={(el) => (imgRefs.current[i] = el)}
+                  ref={(el) => (imgRefs.current[i] = el) as any}
                   className="absolute inset-0 w-full h-full"
                 >
                   <Image
@@ -311,7 +311,7 @@ export default function LatestNews() {
                 {/* Category badge */}
                 <div className="mb-4">
                   <span
-                    ref={(el) => (badgeRefs.current[i] = el)}
+                    ref={(el) => (badgeRefs.current[i] = el) as any}
                     className="inline-block px-3 py-1 text-[10px] font-bold tracking-[0.18em] uppercase text-white"
                     style={{
                       background: item.categoryBg,
@@ -336,7 +336,7 @@ export default function LatestNews() {
 
                 {/* Meta */}
                 <div
-                  ref={(el) => (metaRefs.current[i] = el)}
+                  ref={(el) => (metaRefs.current[i] = el) as any}
                   className="flex items-center gap-2.5 mt-auto"
                 >
                   <span

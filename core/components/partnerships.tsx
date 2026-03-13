@@ -234,7 +234,7 @@ export default function Partnerships() {
           {PARTNERS.map((partner, i) => (
             <div
               key={partner.id}
-              ref={(el) => (cardRefs.current[i] = el)}
+              ref={(el) => (cardRefs.current[i] = el) as any}
               className="relative bg-white flex flex-col items-center text-center px-8 pt-10 pb-10 cursor-pointer overflow-hidden"
               style={{ boxShadow: "0 2px 14px rgba(0,0,0,0.05)" }}
               onMouseEnter={() => handleEnter(i)}
@@ -242,7 +242,7 @@ export default function Partnerships() {
             >
               {/* Green top accent line on hover */}
               <div
-                ref={(el) => (hoverLineRefs.current[i] = el)}
+                ref={(el) => (hoverLineRefs.current[i] = el) as any}
                 className="absolute top-0 left-0 right-0 h-[3px] bg-[#006633]"
                 style={{
                   transformOrigin: "left center",
@@ -252,7 +252,7 @@ export default function Partnerships() {
 
               {/* Logo */}
               <div
-                ref={(el) => (logoRefs.current[i] = el)}
+                ref={(el) => (logoRefs.current[i] = el) as any}
                 className="flex items-center justify-center mb-7"
                 style={{ height: "80px" }}
               >

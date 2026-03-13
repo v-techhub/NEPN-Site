@@ -236,7 +236,7 @@ export default function HeroCarousel() {
       {SLIDES.map((s, i) => (
         <div
           key={s.id}
-          ref={(el) => (slideRefs.current[i] = el)}
+          ref={(el) => (slideRefs.current[i] = el) as any}
           className="absolute inset-0 w-full h-full"
           style={{ opacity: i === 0 ? 1 : 0, zIndex: i === 0 ? 1 : 0 }}
         >

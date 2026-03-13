@@ -1,5 +1,5 @@
 import { Icons } from "@/core/components/icons";
-import { FolderKey, HomeIcon } from "lucide-react";
+import { HomeIcon } from "lucide-react";
 
 export const DATA = {
   name: "Network E&P Nigeria Limited",
