@@ -151,12 +151,15 @@ export default function WhoWeAre() {
       const heroBars = rootRef.current?.querySelectorAll("[data-hero-bar]");
       const heroCopy = rootRef.current?.querySelectorAll("[data-hero-copy]");
       const storyLeft = storyRef.current?.querySelectorAll("[data-story-left]");
-      const storyRight = storyRef.current?.querySelectorAll("[data-story-right]");
+      const storyRight =
+        storyRef.current?.querySelectorAll("[data-story-right]");
       const gridCells = detailRef.current?.querySelectorAll("[data-grid-cell]");
-      const leadershipHeader =
-        detailRef.current?.querySelectorAll("[data-leadership-header]");
-      const leadershipCards =
-        detailRef.current?.querySelectorAll("[data-leadership-card]");
+      const leadershipHeader = detailRef.current?.querySelectorAll(
+        "[data-leadership-header]",
+      );
+      const leadershipCards = detailRef.current?.querySelectorAll(
+        "[data-leadership-card]",
+      );
       const ctaParts = ctaRef.current?.querySelectorAll("[data-cta-part]");
 
       gsap.set(
@@ -244,7 +247,8 @@ export default function WhoWeAre() {
       }
 
       if (storyLeft?.length) animateStagger(storyLeft, storyRef.current);
-      if (storyRight?.length) animateStagger(storyRight, storyRef.current, { delay: 0.1 });
+      if (storyRight?.length)
+        animateStagger(storyRight, storyRef.current, { delay: 0.1 });
 
       const storyLine = storyRef.current?.querySelector("[data-story-line]");
       if (storyLine) {
@@ -286,16 +290,16 @@ export default function WhoWeAre() {
     >
       <section
         ref={heroRef}
-        className="relative isolate w-full overflow-hidden bg-[#0a1210]"
+        className="relative isolate w-full overflow-hidden bg-[#0a1210] -mt-[20px]"
       >
-        <div
+        {/* <div
           data-hero-bar
           className="absolute inset-x-0 top-0 z-30 flex h-[3px] md:h-[4px]"
         >
           <span className="h-full basis-[45%] bg-[#179768]" />
           <span className="h-full basis-[29%] bg-[#ea2a2d]" />
           <span className="h-full basis-[26%] bg-[#143fe2]" />
-        </div>
+        </div> */}
 
         <div
           data-hero-bar
@@ -336,7 +340,10 @@ export default function WhoWeAre() {
                   className="mb-[22px] flex flex-wrap items-center justify-center gap-2 text-[8px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-[9px] md:text-[10px]"
                   style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                 >
-                  <Link href="/" className="transition-colors duration-200 hover:text-white">
+                  <Link
+                    href="/"
+                    className="transition-colors duration-200 hover:text-white"
+                  >
                     Home
                   </Link>
                   <span className="text-white/35">/</span>
@@ -379,7 +386,10 @@ export default function WhoWeAre() {
         </div>
       </section>
 
-      <section ref={storyRef} className="bg-[#f4f4f4] py-11 sm:py-14 lg:py-[54px]">
+      <section
+        ref={storyRef}
+        className="bg-[#f4f4f4] py-11 sm:py-14 lg:py-[54px]"
+      >
         <div className="mx-auto max-w-[1250px] px-5 sm:px-8 md:px-10 lg:px-8 xl:px-10">
           <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.98fr)] lg:gap-12">
             <div>
@@ -400,7 +410,8 @@ export default function WhoWeAre() {
                   fontSize: "clamp(2.25rem, 4.9vw, 4.05rem)",
                 }}
               >
-                Nigeria&apos;s Leading <span className="text-[#14874f]">Indigenous</span>
+                Nigeria&apos;s Leading{" "}
+                <span className="text-[#14874f]">Indigenous</span>
                 <br />
                 <span className="text-[#14874f]">E&amp;P Company</span>
               </h2>
@@ -410,29 +421,26 @@ export default function WhoWeAre() {
                 className="mt-5 h-[3px] w-10 rounded-full bg-[#14874f]"
               />
 
-              <div
-                className="mt-7 max-w-[560px] space-y-7 text-[15px] leading-[2.02] text-[#5d6763] sm:text-[16px]"
-              >
+              <div className="mt-7 max-w-[560px] space-y-7 text-[15px] leading-[2.02] text-[#5d6763] sm:text-[16px]">
                 <p data-story-left>
-                  Network E&amp;P Nigeria Limited (NEPN) is a fully Nigerian-owned
-                  oil and gas company dedicated to promoting sustainable energy
-                  solutions throughout Nigeria.
+                  Network E&amp;P Nigeria Limited (NEPN) is a fully
+                  Nigerian-owned oil and gas company dedicated to promoting
+                  sustainable energy solutions throughout Nigeria.
                 </p>
                 <p data-story-left>
                   Since 2001, we have been at the forefront of exploring and
-                  developing the Qua Iboe field in OML 13, playing a vital role in
-                  meeting the nation&apos;s energy needs.
+                  developing the Qua Iboe field in OML 13, playing a vital role
+                  in meeting the nation&apos;s energy needs.
                 </p>
                 <p data-story-left>
-                  We are proud to be 100% Nigerian-owned and operated, a testament
-                  to the vision that indigenous companies can lead and excel in one
-                  of the world&apos;s most technically demanding industries.
+                  We are proud to be 100% Nigerian-owned and operated, a
+                  testament to the vision that indigenous companies can lead and
+                  excel in one of the world&apos;s most technically demanding
+                  industries.
                 </p>
               </div>
 
-              <div
-                className="mt-10 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:max-w-[540px]"
-              >
+              <div className="mt-10 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:max-w-[540px]">
                 {STORY_FACTS.map((fact) => (
                   <div
                     data-story-left
@@ -654,7 +662,8 @@ export default function WhoWeAre() {
                   fontSize: "clamp(2rem, 4.4vw, 3.45rem)",
                 }}
               >
-                Guided by <span className="text-[#168241]">Experienced Hands</span>
+                Guided by{" "}
+                <span className="text-[#168241]">Experienced Hands</span>
               </h2>
 
               <div className="mt-8 grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-[9px]">
