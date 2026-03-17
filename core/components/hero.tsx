@@ -14,7 +14,7 @@ import NumberFlow from "@number-flow/react";
 import { gsap } from "gsap";
 
 // ─── Background Video ─────────────────────────────────────────────────────────
-const HERO_VIDEO = "/slides/hero-video.mov";
+const HERO_VIDEO = "/slides/hero-video.mp3";
 
 // ─── Slide Data (TEXT ONLY NOW) ───────────────────────────────────────────────
 const SLIDES = [
