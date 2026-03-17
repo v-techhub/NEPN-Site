@@ -290,7 +290,7 @@ export default function WhoWeAre() {
     >
       <section
         ref={heroRef}
-        className="relative isolate w-full overflow-hidden bg-[#0a1210] -mt-[20px]"
+        className="relative isolate w-full overflow-hidden bg-[#0a1210] -mt-[30px]"
       >
         {/* <div
           data-hero-bar
