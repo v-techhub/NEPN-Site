@@ -33,7 +33,7 @@ const NEWS = [
   },
   {
     id: 2,
-    image: "/slides/slide-1.jpg",
+    image: "/images/production.jpg",
     category: "COMMUNITY",
     categoryBg: "#CC1F1F",
     title: "NEPN Launches Scholarship Programme for Akwa Ibom Students",
@@ -42,7 +42,7 @@ const NEWS = [
   },
   {
     id: 3,
-    image: "/slides/slide-2.jpg",
+    image: "/images/workers.jpg",
     category: "SUSTAINABILITY",
     categoryBg: "#1a1aee",
     title: "NEPN Commits to Net Zero Roadmap Ahead of 2030 Milestone",

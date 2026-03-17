@@ -452,7 +452,7 @@ export default function ShowcaseGrid() {
           style={{ minHeight: "320px" }}
         >
           <Image
-            src="/slides/slide-2.jpg"
+            src="/images/banner.jpg"
             alt="OML 13 Qua Iboe field aerial view"
             fill
             className="object-cover object-center"

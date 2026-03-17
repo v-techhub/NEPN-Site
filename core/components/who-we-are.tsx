@@ -75,9 +75,9 @@ const FEATURE_SPLITS = [
 
 const LEADERSHIP = [
   {
-    image: "/slides/slide-3.jpg",
+    image: "/images/md.jpg",
     alt: "Executive leadership team",
-    name: "Executive Director",
+    name: "Managing Director",
     role: "CHIEF EXECUTIVE",
     roleColor: "#117E43",
     body: "Visionary leadership driving NEPN's strategic growth and Nigeria's indigenous content agenda with over 25 years in the sector.",
