@@ -466,12 +466,11 @@ export default function WhoWeAre() {
                   style={{
                     width: "auto",
                     minHeight: "58.875px",
-                    whiteSpace: "nowrap",
                     textAlign: "center",
                     fontFamily: "'Poppins', sans-serif",
                     fontWeight: 700,
-                    fontSize: "51.2px",
-                    lineHeight: "58.88px",
+                    fontSize: "clamp(30px, 7.5vw, 51.2px)",
+                    lineHeight: "1.15",
                     letterSpacing: "0%",
                     textShadow: "0 10px 30px rgba(0,0,0,0.28)",
                   }}
@@ -482,8 +481,8 @@ export default function WhoWeAre() {
                       color: "#82E8B4",
                       fontFamily: "'Poppins', sans-serif",
                       fontWeight: 700,
-                      fontSize: "51.2px",
-                      lineHeight: "58.88px",
+                      fontSize: "clamp(30px, 7.5vw, 51.2px)",
+                      lineHeight: "1.15",
                       letterSpacing: "0%",
                     }}
                   >

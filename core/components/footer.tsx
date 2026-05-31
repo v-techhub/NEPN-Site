@@ -1,15 +1,16 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Phone, Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
   const quickLinks = [
-    "Home",
-    "Who We Are",
-    "Operations",
-    "Sustainability",
-    "Partners",
-    "News & Insights",
-    "Contact Us",
+    { label: "Home", href: "/" },
+    { label: "Who We Are", href: "/about" },
+    { label: "Operations", href: "/operations" },
+    { label: "Sustainability", href: "/sustainability" },
+    { label: "Partners", href: "/partners" },
+    { label: "News & Insights", href: "/news" },
+    { label: "Contact Us", href: "/contact" },
   ];
 
 
@@ -58,14 +59,17 @@ export default function Footer() {
             <ul className="space-y-4">
               {quickLinks.map((item) => (
                 <li
-                  key={item}
-                  className="flex items-center gap-3 group cursor-pointer"
+                  key={item.label}
+                  className="flex items-center gap-3 group"
                 >
                   <span className="text-red-500">—</span>
 
-                  <span className="group-hover:text-white transition">
-                    {item}
-                  </span>
+                  <Link
+                    href={item.href}
+                    className="group-hover:text-white transition cursor-pointer text-gray-400"
+                  >
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -148,15 +152,15 @@ export default function Footer() {
           <p>© 2026 Network E&P Nigeria Limited. All rights reserved.</p>
 
           <div className="flex gap-8 mt-3 md:mt-0">
-            <span className="hover:text-white cursor-pointer transition">
+            <Link href="/" className="hover:text-white transition">
               Site Map
-            </span>
-            <span className="hover:text-white cursor-pointer transition">
+            </Link>
+            <Link href="/" className="hover:text-white transition">
               Terms
-            </span>
-            <span className="hover:text-white cursor-pointer transition">
+            </Link>
+            <Link href="/privacy" className="hover:text-white transition">
               Privacy Policy
-            </span>
+            </Link>
           </div>
         </div>
       </div>
