@@ -4,6 +4,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/core/components/navigation";
 import Footer from "@/core/components/footer";
+import SmoothScroll from "@/core/components/smooth-scroll";
 
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -53,11 +54,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${plusJakarta.variable} antialiased`}>
-        <Navigation />
-        {children}
-        <Footer />
+      <body className={`${plusJakarta.variable} antialiased`} suppressHydrationWarning>
+        <SmoothScroll>
+          <Navigation />
+          {children}
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );
 }
+

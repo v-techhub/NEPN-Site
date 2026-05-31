@@ -12,19 +12,12 @@ export default function Footer() {
     "Contact Us",
   ];
 
-  const legalLinks = [
-    "Site Map",
-    "Terms of Service",
-    "Privacy Policy",
-    "HSE Policy",
-    "Anti-Corruption Policy",
-  ];
 
   return (
     <footer className="bg-[#070707] text-gray-400">
       <div className="max-w-[1250px] mx-auto px-6 py-20">
         {/* GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14">
           {/* COMPANY INFO */}
           <div>
             <Image
@@ -78,27 +71,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* LEGAL */}
-          <div>
-            <h4 className="text-[#31c48d] tracking-[3px] text-sm font-semibold mb-6">
-              LEGAL
-            </h4>
-
-            <ul className="space-y-4">
-              {legalLinks.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-center gap-3 group cursor-pointer"
-                >
-                  <span className="text-red-500">—</span>
-
-                  <span className="group-hover:text-white transition">
-                    {item}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
 
           {/* CONTACT */}
           <div>

@@ -1,5 +1,5 @@
-import ComingSoon from "@/core/components/coming-soon";
+import Partners from "@/core/components/partners";
 
 export default function Page() {
-  return <ComingSoon />;
+  return <Partners />;
 }

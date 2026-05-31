@@ -1,367 +1,542 @@
 "use client";
 
-/**
- * LatestNews.jsx
- *
- * Dependencies:
- *   npm install gsap
- *
- * Usage:
- *   import LatestNews from "@/components/LatestNews";
- *   <LatestNews />
- *
- * Images: Place in /public/images/news/
- *   news-1.jpg, news-2.jpg, news-3.jpg
- */
-
-import { useEffect, useRef } from "react";
+import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const NEWS = [
+interface NewsArticle {
+  category: "OPERATIONS" | "COMMUNITY" | "SUSTAINABILITY";
+  title: string;
+  excerpt: string;
+  image: string;
+  date: string;
+  readTime: string;
+  isGreenTitle?: boolean;
+}
+
+const NEWS_ARTICLES: NewsArticle[] = [
   {
-    id: 1,
-    image: "/images/operations.jpg",
     category: "OPERATIONS",
-    categoryBg: "#006633",
-    title: "NEPN Advances Qua Iboe Field Development in OML 13",
+    title: "NEPN Advances Qua Iboe Field Development Programme in PML 13",
+    excerpt: "NEPN initiated the next phase of field development with new drilling programmes set to boost production capacity.",
+    image: "/images/workers.jpg",
     date: "March 2026",
     readTime: "4 min read",
   },
   {
-    id: 2,
-    image: "/images/production.jpg",
     category: "COMMUNITY",
-    categoryBg: "#CC1F1F",
     title: "NEPN Launches Scholarship Programme for Akwa Ibom Students",
+    excerpt: "A scholarship initiative supporting 50 students from Ibeno LGA and surrounding communities, in partnership with leading Nigerian universities.",
+    image: "/slides/slide-2.jpg",
     date: "February 2026",
     readTime: "3 min read",
+    isGreenTitle: true,
   },
   {
-    id: 3,
-    image: "/images/workers.jpg",
     category: "SUSTAINABILITY",
-    categoryBg: "#1a1aee",
-    title: "NEPN Commits to Net Zero Roadmap Ahead of 2030 Milestone",
+    title: "NEPN Formalises Net Zero Commitment with 2030 Interim Targets",
+    excerpt: "NEPN's published Net Zero Roadmap sets achievable targets for emissions reduction across all operational areas through 2050.",
+    image: "/images/exploration.jpg",
     date: "January 2026",
+    readTime: "5 min read",
+  },
+  {
+    category: "OPERATIONS",
+    title: "New Deepwater Seismic Surveys Commenced in OML 13 Basin",
+    excerpt: "Geological teams deploy advanced 3D scanning machinery to map deep subsurface structures with precision.",
+    image: "/images/operations.jpg",
+    date: "December 2025",
+    readTime: "6 min read",
+  },
+  {
+    category: "SUSTAINABILITY",
+    title: "NEPN Deploys Advanced Gas Leak Detection and SCADA Systems",
+    excerpt: "Minimizing gas flaring and maximizing leak-prevention response rates via real-time SCADA instrumentation.",
+    image: "/images/machine.jpg",
+    date: "November 2025",
+    readTime: "4 min read",
+  },
+  {
+    category: "COMMUNITY",
+    title: "Completion of Okoritak Town Hall Phase 1 Furnishing Project",
+    excerpt: "Commissioning community center infrastructure to support host town leadership assemblies and civic activities.",
+    image: "/slides/slide-3.jpg",
+    date: "October 2025",
+    readTime: "3 min read",
+    isGreenTitle: true,
+  },
+  {
+    category: "OPERATIONS",
+    title: "Qua Iboe Production Facilities Undergo Annual Integrity Inspections",
+    excerpt: "Ensuring high safety compliance rates, operational durability, and preventative maintenance across oil processing hubs.",
+    image: "/images/production.jpg",
+    date: "September 2025",
+    readTime: "5 min read",
+  },
+  {
+    category: "COMMUNITY",
+    title: "Host Community Traditional Leaders Cabinet Inaugurated",
+    excerpt: "Strengthening local relations, social governance structures, and collaborative regional developments.",
+    image: "/images/workers.jpg",
+    date: "August 2025",
+    readTime: "4 min read",
+  },
+  {
+    category: "SUSTAINABILITY",
+    title: "ISO 14001 Environmental Standards Compliance Roadmap Outlined",
+    excerpt: "Advancing our corporate sustainability mandate by establishing clean benchmarks for air and water monitoring.",
+    image: "/images/sustainability.jpg",
+    date: "July 2025",
     readTime: "5 min read",
   },
 ];
 
-export default function LatestNews() {
-  const sectionRef = useRef(null);
-  const eyebrowRef = useRef(null);
-  const headingRef = useRef(null);
-  const ctaRef = useRef(null);
-  const cardRefs = useRef([]);
-  const imgRefs = useRef([]);
-  const imgWrapRefs = useRef([]);
-  const badgeRefs = useRef([]);
-  const metaRefs = useRef([]);
+const ITEMS_PER_PAGE = 3;
 
+export default function News() {
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const heroRef = useRef<HTMLElement | null>(null);
+  const heroImageRef = useRef<HTMLDivElement | null>(null);
+  const heroOverlayRef = useRef<HTMLDivElement | null>(null);
+  const introRef = useRef<HTMLElement | null>(null);
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Scroll to top of list smoothly when page changes
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    introRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  // GSAP animations for parallax and entrance reveals
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const st = { trigger: sectionRef.current, start: "top 80%", once: true };
+    if (!rootRef.current) return;
 
-      // Eyebrow
-      gsap.fromTo(
-        eyebrowRef.current,
-        { x: -24, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 0.6,
-          ease: "power3.out",
-          scrollTrigger: st,
-        },
-      );
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
-      // Heading
+    const animateReveal = (
+      targets: gsap.TweenTarget,
+      trigger: Element | null | undefined,
+      vars?: gsap.TweenVars,
+    ) => {
+      if (!trigger) return;
+
       gsap.fromTo(
-        headingRef.current,
-        { y: 32, opacity: 0 },
+        targets,
+        { y: 34, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.7,
+          duration: 0.9,
           ease: "power3.out",
-          delay: 0.1,
-          scrollTrigger: st,
-        },
-      );
-
-      // CTA button
-      gsap.fromTo(
-        ctaRef.current,
-        { x: 36, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 0.65,
-          ease: "power3.out",
-          delay: 0.15,
-          scrollTrigger: st,
-        },
-      );
-
-      // Cards rise with stagger
-      gsap.fromTo(
-        cardRefs.current,
-        { y: 60, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: "power3.out",
-          stagger: 0.15,
-          delay: 0.25,
-          scrollTrigger: st,
-        },
-      );
-
-      // Image clip-reveal per card
-      imgWrapRefs.current.forEach((wrap, i) => {
-        gsap.fromTo(
-          wrap,
-          { clipPath: "inset(100% 0% 0% 0%)" },
-          {
-            clipPath: "inset(0% 0% 0% 0%)",
-            duration: 1.0,
-            ease: "power4.out",
-            delay: 0.3 + i * 0.15,
-            scrollTrigger: st,
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger,
+            start: "top 82%",
+            once: true,
           },
-        );
+          ...vars,
+        },
+      );
+    };
 
-        // Ken Burns
+    const ctx = gsap.context(() => {
+      if (prefersReducedMotion) return;
+
+      const heroCopy = rootRef.current?.querySelectorAll("[data-hero-copy]");
+      const introCopy = rootRef.current?.querySelectorAll("[data-intro-copy]");
+      const gridItems = rootRef.current?.querySelectorAll("[data-grid-items] > div");
+      const pageControls = rootRef.current?.querySelectorAll("[data-page-controls]");
+
+      const targets: Element[] = [];
+      if (heroCopy) heroCopy.forEach((el) => targets.push(el));
+      if (introCopy) introCopy.forEach((el) => targets.push(el));
+      if (gridItems) gridItems.forEach((el) => targets.push(el));
+      if (pageControls) pageControls.forEach((el) => targets.push(el));
+
+      if (targets.length) {
+        gsap.set(targets, { willChange: "transform, opacity" });
+      }
+
+      // Hero animations
+      if (heroCopy?.length) {
+        animateReveal(heroCopy, heroRef.current, { delay: 0.2 });
+      }
+
+      if (heroImageRef.current) {
         gsap.fromTo(
-          imgRefs.current[i],
-          { scale: 1.1 },
+          heroImageRef.current,
+          { scale: 1.1, opacity: 0.82 },
           {
             scale: 1,
-            duration: 8,
-            ease: "power1.out",
-            scrollTrigger: st,
+            opacity: 1,
+            duration: 1.45,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: heroRef.current,
+              start: "top 85%",
+              once: true,
+            },
           },
         );
-      });
 
-      // Badges pop in
-      gsap.fromTo(
-        badgeRefs.current,
-        { scale: 0.6, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.45,
-          ease: "back.out(1.7)",
-          stagger: 0.13,
-          delay: 0.65,
-          scrollTrigger: st,
-        },
-      );
+        gsap.to(heroImageRef.current, {
+          yPercent: 8,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.15,
+          },
+        });
+      }
 
-      // Meta (date + read time) fade
-      gsap.fromTo(
-        metaRefs.current,
-        { y: 10, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.45,
-          ease: "power2.out",
-          stagger: 0.12,
-          delay: 0.75,
-          scrollTrigger: st,
-        },
-      );
-    }, sectionRef);
+      if (heroOverlayRef.current) {
+        gsap.fromTo(
+          heroOverlayRef.current,
+          { opacity: 0.68 },
+          {
+            opacity: 0.88,
+            ease: "none",
+            scrollTrigger: {
+              trigger: heroRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.15,
+            },
+          },
+        );
+      }
+
+      // Content animations
+      if (introCopy?.length) {
+        animateReveal(introCopy, introRef.current);
+      }
+
+      if (gridItems?.length) {
+        animateReveal(gridItems, introRef.current, { delay: 0.2 });
+      }
+
+      if (pageControls?.length) {
+        animateReveal(pageControls, introRef.current, { delay: 0.35 });
+      }
+
+    }, rootRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [currentPage]);
 
-  // ── Card hover ────────────────────────────────────────────────────────────
-  const handleEnter = (i) => {
-    gsap.to(imgRefs.current[i], {
-      scale: 1.06,
-      duration: 0.55,
-      ease: "power2.out",
-    });
-    gsap.to(cardRefs.current[i], {
-      y: -5,
-      boxShadow: "0 18px 44px rgba(0,0,0,0.10)",
-      duration: 0.28,
-      ease: "power2.out",
-    });
-  };
-
-  const handleLeave = (i) => {
-    gsap.to(imgRefs.current[i], {
-      scale: 1,
-      duration: 0.6,
-      ease: "power2.inOut",
-    });
-    gsap.to(cardRefs.current[i], {
-      y: 0,
-      boxShadow: "0 2px 16px rgba(0,0,0,0.06)",
-      duration: 0.32,
-      ease: "power2.inOut",
-    });
-  };
+  // Calculate paginated subsets
+  const totalPages = Math.ceil(NEWS_ARTICLES.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentArticles = NEWS_ARTICLES.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   return (
-    <section
-      ref={sectionRef}
-      className="w-full bg-white py-16 lg:py-24"
+    <div
+      ref={rootRef}
+      className="w-full bg-[#f4f4f4] overflow-x-hidden"
       style={{ fontFamily: "'Barlow', sans-serif" }}
     >
-      <div className="max-w-7xl mx-auto px-6 xl:px-10">
-        {/* ── Header row ──────────────────────────────────────────────────── */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 lg:mb-14">
-          <div>
-            {/* Eyebrow */}
-            <div ref={eyebrowRef} className="flex items-center gap-3 mb-4">
-              <span className="block w-6 h-[2.5px] bg-red-600 rounded-full flex-shrink-0" />
-              <span
-                className="text-[10.5px] font-bold tracking-[0.24em] uppercase text-gray-500"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-              >
-                NEWS &amp; INSIGHTS
-              </span>
-            </div>
-
-            {/* Heading */}
-            <h2
-              ref={headingRef}
-              className="font-black leading-tight"
-              style={{
-                fontSize: "clamp(30px, 4vw, 54px)",
-                fontFamily: "'Barlow Condensed', sans-serif",
-                color: "#111",
-              }}
-            >
-              Latest from <span style={{ color: "#006633" }}>NEPN</span>
-            </h2>
-          </div>
-
-          {/* ALL NEWS button */}
-          <div ref={ctaRef} className="flex-shrink-0">
-            <button
-              className="group inline-flex items-center gap-3 px-7 py-3.5 text-[11px] font-bold tracking-[0.18em] uppercase border-2 transition-all duration-200 hover:bg-[#006633] hover:text-white"
-              style={{
-                borderColor: "#006633",
-                color: "#006633",
-                fontFamily: "'Barlow Condensed', sans-serif",
-              }}
-            >
-              ALL NEWS
-              <svg
-                className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2.5}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </button>
-          </div>
+      {/* Hero Section */}
+      <section
+        ref={heroRef}
+        className="relative isolate w-full overflow-hidden bg-[#0a1210] -mt-[30px]"
+      >
+        <div
+          className="absolute inset-x-0 bottom-0 z-30 flex h-[3px] md:h-[4px]"
+        >
+          <span className="h-full basis-[45%] bg-[#1bc7f0]" />
+          <span className="h-full basis-[27%] bg-[#ed2a24]" />
+          <span className="h-full basis-[28%] bg-[#173fe3]" />
         </div>
 
-        {/* ── News cards grid ──────────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {NEWS.map((item, i) => (
-            <article
-              key={item.id}
-              ref={(el) => (cardRefs.current[i] = el) as any}
-              className="flex flex-col bg-white border border-gray-100 cursor-pointer overflow-hidden"
-              style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}
-              onMouseEnter={() => handleEnter(i)}
-              onMouseLeave={() => handleLeave(i)}
-            >
-              {/* Image */}
-              <div
-                ref={(el) => (imgWrapRefs.current[i] = el) as any}
-                className="relative overflow-hidden"
-                style={{ height: "clamp(200px, 22vw, 280px)" }}
-              >
+        <div className="relative min-h-[220px] sm:min-h-[280px] md:min-h-[330px] lg:min-h-[372px]">
+          <div ref={heroImageRef} className="absolute inset-0">
+            <Image
+              src="/images/workers.jpg"
+              alt="NEPN engineering team safety site notices backdrop"
+              fill
+              priority
+              className="object-cover object-center"
+              sizes="100vw"
+            />
+          </div>
+
+          <div
+            ref={heroOverlayRef}
+            className="absolute inset-0"
+            style={{
+              opacity: 1,
+              background:
+                "linear-gradient(180deg, rgba(5,10,7,0.28) 0%, rgba(5,10,7,0.36) 24%, rgba(5,10,7,0.54) 60%, rgba(5,10,7,0.78) 100%)",
+            }}
+          />
+
+          <div className="absolute inset-0 z-20">
+            <div className="mx-auto flex h-full w-full max-w-[1250px] items-center justify-center px-5 py-10 text-center sm:px-8 md:px-10 lg:px-10">
+              <div className="flex w-full flex-col items-center justify-center translate-y-[28px] sm:translate-y-[34px] md:translate-y-[40px] lg:translate-y-[46px]">
                 <div
-                  ref={(el) => (imgRefs.current[i] = el) as any}
-                  className="absolute inset-0 w-full h-full"
+                  data-hero-copy
+                  className="mb-[22px] flex flex-wrap items-center justify-center gap-2 text-[8px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-[9px] md:text-[10px]"
+                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                 >
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover object-center"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                </div>
-              </div>
-
-              {/* Card body */}
-              <div className="flex flex-col flex-1 px-6 pt-6 pb-7">
-                {/* Category badge */}
-                <div className="mb-4">
-                  <span
-                    ref={(el) => (badgeRefs.current[i] = el) as any}
-                    className="inline-block px-3 py-1 text-[10px] font-bold tracking-[0.18em] uppercase text-white"
-                    style={{
-                      background: item.categoryBg,
-                      fontFamily: "'Barlow Condensed', sans-serif",
-                    }}
+                  <Link
+                    href="/"
+                    className="transition-colors duration-200 hover:text-white"
                   >
-                    {item.category}
-                  </span>
+                    Home
+                  </Link>
+                  <span className="text-white/35">/</span>
+                  <span className="text-white/50">News</span>
                 </div>
 
-                {/* Title */}
-                <h3
-                  className="font-bold leading-snug mb-5 flex-1"
+                <h1
+                  data-hero-copy
+                  className="text-white"
                   style={{
-                    fontSize: "clamp(15px, 1.5vw, 18px)",
-                    color: "#111",
-                    fontFamily: "'Barlow', sans-serif",
+                    width: "auto",
+                    minHeight: "58.875px",
+                    whiteSpace: "nowrap",
+                    textAlign: "center",
+                    fontFamily: "'Poppins', sans-serif",
+                    fontWeight: 700,
+                    fontSize: "51.2px",
+                    lineHeight: "58.88px",
+                    letterSpacing: "0%",
+                    textShadow: "0 10px 30px rgba(0,0,0,0.28)",
                   }}
                 >
-                  {item.title}
-                </h3>
-
-                {/* Meta */}
-                <div
-                  ref={(el) => (metaRefs.current[i] = el) as any}
-                  className="flex items-center gap-2.5 mt-auto"
-                >
+                  News &{" "}
                   <span
-                    className="block w-5 h-[2px] rounded-full flex-shrink-0"
-                    style={{ background: "#CC1F1F" }}
-                  />
-                  <span
-                    className="text-[12.5px]"
+                    className="italic text-[#82E8B4]"
                     style={{
-                      color: "#888",
-                      fontFamily: "'Barlow', sans-serif",
+                      fontFamily: "'Poppins', sans-serif",
+                      fontWeight: 700,
+                      fontSize: "51.2px",
+                      lineHeight: "58.88px",
+                      letterSpacing: "0%",
                     }}
                   >
-                    {item.date} · {item.readTime}
+                    Insights
                   </span>
-                </div>
+                </h1>
               </div>
-            </article>
-          ))}
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Intro section */}
+      <section
+        ref={introRef}
+        className="bg-[#f4f4f4] py-16 sm:py-24"
+      >
+        <div className="mx-auto max-w-[980px] px-5">
+          <div
+            data-intro-copy
+            className="mb-3 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.32em]"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+          >
+            <span className="h-[2px] w-4 rounded-full bg-[#ef3b3b]" />
+            <span className="text-[#ef3b3b]">Latest Updates</span>
+          </div>
+
+          <h2
+            data-intro-copy
+            className="font-black leading-[0.98] tracking-[-0.03em] text-[#1f2724] mb-6"
+            style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              fontSize: "clamp(2.25rem, 4.9vw, 4.05rem)",
+            }}
+          >
+            Stay Updated with <span className="italic text-[#14874f]">NEPN</span>
+          </h2>
+
+          <p 
+            data-intro-copy
+            className="mt-6 text-[#5d6763] text-sm sm:text-base leading-relaxed max-w-2xl font-sans"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
+          >
+            Company announcements, industry trends, project milestones, and thought leadership from Nigeria&apos;s energy sector.
+          </p>
+
+          {/* Dynamic Paginated Grid */}
+          <div 
+            data-grid-items
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16"
+          >
+            {currentArticles.map((article, index) => {
+              // Custom category colors
+              const categoryBg = 
+                article.category === "OPERATIONS" 
+                  ? "bg-[#14874f]" 
+                  : article.category === "COMMUNITY" 
+                  ? "bg-[#ef3b3b]" 
+                  : "bg-[#1b1cff]";
+
+              const titleColor = article.isGreenTitle ? "text-[#14874f]" : "text-[#1e2620]";
+
+              return (
+                <div 
+                  key={index}
+                  className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.015)] border border-neutral-100/90 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md cursor-default group"
+                >
+                  <div className="relative h-[190px] overflow-hidden bg-neutral-100">
+                    <Image
+                      src={article.image}
+                      alt={article.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      sizes="(max-width: 768px) 100vw, 30vw"
+                    />
+                  </div>
+                  
+                  <div className="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                      <div className="flex mb-4">
+                        <span className={`text-[8.5px] font-bold text-white px-2 py-0.5 tracking-wider rounded uppercase ${categoryBg}`} style={{ fontFamily: "'Poppins', sans-serif" }}>
+                          {article.category}
+                        </span>
+                      </div>
+                      
+                      <h3 
+                        className={`text-[16.5px] font-bold leading-snug mb-3 transition-colors ${titleColor}`}
+                        style={{ fontFamily: "'Poppins', sans-serif" }}
+                      >
+                        {article.title}
+                      </h3>
+                      
+                      <p 
+                        className="text-xs sm:text-[13px] text-neutral-500 leading-relaxed font-sans mb-6"
+                        style={{ fontFamily: "'Poppins', sans-serif" }}
+                      >
+                        {article.excerpt}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-2 pt-4 border-t border-neutral-100">
+                      <span className="w-3 h-[2px] bg-[#ef3b3b] rounded-full" />
+                      <span className="text-[10.5px] font-semibold text-neutral-400 font-sans">
+                        {article.date} · {article.readTime}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Interactive Pagination Controller */}
+          {totalPages > 1 && (
+            <div 
+              data-page-controls
+              className="mt-12 flex justify-center items-center gap-3"
+            >
+              <button
+                onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
+                disabled={currentPage === 1}
+                className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors border border-neutral-200 bg-white shadow-sm border-0 outline-none ${
+                  currentPage === 1 
+                    ? "text-neutral-300 cursor-not-allowed" 
+                    : "text-neutral-600 hover:bg-[#14874f] hover:text-white cursor-pointer"
+                }`}
+                aria-label="Previous page"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+
+              {Array.from({ length: totalPages }).map((_, i) => {
+                const pageNum = i + 1;
+                const isActive = pageNum === currentPage;
+                return (
+                  <button
+                    key={pageNum}
+                    onClick={() => handlePageChange(pageNum)}
+                    className={`w-9 h-9 rounded-lg flex items-center justify-center font-bold text-xs sm:text-sm tracking-wider transition-colors border border-neutral-200 shadow-sm border-0 outline-none cursor-pointer ${
+                      isActive 
+                        ? "bg-[#14874f] text-white border-[#14874f]" 
+                        : "bg-white text-neutral-600 hover:bg-[#14874f] hover:text-white"
+                    }`}
+                    aria-label={`Page ${pageNum}`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+
+              <button
+                onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors border border-neutral-200 bg-white shadow-sm border-0 outline-none ${
+                  currentPage === totalPages 
+                    ? "text-neutral-300 cursor-not-allowed" 
+                    : "text-neutral-600 hover:bg-[#14874f] hover:text-white cursor-pointer"
+                }`}
+                aria-label="Next page"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
+        </div>
+      </section>
+
+      {/* Red Subscribe Newsletter CTA Banner */}
+      <section className="bg-[#ED1D24]">
+        <div className="mx-auto flex min-h-[140px] w-full max-w-[1280px] items-center px-[20px]">
+          <div className="flex w-full justify-center">
+            <div className="flex w-full max-w-[980px] flex-col gap-6 py-8 md:flex-row md:items-center md:justify-between md:gap-8 md:py-0">
+              
+              {/* Text */}
+              <div className="w-full max-w-[500px]">
+                <p
+                  className="text-white font-bold leading-tight"
+                  style={{
+                    fontFamily: "'Poppins', sans-serif",
+                    fontSize: "26px",
+                  }}
+                >
+                  Subscribe to Our Newsletter
+                </p>
+                <p
+                  className="mt-[6px] text-white/75 text-xs sm:text-[13px] leading-relaxed"
+                  style={{
+                    fontFamily: "'Poppins', sans-serif",
+                  }}
+                >
+                  Stay updated with the latest news and insights from NEPN.
+                </p>
+              </div>
+
+              {/* Button */}
+              <div className="md:ml-auto flex items-center">
+                <Link
+                  href="/contact"
+                  className="inline-flex h-[46px] items-center justify-center gap-[10px] rounded-[2px] border-2 border-white bg-transparent transition-all duration-200 hover:bg-white hover:text-[#ED1D24] px-6 font-bold tracking-[0.08em] uppercase text-white text-xs"
+                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                >
+                  <span>Subscribe Now</span>
+                  <ArrowRight className="w-4 h-4 shrink-0" />
+                </Link>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@700&family=Poppins:wght@400;500;600;700&display=swap');
       `}</style>
-    </section>
+    </div>
   );
 }

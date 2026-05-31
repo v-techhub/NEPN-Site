@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Award, Target, Users, TrendingUp, X, ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -73,33 +74,128 @@ const FEATURE_SPLITS = [
   },
 ];
 
-const LEADERSHIP = [
+const OUR_VALUES = [
   {
-    image: "/images/md.jpg",
-    alt: "Executive leadership team",
-    name: "Managing Director",
-    role: "CHIEF EXECUTIVE",
+    icon: Award,
+    title: "Integrity",
+    body: "We conduct our business with the highest ethical standards and transparency in all our operations.",
+  },
+  {
+    icon: Target,
+    title: "Excellence",
+    body: "We pursue operational excellence and continuous improvement in everything we do.",
+  },
+  {
+    icon: Users,
+    title: "Community Focus",
+    body: "We are committed to creating positive impacts in the communities where we operate.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Innovation",
+    body: "We embrace innovative technologies and solutions to drive sustainable growth.",
+  },
+];
+
+interface LeaderMember {
+  name: string;
+  role: string;
+  roleColor: string;
+  body: string;
+  fullBio: string[];
+  initials: string;
+  initialsColor: string;
+  gradientFrom: string;
+  gradientTo: string;
+}
+
+const SENIOR_MANAGEMENT: LeaderMember[] = [
+  {
+    name: "Adetunji Molehin",
+    role: "CHIEF EXECUTIVE OFFICER",
     roleColor: "#117E43",
-    body: "Visionary leadership driving NEPN's strategic growth and Nigeria's indigenous content agenda with over 25 years in the sector.",
-    objectPosition: "center 44%",
+    initials: "A.M",
+    initialsColor: "#117E43",
+    gradientFrom: "#6366f1",
+    gradientTo: "#c7d2fe",
+    body: "Adetunji Molehin, as Acting MD/Executive Director of Network Exploration & Production Nigeria Limited, provides strategic leadership across upstream operations...",
+    fullBio: [
+      "As Acting MD/Executive Director of Network Exploration & Production Nigeria Limited, I provide strategic leadership and stewardship of upstream assets, reporting to the Board. Oversees drilling, production, HSE, development planning, reserves replacement, asset maturation and finance/accounts.",
+      "I Lead annual work programmes, budgets, and capital projects, ensuring alignment with JV partners, regulators, and financiers. Accountable for key investment decisions, including asset acquisitions and farm-ins, ensuring compliance with corporate governance, risk management, and statutory reporting. I Provide leadership to the management team, drive operational performance, and ensure NEPN's activities create long-term stakeholder value."
+    ],
   },
   {
-    image: "/images/operation director.png",
-    alt: "Operations director supervising field personnel",
-    name: "Operations Director",
-    role: "TECHNICAL OPERATIONS",
+    name: "Adeyemo Olugbenga",
+    role: "AGM FINANCE & ACCOUNTS",
     roleColor: "#ED1D24",
-    body: "Engineering excellence and operational safety, overseeing all field operations and drilling programmes at OML 13.",
-    objectPosition: "center center",
+    initials: "A.O",
+    initialsColor: "#ED1D24",
+    gradientFrom: "#6366f1",
+    gradientTo: "#c7d2fe",
+    body: "Gbenga Adeyemo is an MBA graduate, Fellow of Institute of Chartered Accountants of Nigeria, and member of the Association of Chartered Certified Accountants...",
+    fullBio: [
+      "Gbenga Adeyemo is an MBA graduate, Fellow of the Institute of Chartered Accountants of Nigeria (FCA), and member of the Association of Chartered Certified Accountants (ACCA), UK.",
+      "With over 20 years of robust experience in financial strategy, treasury management, tax compliance, corporate restructuring, and energy finance within the upstream oil and gas sector, he leads the financial operations and accounts department, ensuring fiscal discipline, compliance, and optimized capital structure to support NEPN's long-term growth and capital efficiency."
+    ],
   },
   {
-    image: "/images/finance director.png",
-    alt: "Finance director reviewing field instrumentation",
-    name: "Finance Director",
-    role: "CFO & FINANCIAL STRATEGY",
-    roleColor: "#0000FE",
-    body: "Ensuring financial discipline, investor confidence, and capital allocation efficiency to support long-term growth.",
-    objectPosition: "center 46%",
+    name: "Adetola John-Ogueh",
+    role: "AGM JOINT VENTURE, REGULATORY & CORPORATE AFFAIRS",
+    roleColor: "#1b1cff",
+    initials: "A.J",
+    initialsColor: "#1b1cff",
+    gradientFrom: "#6366f1",
+    gradientTo: "#c7d2fe",
+    body: "Adetola John-Ogueh manages NEPN's engagement with NUPRC, NMDPRA, NEITI, and NASS, ensuring regulatory compliance, reporting, and effective joint venture relations...",
+    fullBio: [
+      "Adetola John-Ogueh manages NEPN's engagement with regulatory bodies including NUPRC, NMDPRA, NEITI, and the National Assembly (NASS), ensuring seamless regulatory compliance, reporting, and statutory filings.",
+      "He plays a pivotal role in joint venture relations, corporate governance, and community affairs, ensuring alignment with all key industry stakeholders, maintaining the company's social license to operate, and facilitating collaborative frameworks that enhance efficiency and operational excellence across NEPN's assets."
+    ],
+  },
+];
+
+const BOARD_DIRECTORS: LeaderMember[] = [
+  {
+    name: "Otunba Olatunde",
+    role: "CHAIRMAN OF THE BOARD",
+    roleColor: "#117E43",
+    initials: "O.O",
+    initialsColor: "#117E43",
+    gradientFrom: "#818cf8",
+    gradientTo: "#e0e7ff",
+    body: "A seasoned industry veteran with over 35 years of executive experience across international energy firms, providing strategic direction to the board.",
+    fullBio: [
+      "The Chairman provides high-level oversight and guides NEPN's long-term corporate governance, strategic investments, and national expansion initiatives.",
+      "With over three decades of leadership experience in banking, oil and gas, and public administration, he ensures that the Board aligns with international best practices and delivers strong returns for all stakeholders."
+    ],
+  },
+  {
+    name: "Dr. Amina Bello",
+    role: "NON-EXECUTIVE DIRECTOR",
+    roleColor: "#ED1D24",
+    initials: "A.B",
+    initialsColor: "#ED1D24",
+    gradientFrom: "#818cf8",
+    gradientTo: "#e0e7ff",
+    body: "An expert in environmental policy and international commerce, guiding NEPN's sustainability initiatives and compliance frameworks.",
+    fullBio: [
+      "Dr. Amina Bello brings extensive global expertise in energy transitions, corporate social responsibility, and international environmental law.",
+      "She advises the board on ESG strategies, carbon footprint reductions, and host-community investment projects, ensuring that NEPN's growth remains socially and environmentally responsible."
+    ],
+  },
+  {
+    name: "Engr. Emeka Nwosu",
+    role: "INDEPENDENT DIRECTOR",
+    roleColor: "#1b1cff",
+    initials: "E.N",
+    initialsColor: "#1b1cff",
+    gradientFrom: "#818cf8",
+    gradientTo: "#e0e7ff",
+    body: "A pioneer in deepwater engineering and technological innovation, advising the board on technical operations and field development plans.",
+    fullBio: [
+      "Engr. Emeka Nwosu is a chartered engineer with a distinguished career in oilfield services, reservoir management, and infrastructure development.",
+      "He chairs the Technical Committee of the Board, reviewing all major exploration, drilling, and production programs to ensure safety, technical integrity, and optimal asset monetization."
+    ],
   },
 ];
 
@@ -111,6 +207,20 @@ export default function WhoWeAre() {
   const ctaRef = useRef<HTMLElement | null>(null);
   const heroImageRef = useRef<HTMLDivElement | null>(null);
   const heroOverlayRef = useRef<HTMLDivElement | null>(null);
+
+  const [activeTab, setActiveTab] = useState<"management" | "board">("management");
+  const [selectedLeader, setSelectedLeader] = useState<LeaderMember | null>(null);
+
+  useEffect(() => {
+    if (selectedLeader) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedLeader]);
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -636,14 +746,62 @@ export default function WhoWeAre() {
                       letterSpacing: "0%",
                     }}
                   >
-                    {FEATURE_SPLITS[1].body}
                   </p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="px-5 py-10 sm:px-8 sm:py-12 md:px-10 lg:px-12">
+          {/* Our Values Section */}
+          <div className="px-5 py-12 sm:px-8 sm:py-16 md:px-10 lg:px-12 bg-white/40 border-t border-b border-neutral-200/50">
+            <div className="mx-auto max-w-[980px]">
+              <div className="text-center mb-10 sm:mb-12">
+                <h2 
+                  className="text-[32px] sm:text-[40px] font-black leading-tight tracking-[-0.03em] text-[#222a28]"
+                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                >
+                  Our Values
+                </h2>
+                <p 
+                  className="mt-3 text-sm sm:text-base text-[#4a5550] max-w-lg mx-auto leading-relaxed"
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
+                >
+                  The principles that guide our operations and shape our culture
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {OUR_VALUES.map((val) => {
+                  const IconComponent = val.icon;
+                  return (
+                    <div 
+                      key={val.title}
+                      className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.015)] border border-neutral-100 p-8 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgb(0,0,0,0.04)] group cursor-default"
+                    >
+                      <div className="w-14 h-14 rounded-full bg-[#2b3cff]/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <IconComponent className="w-6 h-6 text-[#2b3cff]" />
+                      </div>
+                      <h3 
+                        className="text-lg font-bold text-[#1e2620] mb-3"
+                        style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "20px" }}
+                      >
+                        {val.title}
+                      </h3>
+                      <p 
+                        className="text-[13px] text-[#5d6763] leading-relaxed"
+                        style={{ fontFamily: "'Poppins', sans-serif" }}
+                      >
+                        {val.body}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Leadership Section */}
+          <div className="px-5 py-12 sm:px-8 sm:py-16 md:px-10 lg:px-12">
             <div className="mx-auto max-w-[980px]">
               <div
                 data-leadership-header
@@ -662,68 +820,110 @@ export default function WhoWeAre() {
                   fontSize: "clamp(2rem, 4.4vw, 3.45rem)",
                 }}
               >
-                Guided by{" "}
-                <span className="text-[#168241]">Experienced Hands</span>
+                Guided by <span className="text-[#168241]">Experienced Hands</span>
               </h2>
 
-              <div className="mt-8 grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-[9px]">
-                {LEADERSHIP.map((member) => (
+              {/* Tabs */}
+              <div className="mt-10 mb-8 border-b border-neutral-200/60 flex justify-center sm:justify-start gap-8">
+                <button
+                  onClick={() => setActiveTab("management")}
+                  className={`pb-3 font-bold text-[10px] sm:text-xs tracking-[0.15em] transition-all relative uppercase cursor-pointer ${
+                    activeTab === "management"
+                      ? "text-[#168241]"
+                      : "text-neutral-400 hover:text-neutral-600"
+                  }`}
+                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                >
+                  Senior Management Team
+                  {activeTab === "management" && (
+                    <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#ef3b3b]" />
+                  )}
+                </button>
+                <button
+                  onClick={() => setActiveTab("board")}
+                  className={`pb-3 font-bold text-[10px] sm:text-xs tracking-[0.15em] transition-all relative uppercase cursor-pointer ${
+                    activeTab === "board"
+                      ? "text-[#168241]"
+                      : "text-neutral-400 hover:text-neutral-600"
+                  }`}
+                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                >
+                  Board of Directors
+                  {activeTab === "board" && (
+                    <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#ef3b3b]" />
+                  )}
+                </button>
+              </div>
+
+              {/* Dynamic Leaders Grid */}
+              <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-[18px]">
+                {(activeTab === "management" ? SENIOR_MANAGEMENT : BOARD_DIRECTORS).map((member) => (
                   <article
                     data-leadership-card
                     key={member.name}
-                    className="group bg-[#f4f4f4]"
+                    className="group bg-white rounded-xl shadow-sm hover:shadow-md border border-neutral-100 flex flex-col overflow-hidden transition-all duration-300 cursor-pointer"
+                    onClick={() => setSelectedLeader(member)}
                   >
-                    <div className="relative h-[248px] overflow-hidden bg-white sm:h-[258px] lg:h-[252px]">
-                      <Image
-                        src={member.image}
-                        alt={member.alt}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                        style={{ objectPosition: member.objectPosition }}
-                        sizes="(max-width: 768px) 100vw, 30vw"
-                      />
+                    <div 
+                      className="relative h-[248px] sm:h-[258px] lg:h-[252px] flex items-center justify-center overflow-hidden bg-gradient-to-tr"
+                      style={{
+                        backgroundImage: `linear-gradient(135deg, ${member.gradientFrom} 0%, ${member.gradientTo} 100%)`
+                      }}
+                    >
+                      <span 
+                        className="text-7xl sm:text-8xl font-black tracking-tighter uppercase select-none transition-transform duration-500 group-hover:scale-105"
+                        style={{ color: member.initialsColor }}
+                      >
+                        {member.initials}
+                      </span>
                     </div>
 
-                    <div className="min-h-[148px] px-[20px] pb-[16px] pt-[18px]">
-                      <h3
-                        className="h-[25px] max-w-[170px]"
-                        style={{
-                          color: "#1E2620",
-                          fontFamily: "'Poppins', sans-serif",
-                          fontWeight: 700,
-                          fontSize: "16.8px",
-                          lineHeight: "100%",
-                          letterSpacing: "0%",
-                        }}
-                      >
-                        {member.name}
-                      </h3>
-                      <p
-                        className="mt-[2px] h-[15px] uppercase"
-                        style={{
-                          color: member.roleColor,
-                          fontFamily: "'Poppins', sans-serif",
-                          fontWeight: 700,
-                          fontSize: "10.08px",
-                          lineHeight: "100%",
-                          letterSpacing: "1.01px",
-                        }}
-                      >
-                        {member.role}
-                      </p>
-                      <p
-                        className="mt-[10px] max-w-[340px]"
-                        style={{
-                          color: "#4A5550",
-                          fontFamily: "'Poppins', sans-serif",
-                          fontWeight: 400,
-                          fontSize: "12.8px",
-                          lineHeight: "20.74px",
-                          letterSpacing: "0%",
-                        }}
-                      >
-                        {member.body}
-                      </p>
+                    <div className="flex flex-col justify-between flex-1 px-[20px] pb-[20px] pt-[18px]">
+                      <div>
+                        <h3
+                          className="font-bold text-[#1E2620]"
+                          style={{
+                            fontFamily: "'Poppins', sans-serif",
+                            fontSize: "17px",
+                            lineHeight: "1.2",
+                          }}
+                        >
+                          {member.name}
+                        </h3>
+                        <p
+                          className="mt-[4px] uppercase font-bold"
+                          style={{
+                            color: member.roleColor,
+                            fontFamily: "'Poppins', sans-serif",
+                            fontSize: "10.08px",
+                            lineHeight: "1.2",
+                            letterSpacing: "1.01px",
+                          }}
+                        >
+                          {member.role}
+                        </p>
+                        <p
+                          className="mt-3 text-neutral-600 text-[13px] leading-[1.6]"
+                          style={{
+                            fontFamily: "'Poppins', sans-serif",
+                          }}
+                        >
+                          {member.body}
+                        </p>
+                      </div>
+
+                      <div className="mt-4 pt-3 border-t border-neutral-100 flex justify-end">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedLeader(member);
+                          }}
+                          className="flex items-center gap-1.5 text-xs font-bold text-neutral-800 hover:text-[#168241] transition-colors cursor-pointer group/btn"
+                        >
+                          <span>Read more</span>
+                          <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/btn:translate-x-1" />
+                        </button>
+                      </div>
                     </div>
                   </article>
                 ))}
@@ -801,6 +1001,76 @@ export default function WhoWeAre() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@700&family=Poppins:wght@400;700&display=swap');
       `}</style>
+
+      {/* Leadership Bio Modal */}
+      {selectedLeader && (
+        <div 
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 animate-in fade-in duration-200"
+          role="dialog"
+          aria-modal="true"
+        >
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-neutral-900/60 backdrop-blur-sm cursor-pointer"
+            onClick={() => setSelectedLeader(null)}
+          />
+
+          {/* Modal Container */}
+          <div className="relative bg-white w-full max-w-xl rounded-2xl p-6 sm:p-8 md:p-10 shadow-2xl overflow-y-auto max-h-[85vh] z-10 animate-in zoom-in-95 duration-200 flex flex-col">
+            
+            {/* Close button */}
+            <button
+              onClick={() => setSelectedLeader(null)}
+              className="absolute top-4 right-4 w-9 h-9 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-500 hover:text-neutral-800 hover:bg-neutral-200 transition-all cursor-pointer border-0 outline-none"
+              aria-label="Close modal"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            {/* Profile Info Header in Modal */}
+            <div className="flex flex-col sm:flex-row gap-5 items-start sm:items-center pb-6 border-b border-neutral-100">
+              <div 
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl flex items-center justify-center text-3xl sm:text-4xl font-black select-none shrink-0"
+                style={{
+                  background: `linear-gradient(135deg, ${selectedLeader.gradientFrom} 0%, ${selectedLeader.gradientTo} 100%)`,
+                  color: selectedLeader.initialsColor
+                }}
+              >
+                {selectedLeader.initials}
+              </div>
+              <div>
+                <h3 
+                  className="text-2xl font-black text-[#1e2620] leading-tight"
+                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                >
+                  {selectedLeader.name}
+                </h3>
+                <p 
+                  className="text-xs uppercase font-bold tracking-wider mt-1"
+                  style={{ 
+                    color: selectedLeader.roleColor,
+                    fontFamily: "'Poppins', sans-serif"
+                  }}
+                >
+                  {selectedLeader.role}
+                </p>
+              </div>
+            </div>
+
+            {/* Bio Content */}
+            <div className="mt-6 flex-1 text-sm sm:text-base leading-relaxed text-neutral-600 space-y-4 overflow-y-auto pr-1">
+              {selectedLeader.fullBio.map((paragraph, index) => (
+                <p 
+                  key={index}
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

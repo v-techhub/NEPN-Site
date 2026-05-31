@@ -34,10 +34,10 @@ export default function Navigation() {
   return (
     <header
       className={[
-        "top-0 z-50 font-sans transition-all duration-300",
-        scrolled
+        "top-0 z-50 font-sans transition-all duration-300 w-full",
+        scrolled || menuOpen
           ? "sticky bg-white shadow-[0_1px_0_rgba(0,0,0,0.08),0_2px_10px_rgba(0,0,0,0.04)]"
-          : "absolute w-full bg-transparent",
+          : "absolute bg-transparent",
       ].join(" ")}
     >
       <div className="max-w-7xl mx-auto px-6 xl:px-10 flex items-center justify-between h-[72px]">
@@ -51,7 +51,7 @@ export default function Navigation() {
           />
           <div className={[
             "flex flex-col leading-tight transition-colors duration-300",
-            scrolled ? "text-gray-900" : "text-white",
+            scrolled || menuOpen ? "text-gray-900" : "text-white",
           ].join(" ")}>
             <span className="text-[11px] font-bold tracking-widest uppercase">
               Network Exploration
@@ -75,7 +75,7 @@ export default function Navigation() {
                 key={label}
                 href={href}
                 className={[
-                  "relative h-full inline-flex items-center px-5 text-[13.5px] font-semibold tracking-wide transition-colors duration-150",
+                  "relative h-full inline-flex items-center px-2.5 xl:px-5 text-[12.5px] xl:text-[13.5px] font-semibold tracking-wide transition-colors duration-150",
                   "after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[3px] after:rounded-t-sm after:transition-all after:duration-200",
                   isActive
                     ? scrolled
@@ -93,7 +93,7 @@ export default function Navigation() {
 
           <Link
             href="/contact"
-            className="ml-6 inline-flex items-center px-5 py-2.5 bg-[#CC1F1F] hover:bg-[#b31a1a] active:bg-[#9e1818] text-white text-[13.5px] font-bold tracking-wide rounded transition-colors duration-150 whitespace-nowrap"
+            className="ml-3 xl:ml-6 inline-flex items-center px-3 xl:px-5 py-2.5 bg-[#CC1F1F] hover:bg-[#b31a1a] active:bg-[#9e1818] text-white text-[12.5px] xl:text-[13.5px] font-bold tracking-wide rounded transition-colors duration-150 whitespace-nowrap"
           >
             Contact Us
           </Link>
@@ -113,7 +113,7 @@ export default function Navigation() {
             <span
               key={i}
               className={`block w-6 h-0.5 transition-all duration-200 ${
-                scrolled ? "bg-gray-800" : "bg-white"
+                scrolled || menuOpen ? "bg-gray-800" : "bg-white"
               } ${transform}`}
             />
           ))}

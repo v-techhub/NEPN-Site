@@ -1,5 +1,5 @@
-import ComingSoon from "@/core/components/coming-soon";
+import Sustainability from "@/core/components/sustainability";
 
 export default function Page() {
-  return <ComingSoon />;
+  return <Sustainability />;
 }

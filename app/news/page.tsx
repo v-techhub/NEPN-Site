@@ -1,5 +1,5 @@
-import ComingSoon from "@/core/components/coming-soon";
+import News from "@/core/components/news";
 
 export default function Page() {
-  return <ComingSoon />;
+  return <News />;
 }

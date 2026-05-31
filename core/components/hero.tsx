@@ -179,7 +179,7 @@ export default function HeroCarousel() {
       {/* ── Main content grid ───────────────────────────────────────────── */}
       <div className="relative z-10 w-full h-full flex">
         {/* LEFT CONTENT */}
-        <div className="flex-1 flex flex-col justify-center px-8 sm:px-12 lg:px-16 xl:px-20 pb-16 pt-8">
+        <div className="flex-1 flex flex-col justify-center px-8 sm:px-12 lg:px-16 xl:px-20 pb-16 pt-[96px] lg:pt-[110px]">
           {/* Badge */}
           <div ref={badgeRef} className="flex items-center gap-2.5 mb-6">
             <span className="block w-2.5 h-2.5 rounded-full bg-red-500" />
@@ -199,7 +199,7 @@ export default function HeroCarousel() {
                 <span
                   key={i}
                   className="block text-white"
-                  style={{ fontSize: "clamp(52px,7.5vw,108px)" }}
+                  style={{ fontSize: "clamp(34px, 6vw, 96px)" }}
                 >
                   {line}
                 </span>
@@ -207,7 +207,7 @@ export default function HeroCarousel() {
               <span
                 className="block"
                 style={{
-                  fontSize: "clamp(52px,7.5vw,108px)",
+                  fontSize: "clamp(34px, 6vw, 96px)",
                   color: "#22c55e",
                 }}
               >
@@ -256,7 +256,7 @@ export default function HeroCarousel() {
         {/* RIGHT STATS */}
         <div
           ref={statsRef}
-          className="hidden lg:flex flex-col justify-center w-[240px]"
+          className="hidden lg:flex flex-col justify-center w-[240px] h-full pt-[80px]"
           style={{
             background: "rgba(40,40,40,0.72)",
             backdropFilter: "blur(8px)",
@@ -265,9 +265,8 @@ export default function HeroCarousel() {
           {STATS.map((stat, i) => (
             <div
               key={i}
-              className="flex flex-col justify-center px-10"
+              className="flex-1 flex flex-col justify-center px-10"
               style={{
-                height: "33.333%",
                 borderBottom:
                   i < STATS.length - 1
                     ? "1px solid rgba(255,255,255,0.07)"
