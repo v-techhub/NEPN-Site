@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { useNewsletter } from "@/core/hooks/queries/useNewsletter";
 
 export default function Footer() {
   const quickLinks = [
@@ -12,6 +16,29 @@ export default function Footer() {
     { label: "News & Insights", href: "/news" },
     { label: "Contact Us", href: "/contact" },
   ];
+
+  const [email, setEmail] = useState("");
+  const newsletterMutation = useNewsletter();
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim() || !/\S+@\S+\.\S+/.test(email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+      newsletterMutation.mutate(
+        { email: email.trim() },
+        {
+          onSuccess: () => {
+            setEmail("");
+          },
+          onError: (err: unknown) => {
+            // Handled via inline error display
+          },
+        }
+      );
+  };
 
 
   return (
@@ -37,17 +64,6 @@ export default function Footer() {
               resources with a proven track record in OML 13.
             </p>
 
-            {/* SOCIAL */}
-            <div className="flex gap-3 mt-8">
-              {["Li", "Tw", "Fb", "Yt"].map((item) => (
-                <div
-                  key={item}
-                  className="w-10 h-10 flex items-center justify-center border border-gray-700 text-sm hover:border-gray-500 hover:text-white transition"
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* QUICK LINKS */}
@@ -126,8 +142,8 @@ export default function Footer() {
               </div>
 
               {/* NEWSLETTER */}
-              <div className="pt-4">
-                <p className="text-[#31c48d] tracking-[3px] text-sm mb-3">
+              <form onSubmit={handleSubscribe} className="pt-4">
+                <p className="text-[#31c48d] tracking-[3px] text-sm mb-3 font-semibold uppercase">
                   NEWSLETTER
                 </p>
 
@@ -135,14 +151,30 @@ export default function Footer() {
                   <input
                     type="email"
                     placeholder="Your email address"
-                    className="flex-1 bg-[#111] border border-[#222] px-4 py-3 text-sm outline-none"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={newsletterMutation.isPending}
+                    className="flex-1 bg-[#111] border border-[#222] px-4 py-3 text-sm outline-none text-white disabled:opacity-50"
+                    required
                   />
 
-                  <button className="bg-red-600 hover:bg-red-700 px-6 text-white text-sm font-semibold transition">
-                    GO
+                  <button 
+                    type="submit"
+                    disabled={newsletterMutation.isPending}
+                    className="bg-red-600 hover:bg-red-700 disabled:bg-red-800 px-6 text-white text-sm font-semibold transition cursor-pointer flex items-center justify-center min-w-[70px]"
+                  >
+                    {newsletterMutation.isPending ? "..." : "GO"}
                   </button>
                 </div>
-              </div>
+                {newsletterMutation.isSuccess && (
+                  <p className="text-xs text-[#31c48d] mt-2 font-medium">Thank you for subscribing!</p>
+                )}
+                {newsletterMutation.isError && (
+                  <p className="text-xs text-red-500 mt-2 font-medium">
+                    {newsletterMutation.error?.message || "Subscription failed. Try again."}
+                  </p>
+                )}
+              </form>
             </div>
           </div>
         </div>

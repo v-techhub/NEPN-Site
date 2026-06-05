@@ -1,28 +1,27 @@
-import { DATA } from "@/core/data";
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/core/components/navigation";
 import Footer from "@/core/components/footer";
 import SmoothScroll from "@/core/components/smooth-scroll";
+import Providers from "@/core/components/providers";
 
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-sans",
-  subsets: ["latin"],
-});
+const SITE_NAME = "Network E&P Nigeria Limited";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://networkeandp.com";
+const SITE_DESCRIPTION =
+  "Network E&P Nigeria Limited (NEPN) is a fully Nigerian-owned oil and gas company dedicated to promoting sustainable energy solutions throughout Nigeria.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(DATA.url),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: DATA.name,
-    template: `%s | ${DATA.name}`,
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
   },
-  description: DATA.description,
+  description: SITE_DESCRIPTION,
   openGraph: {
-    title: `${DATA.name}`,
-    description: DATA.description,
-    url: DATA.url,
-    siteName: `${DATA.name}`,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
     locale: "en_NG",
     type: "website",
   },
@@ -38,7 +37,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: `${DATA.name}`,
+    title: SITE_NAME,
     card: "summary_large_image",
   },
   verification: {
@@ -54,14 +53,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${plusJakarta.variable} antialiased`} suppressHydrationWarning>
-        <SmoothScroll>
-          <Navigation />
-          {children}
-          <Footer />
-        </SmoothScroll>
+      <body className="font-sans antialiased" suppressHydrationWarning>
+        <Providers>
+          <SmoothScroll>
+            <Navigation />
+            {children}
+            <Footer />
+          </SmoothScroll>
+        </Providers>
       </body>
     </html>
   );
 }
-

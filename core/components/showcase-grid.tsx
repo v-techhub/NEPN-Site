@@ -56,9 +56,9 @@ export default function ShowcaseGrid() {
   const wrapRef = useRef(null);
 
   // Top card refs
-  const topCardRefs = useRef([]);
-  const topImgRefs = useRef([]);
-  const topOverlayRefs = useRef([]);
+  const topCardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const topImgRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const topOverlayRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   // Middle row refs
   const midImgRef = useRef(null);
@@ -275,14 +275,18 @@ export default function ShowcaseGrid() {
         {TOP_CARDS.map((card, i) => (
           <div
             key={card.num}
-            ref={(el) => (topCardRefs.current[i] = el) as any}
+            ref={(el) => {
+              topCardRefs.current[i] = el;
+            }}
             className="relative overflow-hidden cursor-pointer"
             onMouseEnter={() => handleCardEnter(i)}
             onMouseLeave={() => handleCardLeave(i)}
           >
             {/* Image */}
             <div
-              ref={(el) => (topImgRefs.current[i] = el) as any}
+              ref={(el) => {
+                topImgRefs.current[i] = el;
+              }}
               className="absolute inset-0 w-full h-full"
             >
               <Image
@@ -296,7 +300,9 @@ export default function ShowcaseGrid() {
 
             {/* Card-specific gradient overlay */}
             <div
-              ref={(el) => (topOverlayRefs.current[i] = el) as any}
+              ref={(el) => {
+                topOverlayRefs.current[i] = el;
+              }}
               className="absolute inset-0"
               style={{ background: card.gradient }}
             />
@@ -515,7 +521,7 @@ export default function ShowcaseGrid() {
               className="text-[15px] leading-relaxed mb-8 max-w-[440px]"
               style={{ color: "rgba(255,255,255,0.8)", fontWeight: 400 }}
             >
-              Nigeria's Qua Iboe field in OML 13, Akwa Ibom State, has been our
+              Nigeria&apos;s Qua Iboe field in OML 13, Akwa Ibom State, has been our
               flagship operational asset since 2001 — a prolific basin that
               underpins our production strategy and long-term growth ambitions.
             </p>

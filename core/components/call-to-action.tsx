@@ -234,7 +234,7 @@ export default function CTABanner() {
             letterSpacing: "-0.01em",
           }}
         >
-          Nigeria's Leading Indigenous
+          Nigeria&apos;s Leading Indigenous
           <br className="hidden sm:block" /> Oil &amp; Gas Company
         </h2>
 

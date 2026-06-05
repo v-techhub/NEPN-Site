@@ -21,6 +21,17 @@ import {
   Loader2,
   ArrowRight,
 } from "lucide-react";
+import { useContact } from "@/core/hooks/queries/useContact";
+import { useNewsletter } from "@/core/hooks/queries/useNewsletter";
+
+const SUBJECT_MAPPING: Record<string, string> = {
+  general: "General Enquiry",
+  partnership: "Partnership Proposal",
+  career: "Career Question",
+  media: "Media & Press",
+  sustainability: "Sustainability / CSR Inquiry",
+  other: "Other Inquiry",
+};
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,6 +42,12 @@ export default function Contact() {
   const heroOverlayRef = useRef<HTMLDivElement | null>(null);
   const mainSectionRef = useRef<HTMLElement | null>(null);
   const locationsRef = useRef<HTMLElement | null>(null);
+
+  const contactMutation = useContact();
+  const newsletterMutation = useNewsletter();
+
+  // Newsletter state
+  const [newsletterEmail, setNewsletterEmail] = useState("");
 
   // Form states
   const [formData, setFormData] = useState({
@@ -44,7 +61,6 @@ export default function Contact() {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = (
@@ -81,23 +97,52 @@ export default function Contact() {
     e.preventDefault();
     if (!validateForm()) return;
 
-    setIsSubmitting(true);
+    contactMutation.mutate(
+      {
+        name: `${formData.firstName.trim()} ${formData.lastName.trim()}`,
+        email: formData.email,
+        subject: SUBJECT_MAPPING[formData.enquiryType] || formData.enquiryType || "General Enquiry",
+        message: formData.message,
+      },
+      {
+        onSuccess: () => {
+          setSubmitted(true);
+          // Clear form
+          setFormData({
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            organisation: "",
+            enquiryType: "",
+            message: "",
+          });
+        },
+        onError: (err: unknown) => {
+          // Handled via inline error display
+        },
+      }
+    );
+  };
 
-    // Simulate submission delay
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      // Clear form
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        organisation: "",
-        enquiryType: "",
-        message: "",
-      });
-    }, 1500);
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsletterEmail.trim() || !/\S+@\S+\.\S+/.test(newsletterEmail)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+    newsletterMutation.mutate(
+      { email: newsletterEmail.trim() },
+      {
+        onSuccess: () => {
+          setNewsletterEmail("");
+        },
+        onError: (err: unknown) => {
+          // Handled via inline error display
+        },
+      }
+    );
   };
 
   // GSAP Animations
@@ -777,11 +822,11 @@ export default function Contact() {
                 <div className="pt-2">
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={contactMutation.isPending}
                     className="w-full inline-flex h-[52px] items-center justify-center gap-2.5 rounded-lg bg-[#14874f] hover:bg-[#0c5c34] disabled:bg-[#14874f]/70 text-white font-bold tracking-[0.08em] uppercase text-[12.5px] transition duration-300 cursor-pointer border-0 outline-none focus:ring-2 focus:ring-[#14874f]/20 shadow-md shadow-[#14874f]/10"
                     style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                   >
-                    {isSubmitting ? (
+                    {contactMutation.isPending ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin" />
                         <span>Sending message...</span>
@@ -793,6 +838,11 @@ export default function Contact() {
                       </>
                     )}
                   </button>
+                  {contactMutation.isError && (
+                    <p className="text-xs text-red-500 mt-2.5 font-medium text-center">
+                      {contactMutation.error?.message || "Failed to send message. Please try again later."}
+                    </p>
+                  )}
                 </div>
               </form>
             </div>
@@ -1031,16 +1081,42 @@ export default function Contact() {
                 </p>
               </div>
 
-              {/* Button */}
-              <div className="md:ml-auto flex items-center">
-                <button
-                  onClick={() => alert("Subscribed successfully!")}
-                  className="inline-flex h-[46px] items-center justify-center gap-[10px] rounded-[2px] border-2 border-white bg-transparent transition-all duration-200 hover:bg-white hover:text-[#ED1D24] px-6 font-bold tracking-[0.08em] uppercase text-white text-xs border-0 outline-none cursor-pointer"
-                  style={{ fontFamily: "'DM Sans', sans-serif" }}
-                >
-                  <span>Subscribe Now</span>
-                  <ArrowRight className="w-4 h-4 shrink-0" />
-                </button>
+              {/* Form */}
+              <div className="md:ml-auto flex flex-col items-start w-full md:w-auto">
+                <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 items-stretch w-full">
+                  <input
+                    type="email"
+                    placeholder="Your email address"
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
+                    disabled={newsletterMutation.isPending}
+                    className="flex-1 min-w-[240px] bg-white/10 border border-white/20 text-white placeholder-white/60 px-4 py-2 text-sm rounded-[2px] outline-none focus:bg-white/15 focus:border-white/50 transition-all disabled:opacity-50"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    disabled={newsletterMutation.isPending}
+                    className="inline-flex h-[46px] items-center justify-center gap-[10px] rounded-[2px] border-2 border-white bg-white hover:bg-transparent text-[#ED1D24] hover:text-white px-6 font-bold tracking-[0.08em] uppercase text-white text-xs border-0 outline-none cursor-pointer"
+                    style={{ fontFamily: "'DM Sans', sans-serif" }}
+                  >
+                    {newsletterMutation.isPending ? (
+                      <span>Subscribing...</span>
+                    ) : (
+                      <>
+                        <span>Subscribe Now</span>
+                        <ArrowRight className="w-4 h-4 shrink-0" />
+                      </>
+                    )}
+                  </button>
+                </form>
+                {newsletterMutation.isSuccess && (
+                  <p className="text-xs text-white mt-2 font-medium">Thank you for subscribing!</p>
+                )}
+                {newsletterMutation.isError && (
+                  <p className="text-xs text-white/90 mt-2 font-medium">
+                    {newsletterMutation.error?.message || "Subscription failed. Please try again."}
+                  </p>
+                )}
               </div>
 
             </div>

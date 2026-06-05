@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
@@ -17,19 +18,14 @@ export default function Navigation() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     const handleScroll = () => setScrolled(window.scrollY > 40);
     // Set initial state immediately
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Prevent render until mounted to avoid hydration glitch
-  if (!mounted) return null;
 
   return (
     <header
@@ -44,9 +40,11 @@ export default function Navigation() {
 
         {/* Logo + Wordmark */}
         <Link href="/" className="flex items-center gap-3 shrink-0">
-          <img
+          <Image
             src="/logo-brand.png"
             alt="NEPN"
+            width={176}
+            height={44}
             className="h-11 w-auto object-contain"
           />
           <div className={[

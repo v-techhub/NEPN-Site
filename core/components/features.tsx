@@ -78,8 +78,8 @@ const FEATURES = [
 export default function FeaturesBar() {
   const sectionRef = useRef(null);
   const topBarRef = useRef(null);
-  const itemRefs = useRef([]);
-  const dividerRefs = useRef([]);
+  const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const dividerRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -217,7 +217,9 @@ export default function FeaturesBar() {
                 {/* Vertical divider between items */}
                 {i > 0 && (
                   <div
-                    ref={(el) => (dividerRefs.current[i - 1] = el) as any}
+                    ref={(el) => {
+                      dividerRefs.current[i - 1] = el;
+                    }}
                     className="hidden md:block absolute left-0 top-[18%] bottom-[18%] w-px"
                     style={{ background: "rgba(255,255,255,0.08)" }}
                   />
@@ -225,7 +227,9 @@ export default function FeaturesBar() {
 
                 {/* Card */}
                 <div
-                  ref={(el) => (itemRefs.current[i] = el) as any}
+                  ref={(el) => {
+                    itemRefs.current[i] = el;
+                  }}
                   className="flex items-center gap-5 px-8 xl:px-10 py-7 w-full cursor-pointer group"
                   onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
                   onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}

@@ -2,13 +2,14 @@
 
 :root {
   --background: #ffffff;
-  --foreground: ##111111;
+  --foreground: #111111;
+  --app-font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--app-font-sans);
 }
 
 body {
@@ -37,4 +38,3 @@ html.lenis, html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
-

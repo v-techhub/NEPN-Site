@@ -9,6 +9,11 @@ import Partnerships from "@/core/components/partnerships";
 import ShowcaseGrid from "@/core/components/showcase-grid";
 import Testimonials from "@/core/components/testimonial";
 import WhatWeDo from "@/core/components/what-we-do";
+// import dynamic from "next/dynamic";
+
+// const HeroCarousel = dynamic(() => import("@/core/components/hero"), {
+//   ssr: false,
+// });
 
 export default function Home() {
   return (

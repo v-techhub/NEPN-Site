@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import Image from "next/image";
 
 export default function ComingSoon() {
   const containerRef = useRef(null);
@@ -10,25 +9,6 @@ export default function ComingSoon() {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const formRef = useRef(null);
-
-  const [timeLeft, setTimeLeft] = useState({
-    days: 45,
-    hours: 12,
-    minutes: 30,
-    seconds: 10,
-  });
-
-  // Countdown
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeLeft((prev) => ({
-        ...prev,
-        seconds: prev.seconds > 0 ? prev.seconds - 1 : 59,
-      }));
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   // GSAP Animations
   useEffect(() => {
@@ -92,7 +72,7 @@ export default function ComingSoon() {
         ref={subtitleRef}
         className="mt-6 text-gray-400 max-w-lg text-lg leading-relaxed"
       >
-        We're working hard to launch our new experience. Stay tuned for
+        We&apos;re working hard to launch our new experience. Stay tuned for
         something powerful, modern and innovative.
       </p>
 
