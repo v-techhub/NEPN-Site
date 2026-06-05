@@ -46,26 +46,28 @@ export default function Testimonials() {
     const quoteIconRefs = useRef<Array<HTMLDivElement | null>>([]);
     const avatarRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-    const testimonials = (cmsTestimonials ?? []).map((item, idx) => {
-        const initials = item.name
-            .split(" ")
-            .map((w) => w[0])
-            .join("")
-            .toUpperCase()
-            .slice(0, 2);
-        const colors = ["#006633", "#CC1F1F", "#1a1aee"];
-        const avatarBg = colors[idx % colors.length];
+    const testimonials = Array.isArray(cmsTestimonials)
+        ? cmsTestimonials.map((item, idx) => {
+            const initials = item.name
+                .split(" ")
+                .map((w) => w[0])
+                .join("")
+                .toUpperCase()
+                .slice(0, 2);
+            const colors = ["#006633", "#CC1F1F", "#1a1aee"];
+            const avatarBg = colors[idx % colors.length];
 
-        return {
-            id: item.id,
-            quote: item.feedback,
-            name: item.name,
-            role: item.company ? `${item.designation}, ${item.company}` : item.designation,
-            initials,
-            avatarBg,
-            roleColor: avatarBg,
-        };
-    });
+            return {
+                id: item.id,
+                quote: item.feedback,
+                name: item.name,
+                role: item.company ? `${item.designation}, ${item.company}` : item.designation,
+                initials,
+                avatarBg,
+                roleColor: avatarBg,
+            };
+        })
+        : [];
 
     useEffect(() => {
         if (isLoading) return;

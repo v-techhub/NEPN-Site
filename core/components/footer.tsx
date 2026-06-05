@@ -13,6 +13,7 @@ export default function Footer() {
     { label: "Operations", href: "/operations" },
     { label: "Sustainability", href: "/sustainability" },
     { label: "Partners", href: "/partners" },
+    { label: "Gallery", href: "/gallery" },
     { label: "News & Insights", href: "/news" },
     { label: "Contact Us", href: "/contact" },
   ];

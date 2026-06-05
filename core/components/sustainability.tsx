@@ -98,7 +98,7 @@ export default function Sustainability() {
     const heroOverlayRef = useRef<HTMLDivElement | null>(null);
     const commitmentRef = useRef<HTMLElement | null>(null);
 
-    const currentCsrCards = galleryItems && galleryItems.length > 0
+    const currentCsrCards = Array.isArray(galleryItems) && galleryItems.length > 0
         ? galleryItems.map((item) => ({
             image: getImageUrl(item.image),
             text: item.description

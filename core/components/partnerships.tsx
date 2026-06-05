@@ -30,13 +30,15 @@ export default function Partnerships() {
     const logoRefs = useRef<Array<HTMLDivElement | null>>([]);
     const hoverLineRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-    const partners = (cmsPartners ?? []).slice(0, 3).map((p) => ({
-        id: String(p.id),
-        logo: getImageUrl(p.logo),
-        logoAlt: `${p.name} logo`,
-        name: p.name,
-        description: p.description ?? "",
-    }));
+    const partners = Array.isArray(cmsPartners)
+        ? cmsPartners.slice(0, 3).map((p) => ({
+            id: String(p.id),
+            logo: getImageUrl(p.logo),
+            logoAlt: `${p.name} logo`,
+            name: p.name,
+            description: p.description ?? "",
+        }))
+        : [];
 
     useEffect(() => {
         if (isLoading) return;

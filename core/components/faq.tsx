@@ -96,7 +96,7 @@ export default function FAQ() {
   const rightRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-  const faqs: FaqItem[] = cmsFaqs ?? [];
+  const faqs: FaqItem[] = Array.isArray(cmsFaqs) ? cmsFaqs : [];
   const activeOpenId = openId ?? faqs[0]?.id ?? null;
 
   useEffect(() => {

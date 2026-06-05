@@ -143,7 +143,7 @@ export default function WhoWeAre() {
     const [selectedLeader, setSelectedLeader] = useState<LeaderMember | null>(null);
 
     const parseCmsLeaders = (list: typeof cmsLeaders) => {
-        if (!list || list.length === 0) return null;
+        if (!Array.isArray(list) || list.length === 0) return null;
 
         return list.map((item, idx) => {
             const initials = item.name.split(" ").map(w => w[0]).join(".").toUpperCase().slice(0, 3);

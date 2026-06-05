@@ -172,25 +172,31 @@ export default function Partners() {
     const { data: cmsPartners, isLoading } = usePartners();
 
     const parseCmsPartners = (list: typeof cmsPartners) =>
-        (list ?? []).map((p) => ({
-            name: p.name,
-            logo: getImageUrl(p.logo),
-            description:
-                p.description ||
-                "Strategic joint venture partnership supporting Nigeria's energy infrastructure and production goals.",
-        }));
+        Array.isArray(list)
+            ? list.map((p) => ({
+                name: p.name,
+                logo: getImageUrl(p.logo),
+                description:
+                    p.description ||
+                    "Strategic joint venture partnership supporting Nigeria's energy infrastructure and production goals.",
+            }))
+            : [];
 
     const activeStrategic = parseCmsPartners(cmsPartners);
     const activeTop = parseCmsPartners(
-        cmsPartners?.filter(
-            (p) =>
-                p.name.toLowerCase().includes("oando") ||
-                p.name.toLowerCase().includes("nuprc") ||
-                p.name.toLowerCase().includes("environment"),
-        ),
+        Array.isArray(cmsPartners)
+            ? cmsPartners.filter(
+                (p) =>
+                    p.name.toLowerCase().includes("oando") ||
+                    p.name.toLowerCase().includes("nuprc") ||
+                    p.name.toLowerCase().includes("environment"),
+            )
+            : []
     );
     const activeJv = parseCmsPartners(
-        cmsPartners?.filter((p) => p.name.toLowerCase().includes("oando")),
+        Array.isArray(cmsPartners)
+            ? cmsPartners.filter((p) => p.name.toLowerCase().includes("oando"))
+            : []
     );
 
     const currentPartners =
