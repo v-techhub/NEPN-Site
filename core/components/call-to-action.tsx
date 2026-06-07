@@ -10,6 +10,7 @@
  */
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -216,7 +217,7 @@ export default function CTABanner() {
             className="text-[10.5px] font-bold tracking-[0.25em] uppercase"
             style={{
               color: "rgba(255,255,255,0.75)",
-              fontFamily: "'Barlow Condensed', sans-serif",
+              fontFamily: "'Clash Display', sans-serif",
               transformOrigin: "left",
             }}
           >
@@ -230,7 +231,7 @@ export default function CTABanner() {
           className="font-black text-white leading-tight mb-5"
           style={{
             fontSize: "clamp(30px, 5.5vw, 68px)",
-            fontFamily: "'Barlow Condensed', sans-serif",
+            fontFamily: "'Clash Display', sans-serif",
             letterSpacing: "-0.01em",
           }}
         >
@@ -257,11 +258,12 @@ export default function CTABanner() {
           ref={btnsRef}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <button
+          <Link
+            href="/contact"
             className="group inline-flex items-center gap-3 px-8 py-4 text-[11.5px] font-bold tracking-[0.18em] uppercase text-white transition-all duration-200 hover:brightness-110 active:scale-[0.97]"
             style={{
               background: "#CC1F1F",
-              fontFamily: "'Barlow Condensed', sans-serif",
+              fontFamily: "'Clash Display', sans-serif",
             }}
           >
             CONTACT US TODAY
@@ -278,20 +280,17 @@ export default function CTABanner() {
                 d="M17 8l4 4m0 0l-4 4m4-4H3"
               />
             </svg>
-          </button>
+          </Link>
 
-          <button
+          <Link
+            href="/about"
             className="group inline-flex items-center gap-3 px-8 py-4 text-[11.5px] font-bold tracking-[0.18em] uppercase text-white border border-white/50 transition-all duration-200 hover:bg-white hover:text-[#0e8a42] active:scale-[0.97]"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+            style={{ fontFamily: "'Clash Display', sans-serif" }}
           >
             ABOUT NEPN
-          </button>
+          </Link>
         </div>
       </div>
-
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700;800;900&display=swap');
-      `}</style>
     </section>
   );
 }

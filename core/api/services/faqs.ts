@@ -1,6 +1,6 @@
 import { apiFetch } from "../client";
-import { FaqItem } from "../types";
+import { PaginatedFaqsResponse } from "../types";
 
 export const faqsService = {
-  getFaqs: () => apiFetch<FaqItem[]>("faq"),
+  getFaqs: () => apiFetch<PaginatedFaqsResponse>("faq"),
 };

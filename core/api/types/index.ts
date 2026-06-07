@@ -43,18 +43,42 @@ export interface PaginatedPostsResponse {
   pagination: CmsPaginationMeta;
 }
 
-export interface PartnerItem extends CmsBaseEntity {
-  name: string;
-  logo: string;
-  website_url: string;
-  description?: string; // Optional field used in UI
+export interface PaginatedFaqsResponse {
+  faqs: FaqItem[];
+  pagination: CmsPaginationMeta;
 }
 
-export interface LeadershipMember extends CmsBaseEntity {
+export interface PartnerItem {
+  id: number;
+  type: string;
+  logo: string;
+  title: string;
+  description: string;
+  website_url?: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface PaginatedPartnersResponse {
+  partners: PartnerItem[];
+  pagination: CmsPaginationMeta;
+}
+
+export interface LeadershipMember {
+  id: number;
+  type: string;
   name: string;
-  role: string;
-  bio: string;
-  image: string;
+  position: string;
+  description: string;
+  content: string;
+  image?: string | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface PaginatedLeadershipResponse {
+  leadership: LeadershipMember[];
+  pagination: CmsPaginationMeta;
 }
 
 export interface GalleryItem extends CmsBaseEntity {
@@ -63,18 +87,28 @@ export interface GalleryItem extends CmsBaseEntity {
   image: string;
 }
 
-export interface TestimonialItem extends CmsBaseEntity {
+export interface TestimonialItem {
+  id: number;
   name: string;
-  designation: string;
-  company: string;
-  feedback: string;
-  image: string;
+  job_title: string;
+  description: string;
+  company_name: string;
+  image: string | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface PaginatedTestimonialsResponse {
+  testimonials: TestimonialItem[];
+  pagination: CmsPaginationMeta;
 }
 
 export interface FaqItem {
   id: number;
   question: string;
   answer: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface ContactFormPayload {

@@ -4,6 +4,18 @@ import Navigation from "@/core/components/navigation";
 import Footer from "@/core/components/footer";
 import SmoothScroll from "@/core/components/smooth-scroll";
 import Providers from "@/core/components/providers";
+import { Quicksand } from "next/font/google";
+import localFont from "next/font/local";
+
+const fontSans = Quicksand({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const clashDisplay = localFont({
+  src: "../core/assets/fonts/ClashDisplay-Bold.otf",
+  variable: "--font-clash-display",
+});
 
 const SITE_NAME = "Network E&P Nigeria Limited";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://networkeandp.com";
@@ -53,7 +65,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="font-sans antialiased" suppressHydrationWarning>
+      <body
+        suppressHydrationWarning
+        className={`${fontSans.variable} ${clashDisplay.variable} antialiased`}
+      >
         <Providers>
           <SmoothScroll>
             <Navigation />

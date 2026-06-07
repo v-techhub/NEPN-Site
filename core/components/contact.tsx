@@ -64,7 +64,9 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -79,15 +81,19 @@ export default function Contact() {
 
   const validateForm = () => {
     const tempErrors: Record<string, string> = {};
-    if (!formData.firstName.trim()) tempErrors.firstName = "First name is required";
-    if (!formData.lastName.trim()) tempErrors.lastName = "Last name is required";
+    if (!formData.firstName.trim())
+      tempErrors.firstName = "First name is required";
+    if (!formData.lastName.trim())
+      tempErrors.lastName = "Last name is required";
     if (!formData.email.trim()) {
       tempErrors.email = "Email address is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       tempErrors.email = "Invalid email format";
     }
-    if (!formData.enquiryType) tempErrors.enquiryType = "Please select an enquiry type";
-    if (!formData.message.trim()) tempErrors.message = "Message cannot be empty";
+    if (!formData.enquiryType)
+      tempErrors.enquiryType = "Please select an enquiry type";
+    if (!formData.message.trim())
+      tempErrors.message = "Message cannot be empty";
 
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
@@ -101,7 +107,10 @@ export default function Contact() {
       {
         name: `${formData.firstName.trim()} ${formData.lastName.trim()}`,
         email: formData.email,
-        subject: SUBJECT_MAPPING[formData.enquiryType] || formData.enquiryType || "General Enquiry",
+        subject:
+          SUBJECT_MAPPING[formData.enquiryType] ||
+          formData.enquiryType ||
+          "General Enquiry",
         message: formData.message,
       },
       {
@@ -121,7 +130,7 @@ export default function Contact() {
         onError: (err: unknown) => {
           // Handled via inline error display
         },
-      }
+      },
     );
   };
 
@@ -141,7 +150,7 @@ export default function Contact() {
         onError: (err: unknown) => {
           // Handled via inline error display
         },
-      }
+      },
     );
   };
 
@@ -150,13 +159,13 @@ export default function Contact() {
     if (!rootRef.current) return;
 
     const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
 
     const animateReveal = (
       targets: gsap.TweenTarget,
       trigger: Element | null | undefined,
-      vars?: gsap.TweenVars
+      vars?: gsap.TweenVars,
     ) => {
       if (!trigger) return;
 
@@ -175,7 +184,7 @@ export default function Contact() {
             once: true,
           },
           ...vars,
-        }
+        },
       );
     };
 
@@ -187,7 +196,9 @@ export default function Contact() {
       const rightPanel = rootRef.current?.querySelector("[data-right-panel]");
       const locEyebrow = rootRef.current?.querySelector("[data-loc-eyebrow]");
       const locTitle = rootRef.current?.querySelector("[data-loc-title]");
-      const locCards = rootRef.current?.querySelectorAll("[data-loc-cards] > div");
+      const locCards = rootRef.current?.querySelectorAll(
+        "[data-loc-cards] > div",
+      );
 
       const targets: Element[] = [];
       if (heroCopy) heroCopy.forEach((el) => targets.push(el));
@@ -220,7 +231,7 @@ export default function Contact() {
               start: "top 85%",
               once: true,
             },
-          }
+          },
         );
 
         gsap.to(heroImageRef.current, {
@@ -248,7 +259,7 @@ export default function Contact() {
               end: "bottom top",
               scrub: 1.15,
             },
-          }
+          },
         );
       }
 
@@ -267,7 +278,7 @@ export default function Contact() {
               start: "top 80%",
               once: true,
             },
-          }
+          },
         );
       }
 
@@ -285,7 +296,7 @@ export default function Contact() {
               start: "top 80%",
               once: true,
             },
-          }
+          },
         );
       }
 
@@ -305,11 +316,7 @@ export default function Contact() {
   }, []);
 
   return (
-    <div
-      ref={rootRef}
-      className="w-full bg-[#f8f9fa] overflow-x-hidden"
-      style={{ fontFamily: "'Poppins', sans-serif" }}
-    >
+    <div ref={rootRef} className="w-full bg-[#f8f9fa] overflow-x-hidden">
       {/* Hero Section */}
       <section
         ref={heroRef}
@@ -349,7 +356,7 @@ export default function Contact() {
                 <div
                   data-hero-copy
                   className="mb-[22px] flex flex-wrap items-center justify-center gap-2 text-[8px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-[9px] md:text-[10px]"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                  style={{ fontFamily: "'Clash Display', sans-serif" }}
                 >
                   <Link
                     href="/"
@@ -368,7 +375,6 @@ export default function Contact() {
                     width: "auto",
                     minHeight: "58.875px",
                     textAlign: "center",
-                    fontFamily: "'Poppins', sans-serif",
                     fontWeight: 700,
                     fontSize: "clamp(30px, 7.5vw, 51.2px)",
                     lineHeight: "1.15",
@@ -380,7 +386,6 @@ export default function Contact() {
                   <span
                     className="italic text-[#82E8B4]"
                     style={{
-                      fontFamily: "'Poppins', sans-serif",
                       fontWeight: 700,
                       fontSize: "clamp(30px, 7.5vw, 51.2px)",
                       lineHeight: "1.15",
@@ -412,14 +417,12 @@ export default function Contact() {
             <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-white/[0.04] blur-3xl pointer-events-none" />
 
             <div className="relative z-10">
-              <h2
-                className="text-[34px] sm:text-[40px] font-bold leading-[1.05] tracking-tight mb-5"
-                style={{ fontFamily: "'Poppins', sans-serif" }}
-              >
+              <h2 className="text-[34px] sm:text-[40px] font-bold leading-[1.05] tracking-tight mb-5">
                 Let&apos;s Start a Conversation
               </h2>
               <p className="text-white/80 text-[14.5px] sm:text-[15.5px] leading-relaxed mb-12 max-w-sm">
-                Whether it&apos;s a general enquiry, partnership proposal, or career question — our team is here to help.
+                Whether it&apos;s a general enquiry, partnership proposal, or
+                career question — our team is here to help.
               </p>
 
               {/* Details list */}
@@ -427,12 +430,15 @@ export default function Contact() {
                 {/* PHONE */}
                 <div className="flex gap-4 items-start group">
                   <div className="w-11 h-11 shrink-0 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition duration-300">
-                    <Phone size={18} className="transition-transform duration-300 group-hover:scale-110" />
+                    <Phone
+                      size={18}
+                      className="transition-transform duration-300 group-hover:scale-110"
+                    />
                   </div>
                   <div>
                     <p
                       className="text-[9.5px] font-bold text-white/50 tracking-widest uppercase mb-0.5"
-                      style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                      style={{ fontFamily: "'Clash Display', sans-serif" }}
                     >
                       PHONE
                     </p>
@@ -448,12 +454,15 @@ export default function Contact() {
                 {/* EMAIL */}
                 <div className="flex gap-4 items-start group">
                   <div className="w-11 h-11 shrink-0 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition duration-300">
-                    <Mail size={18} className="transition-transform duration-300 group-hover:scale-110" />
+                    <Mail
+                      size={18}
+                      className="transition-transform duration-300 group-hover:scale-110"
+                    />
                   </div>
                   <div>
                     <p
                       className="text-[9.5px] font-bold text-white/50 tracking-widest uppercase mb-0.5"
-                      style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                      style={{ fontFamily: "'Clash Display', sans-serif" }}
                     >
                       EMAIL
                     </p>
@@ -469,12 +478,15 @@ export default function Contact() {
                 {/* HEAD OFFICE */}
                 <div className="flex gap-4 items-start group">
                   <div className="w-11 h-11 shrink-0 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition duration-300">
-                    <MapPin size={18} className="transition-transform duration-300 group-hover:scale-110" />
+                    <MapPin
+                      size={18}
+                      className="transition-transform duration-300 group-hover:scale-110"
+                    />
                   </div>
                   <div>
                     <p
                       className="text-[9.5px] font-bold text-white/50 tracking-widest uppercase mb-0.5"
-                      style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                      style={{ fontFamily: "'Clash Display', sans-serif" }}
                     >
                       HEAD OFFICE
                     </p>
@@ -487,12 +499,15 @@ export default function Contact() {
                 {/* FIELD OFFICE */}
                 <div className="flex gap-4 items-start group">
                   <div className="w-11 h-11 shrink-0 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition duration-300">
-                    <MapPin size={18} className="transition-transform duration-300 group-hover:scale-110" />
+                    <MapPin
+                      size={18}
+                      className="transition-transform duration-300 group-hover:scale-110"
+                    />
                   </div>
                   <div>
                     <p
                       className="text-[9.5px] font-bold text-white/50 tracking-widest uppercase mb-0.5"
-                      style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                      style={{ fontFamily: "'Clash Display', sans-serif" }}
                     >
                       FIELD OFFICE
                     </p>
@@ -505,12 +520,15 @@ export default function Contact() {
                 {/* BUSINESS HOURS */}
                 <div className="flex gap-4 items-start group">
                   <div className="w-11 h-11 shrink-0 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition duration-300">
-                    <Clock size={18} className="transition-transform duration-300 group-hover:scale-110" />
+                    <Clock
+                      size={18}
+                      className="transition-transform duration-300 group-hover:scale-110"
+                    />
                   </div>
                   <div>
                     <p
                       className="text-[9.5px] font-bold text-white/50 tracking-widest uppercase mb-0.5"
-                      style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                      style={{ fontFamily: "'Clash Display', sans-serif" }}
                     >
                       BUSINESS HOURS
                     </p>
@@ -564,18 +582,20 @@ export default function Contact() {
 
                 <h3
                   className="text-2xl sm:text-3xl font-black text-[#1e2620] mb-3 leading-tight"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                  style={{ fontFamily: "'Clash Display', sans-serif" }}
                 >
                   Message Sent Successfully!
                 </h3>
                 <p className="text-neutral-500 text-[14.5px] max-w-md leading-relaxed mb-8">
-                  Thank you for reaching out to us. We have received your inquiry and our team will get back to you within 2 business days.
+                  Thank you for reaching out to us. We have received your
+                  inquiry and our team will get back to you within 2 business
+                  days.
                 </p>
 
                 <button
                   onClick={() => setSubmitted(false)}
                   className="inline-flex h-[46px] items-center justify-center gap-2 rounded-[4px] bg-[#14874f] hover:bg-[#0c5c34] text-white px-8 font-bold tracking-[0.08em] uppercase text-xs transition duration-300"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                  style={{ fontFamily: "'Clash Display', sans-serif" }}
                 >
                   <span>Send Another Message</span>
                   <ArrowRight size={14} />
@@ -586,7 +606,7 @@ export default function Contact() {
             <div>
               <div
                 className="mb-3 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.32em]"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                style={{ fontFamily: "'Clash Display', sans-serif" }}
               >
                 <span className="h-[2px] w-4 rounded-full bg-[#ef3b3b]" />
                 <span className="text-[#ef3b3b]">SEND A MESSAGE</span>
@@ -595,15 +615,17 @@ export default function Contact() {
               <h2
                 className="font-black leading-[0.98] tracking-[-0.03em] text-[#1f2724] mb-3"
                 style={{
-                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontFamily: "'Clash Display', sans-serif",
                   fontSize: "clamp(2rem, 4.5vw, 3.45rem)",
                 }}
               >
-                We&apos;d Love to <span className="italic text-[#14874f]">Hear From You</span>
+                We&apos;d Love to{" "}
+                <span className="italic text-[#14874f]">Hear From You</span>
               </h2>
 
               <p className="text-neutral-500 text-[14px] leading-relaxed mb-10">
-                Fill in the form below and our team will respond to your corporate inquiry.
+                Fill in the form below and our team will respond to your
+                corporate inquiry.
               </p>
 
               {/* Form markup */}
@@ -614,7 +636,7 @@ export default function Contact() {
                     <label
                       htmlFor="firstName"
                       className="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2"
-                      style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                      style={{ fontFamily: "'Clash Display', sans-serif" }}
                     >
                       First Name *
                     </label>
@@ -632,7 +654,9 @@ export default function Contact() {
                       }`}
                     />
                     {errors.firstName && (
-                      <p className="text-xs text-red-500 mt-1.5 font-medium">{errors.firstName}</p>
+                      <p className="text-xs text-red-500 mt-1.5 font-medium">
+                        {errors.firstName}
+                      </p>
                     )}
                   </div>
 
@@ -640,7 +664,7 @@ export default function Contact() {
                     <label
                       htmlFor="lastName"
                       className="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2"
-                      style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                      style={{ fontFamily: "'Clash Display', sans-serif" }}
                     >
                       Last Name *
                     </label>
@@ -658,7 +682,9 @@ export default function Contact() {
                       }`}
                     />
                     {errors.lastName && (
-                      <p className="text-xs text-red-500 mt-1.5 font-medium">{errors.lastName}</p>
+                      <p className="text-xs text-red-500 mt-1.5 font-medium">
+                        {errors.lastName}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -669,7 +695,7 @@ export default function Contact() {
                     <label
                       htmlFor="email"
                       className="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2"
-                      style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                      style={{ fontFamily: "'Clash Display', sans-serif" }}
                     >
                       Email Address *
                     </label>
@@ -687,7 +713,9 @@ export default function Contact() {
                       }`}
                     />
                     {errors.email && (
-                      <p className="text-xs text-red-500 mt-1.5 font-medium">{errors.email}</p>
+                      <p className="text-xs text-red-500 mt-1.5 font-medium">
+                        {errors.email}
+                      </p>
                     )}
                   </div>
 
@@ -695,7 +723,7 @@ export default function Contact() {
                     <label
                       htmlFor="phone"
                       className="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2"
-                      style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                      style={{ fontFamily: "'Clash Display', sans-serif" }}
                     >
                       Phone Number
                     </label>
@@ -716,7 +744,7 @@ export default function Contact() {
                   <label
                     htmlFor="organisation"
                     className="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2"
-                    style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                    style={{ fontFamily: "'Clash Display', sans-serif" }}
                   >
                     Organisation
                   </label>
@@ -736,7 +764,7 @@ export default function Contact() {
                   <label
                     htmlFor="enquiryType"
                     className="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2"
-                    style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                    style={{ fontFamily: "'Clash Display', sans-serif" }}
                   >
                     Enquiry Type *
                   </label>
@@ -757,7 +785,9 @@ export default function Contact() {
                       <option value="partnership">Partnership Proposal</option>
                       <option value="career">Career Question</option>
                       <option value="media">Media & Press</option>
-                      <option value="sustainability">Sustainability / CSR Inquiry</option>
+                      <option value="sustainability">
+                        Sustainability / CSR Inquiry
+                      </option>
                       <option value="other">Other Inquiry</option>
                     </select>
                     {/* Custom Arrow */}
@@ -778,7 +808,9 @@ export default function Contact() {
                     </div>
                   </div>
                   {errors.enquiryType && (
-                    <p className="text-xs text-red-500 mt-1.5 font-medium">{errors.enquiryType}</p>
+                    <p className="text-xs text-red-500 mt-1.5 font-medium">
+                      {errors.enquiryType}
+                    </p>
                   )}
                 </div>
 
@@ -787,7 +819,7 @@ export default function Contact() {
                   <label
                     htmlFor="message"
                     className="block text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2"
-                    style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                    style={{ fontFamily: "'Clash Display', sans-serif" }}
                   >
                     Message *
                   </label>
@@ -805,14 +837,19 @@ export default function Contact() {
                     }`}
                   />
                   {errors.message && (
-                    <p className="text-xs text-red-500 mt-1.5 font-medium">{errors.message}</p>
+                    <p className="text-xs text-red-500 mt-1.5 font-medium">
+                      {errors.message}
+                    </p>
                   )}
                 </div>
 
                 {/* Privacy disclaimer */}
                 <p className="text-[11.5px] text-neutral-400 leading-normal font-normal pt-2">
                   By submitting, you agree to our{" "}
-                  <Link href="/privacy" className="text-[#14874f] font-semibold hover:underline">
+                  <Link
+                    href="/privacy"
+                    className="text-[#14874f] font-semibold hover:underline"
+                  >
                     Privacy Policy
                   </Link>
                   .
@@ -824,7 +861,7 @@ export default function Contact() {
                     type="submit"
                     disabled={contactMutation.isPending}
                     className="w-full inline-flex h-[52px] items-center justify-center gap-2.5 rounded-lg bg-[#14874f] hover:bg-[#0c5c34] disabled:bg-[#14874f]/70 text-white font-bold tracking-[0.08em] uppercase text-[12.5px] transition duration-300 cursor-pointer border-0 outline-none focus:ring-2 focus:ring-[#14874f]/20 shadow-md shadow-[#14874f]/10"
-                    style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                    style={{ fontFamily: "'Clash Display', sans-serif" }}
                   >
                     {contactMutation.isPending ? (
                       <>
@@ -840,7 +877,8 @@ export default function Contact() {
                   </button>
                   {contactMutation.isError && (
                     <p className="text-xs text-red-500 mt-2.5 font-medium text-center">
-                      {contactMutation.error?.message || "Failed to send message. Please try again later."}
+                      {contactMutation.error?.message ||
+                        "Failed to send message. Please try again later."}
                     </p>
                   )}
                 </div>
@@ -861,7 +899,7 @@ export default function Contact() {
             <div
               data-loc-eyebrow
               className="mb-3 flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.32em]"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+              style={{ fontFamily: "'Clash Display', sans-serif" }}
             >
               <span className="h-[2px] w-4 rounded-full bg-[#14874f]" />
               <span className="text-[#14874f]">OUR LOCATIONS</span>
@@ -871,7 +909,7 @@ export default function Contact() {
               data-loc-title
               className="font-black leading-[0.98] tracking-[-0.03em] text-[#1f2724]"
               style={{
-                fontFamily: "'Barlow Condensed', sans-serif",
+                fontFamily: "'Clash Display', sans-serif",
                 fontSize: "clamp(2.5rem, 5.2vw, 4.35rem)",
               }}
             >
@@ -910,7 +948,7 @@ export default function Contact() {
                   {/* Left accent title */}
                   <div className="flex items-center gap-3 mb-4">
                     <span className="h-[22px] w-[3px] rounded-full bg-[#14874f]" />
-                    <h3 className="font-bold text-[17px] tracking-wide text-[#1e2620]" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                    <h3 className="font-bold text-[17px] tracking-wide text-[#1e2620]">
                       Lagos Head Office
                     </h3>
                   </div>
@@ -959,13 +997,14 @@ export default function Contact() {
                   {/* Left accent title */}
                   <div className="flex items-center gap-3 mb-4">
                     <span className="h-[22px] w-[3px] rounded-full bg-[#ef3b3b]" />
-                    <h3 className="font-bold text-[17px] tracking-wide text-[#1e2620]" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                    <h3 className="font-bold text-[17px] tracking-wide text-[#1e2620]">
                       Akwa Ibom Office
                     </h3>
                   </div>
 
                   <p className="text-neutral-500 text-xs sm:text-[13px] leading-relaxed mb-6 font-sans">
-                    5 Terminal Road, Inua Eyet Ikot, Ibeno LGA, Akwa Ibom State, Nigeria.
+                    5 Terminal Road, Inua Eyet Ikot, Ibeno LGA, Akwa Ibom State,
+                    Nigeria.
                   </p>
                 </div>
               </div>
@@ -1002,11 +1041,12 @@ export default function Contact() {
                     </span>
                   </div>
 
-                  <h4 className="text-white text-lg sm:text-xl font-bold leading-tight mb-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                  <h4 className="text-white text-lg sm:text-xl font-bold leading-tight mb-2">
                     Corporate Support Channels
                   </h4>
                   <p className="text-white/60 text-xs leading-relaxed font-sans">
-                    Have urgent project coordination or business enquiries? Reach our communications desk directly.
+                    Have urgent project coordination or business enquiries?
+                    Reach our communications desk directly.
                   </p>
                 </div>
 
@@ -1014,7 +1054,7 @@ export default function Contact() {
                   {/* Left accent title */}
                   <div className="flex items-center gap-3 mb-6">
                     <span className="h-[22px] w-[3px] rounded-full bg-[#173fe3]" />
-                    <h3 className="font-bold text-[17px] tracking-wide text-[#1e2620]" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                    <h3 className="font-bold text-[17px] tracking-wide text-[#1e2620]">
                       Get In Touch
                     </h3>
                   </div>
@@ -1025,14 +1065,20 @@ export default function Contact() {
                       href="mailto:Info@networkeandp.com"
                       className="flex items-center gap-3 text-xs sm:text-[13px] text-neutral-600 hover:text-[#173fe3] transition group/item"
                     >
-                      <Mail size={16} className="text-[#173fe3] group-hover/item:scale-110 transition duration-200" />
+                      <Mail
+                        size={16}
+                        className="text-[#173fe3] group-hover/item:scale-110 transition duration-200"
+                      />
                       <span>Info@networkeandp.com</span>
                     </a>
                     <a
                       href="tel:09088855012"
                       className="flex items-center gap-3 text-xs sm:text-[13px] text-neutral-600 hover:text-[#173fe3] transition group/item"
                     >
-                      <Phone size={16} className="text-[#173fe3] group-hover/item:scale-110 transition duration-200" />
+                      <Phone
+                        size={16}
+                        className="text-[#173fe3] group-hover/item:scale-110 transition duration-200"
+                      />
                       <span>09088855012</span>
                     </a>
                   </div>
@@ -1044,7 +1090,10 @@ export default function Contact() {
                   <Clock className="w-3.5 h-3.5 text-[#173fe3]" />
                   <span>Mon-Sat Support</span>
                 </span>
-                <a href="mailto:Info@networkeandp.com" className="text-[#173fe3] hover:underline flex items-center gap-1">
+                <a
+                  href="mailto:Info@networkeandp.com"
+                  className="text-[#173fe3] hover:underline flex items-center gap-1"
+                >
                   <span>Send Email</span>
                   <ArrowRight size={10} />
                 </a>
@@ -1059,31 +1108,28 @@ export default function Contact() {
         <div className="mx-auto flex min-h-[140px] w-full max-w-[1280px] items-center px-[20px]">
           <div className="flex w-full justify-center">
             <div className="flex w-full max-w-[980px] flex-col gap-6 py-8 md:flex-row md:items-center md:justify-between md:gap-8 md:py-0">
-              
               {/* Text */}
               <div className="w-full max-w-[500px]">
                 <p
                   className="text-white font-bold leading-tight"
                   style={{
-                    fontFamily: "'Poppins', sans-serif",
                     fontSize: "26px",
                   }}
                 >
                   Subscribe to Our Newsletter
                 </p>
-                <p
-                  className="mt-[6px] text-white/75 text-xs sm:text-[13px] leading-relaxed"
-                  style={{
-                    fontFamily: "'Poppins', sans-serif",
-                  }}
-                >
-                  Stay updated with the latest corporate news and project milestones from NEPN.
+                <p className="mt-[6px] text-white/75 text-xs sm:text-[13px] leading-relaxed">
+                  Stay updated with the latest corporate news and project
+                  milestones from NEPN.
                 </p>
               </div>
 
               {/* Form */}
               <div className="md:ml-auto flex flex-col items-start w-full md:w-auto">
-                <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 items-stretch w-full">
+                <form
+                  onSubmit={handleNewsletterSubmit}
+                  className="flex flex-col sm:flex-row gap-3 items-stretch w-full"
+                >
                   <input
                     type="email"
                     placeholder="Your email address"
@@ -1096,7 +1142,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={newsletterMutation.isPending}
-                    className="inline-flex h-[46px] items-center justify-center gap-[10px] rounded-[2px] border-2 border-white bg-white hover:bg-transparent text-[#ED1D24] hover:text-white px-6 font-bold tracking-[0.08em] uppercase text-white text-xs border-0 outline-none cursor-pointer"
+                    className="inline-flex h-11.5 items-center justify-center gap-2.5 rounded-xs border-2 border-white bg-white hover:bg-transparent text-[#ED1D24] hover:text-white px-6 font-bold tracking-[0.08em] uppercase text-xs outline-none cursor-pointer"
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
                     {newsletterMutation.isPending ? (
@@ -1110,46 +1156,23 @@ export default function Contact() {
                   </button>
                 </form>
                 {newsletterMutation.isSuccess && (
-                  <p className="text-xs text-white mt-2 font-medium">Thank you for subscribing!</p>
+                  <p className="text-xs text-white mt-2 font-medium">
+                    Thank you for subscribing!
+                  </p>
                 )}
                 {newsletterMutation.isError && (
                   <p className="text-xs text-white/90 mt-2 font-medium">
-                    {newsletterMutation.error?.message || "Subscription failed. Please try again."}
+                    {newsletterMutation.error?.message ||
+                      "Subscription failed. Please try again."}
                   </p>
                 )}
               </div>
-
             </div>
           </div>
         </div>
       </section>
 
       {/* Styled keyframe animations */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@700&family=Poppins:wght@400;500;600;700&display=swap');
-        
-        .breakdown-all {
-          word-break: break-all;
-        }
-        
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        
-        @keyframes scaleUp {
-          from { transform: scale(0.9) translateY(10px); opacity: 0; }
-          to { transform: scale(1) translateY(0); opacity: 1; }
-        }
-        
-        .animate-fade-in {
-          animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        
-        .animate-scale-up {
-          animation: scaleUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-      `}</style>
     </div>
   );
 }

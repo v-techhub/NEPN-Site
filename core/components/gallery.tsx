@@ -33,56 +33,64 @@ const FALLBACK_ITEMS = [
   {
     id: 2,
     title: "Processing Facility Gate",
-    description: "Entrance gate to our primary processing facility in Akwa Ibom.",
+    description:
+      "Entrance gate to our primary processing facility in Akwa Ibom.",
     image: "/images/facility.jpg",
     category: "facilities",
   },
   {
     id: 3,
     title: "Onsite Flow Station Operations",
-    description: "Continuous monitoring of our active oil pipelines and structures.",
+    description:
+      "Continuous monitoring of our active oil pipelines and structures.",
     image: "/images/operations.jpg",
     category: "operations",
   },
   {
     id: 4,
     title: "Crude Storage Tanks",
-    description: "High-capacity storage tanks for processed crude oil at terminal.",
+    description:
+      "High-capacity storage tanks for processed crude oil at terminal.",
     image: "/images/production.jpg",
     category: "facilities",
   },
   {
     id: 5,
     title: "Community Health Outreach",
-    description: "Free medical screening event organized for our host community.",
+    description:
+      "Free medical screening event organized for our host community.",
     image: "/images/sustainability.jpg",
     category: "community",
   },
   {
     id: 6,
     title: "Seismic Exploration Survey",
-    description: "Mapping underground structures for prospective drilling sites.",
+    description:
+      "Mapping underground structures for prospective drilling sites.",
     image: "/images/exploration.jpg",
     category: "operations",
   },
   {
     id: 7,
     title: "Flow Control Valve Systems",
-    description: "State-of-the-art flow control valves maintaining pipeline safety.",
+    description:
+      "State-of-the-art flow control valves maintaining pipeline safety.",
     image: "/images/machine.jpg",
     category: "facilities",
   },
   {
     id: 8,
     title: "Annual Stakeholders Meeting",
-    description: "Reviewing our corporate performance and strategic roadmap with partners.",
+    description:
+      "Reviewing our corporate performance and strategic roadmap with partners.",
     image: "/slides/slide-2.jpg",
     category: "events",
   },
   {
     id: 9,
     title: "Safety Milestone Ceremony",
-    description: "Celebrating 5 million hours without Lost Time Injury (LTI) in field operations.",
+    description:
+      "Celebrating 5 million hours without Lost Time Injury (LTI) in field operations.",
     image: "/slides/slide-3.jpg",
     category: "events",
   },
@@ -96,53 +104,86 @@ const FALLBACK_ITEMS = [
 ];
 
 // Helper to assign categories to CMS items based on title or description keywords
-const getCategoryForCmsItem = (title: string = "", description: string = "", index: number = 0): string => {
+const getCategoryForCmsItem = (
+  title: string = "",
+  description: string = "",
+  index: number = 0,
+): string => {
   const t = title.toLowerCase();
   const d = (description || "").toLowerCase();
 
   if (
-    t.includes("operation") || d.includes("operation") ||
-    t.includes("exploration") || d.includes("exploration") ||
-    t.includes("oml") || d.includes("oml") ||
-    t.includes("drill") || d.includes("drill") ||
-    t.includes("crew") || d.includes("crew")
+    t.includes("operation") ||
+    d.includes("operation") ||
+    t.includes("exploration") ||
+    d.includes("exploration") ||
+    t.includes("oml") ||
+    d.includes("oml") ||
+    t.includes("drill") ||
+    d.includes("drill") ||
+    t.includes("crew") ||
+    d.includes("crew")
   ) {
     return "operations";
   }
   if (
-    t.includes("facility") || d.includes("facility") ||
-    t.includes("valve") || d.includes("valve") ||
-    t.includes("tank") || d.includes("tank") ||
-    t.includes("station") || d.includes("station") ||
-    t.includes("gate") || d.includes("gate") ||
-    t.includes("office") || d.includes("office") ||
-    t.includes("headquarter") || d.includes("headquarter") ||
-    t.includes("plant") || d.includes("plant")
+    t.includes("facility") ||
+    d.includes("facility") ||
+    t.includes("valve") ||
+    d.includes("valve") ||
+    t.includes("tank") ||
+    d.includes("tank") ||
+    t.includes("station") ||
+    d.includes("station") ||
+    t.includes("gate") ||
+    d.includes("gate") ||
+    t.includes("office") ||
+    d.includes("office") ||
+    t.includes("headquarter") ||
+    d.includes("headquarter") ||
+    t.includes("plant") ||
+    d.includes("plant")
   ) {
     return "facilities";
   }
   if (
-    t.includes("community") || d.includes("community") ||
-    t.includes("outreach") || d.includes("outreach") ||
-    t.includes("csr") || d.includes("csr") ||
-    t.includes("medical") || d.includes("medical") ||
-    t.includes("people") || d.includes("people") ||
-    t.includes("host") || d.includes("host")
+    t.includes("community") ||
+    d.includes("community") ||
+    t.includes("outreach") ||
+    d.includes("outreach") ||
+    t.includes("csr") ||
+    d.includes("csr") ||
+    t.includes("medical") ||
+    d.includes("medical") ||
+    t.includes("people") ||
+    d.includes("people") ||
+    t.includes("host") ||
+    d.includes("host")
   ) {
     return "community";
   }
   if (
-    t.includes("event") || d.includes("event") ||
-    t.includes("meeting") || d.includes("meeting") ||
-    t.includes("ceremony") || d.includes("ceremony") ||
-    t.includes("milestone") || d.includes("milestone") ||
-    t.includes("anniversary") || d.includes("anniversary")
+    t.includes("event") ||
+    d.includes("event") ||
+    t.includes("meeting") ||
+    d.includes("meeting") ||
+    t.includes("ceremony") ||
+    d.includes("ceremony") ||
+    t.includes("milestone") ||
+    d.includes("milestone") ||
+    t.includes("anniversary") ||
+    d.includes("anniversary")
   ) {
     return "events";
   }
 
   // Falling back to a cyclic distribution if no keywords match
-  const fallbackCategories = ["operations", "facilities", "community", "events"];
+  const fallbackCategories = [
+    "operations",
+    "facilities",
+    "community",
+    "events",
+  ];
   return fallbackCategories[index % fallbackCategories.length];
 };
 
@@ -158,30 +199,35 @@ export default function Gallery() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   // Process data from CMS and assign categories dynamically, fall back to local items if empty
-  const items = galleryItems && galleryItems.length > 0
-    ? galleryItems.map((item, idx) => ({
-        id: item.id,
-        title: item.title,
-        description: item.description || "",
-        image: getImageUrl(item.image),
-        category: getCategoryForCmsItem(item.title, item.description, idx),
-      }))
-    : FALLBACK_ITEMS;
+  const items =
+    galleryItems && galleryItems.length > 0
+      ? galleryItems.map((item, idx) => ({
+          id: item.id,
+          title: item.title,
+          description: item.description || "",
+          image: getImageUrl(item.image),
+          category: getCategoryForCmsItem(item.title, item.description, idx),
+        }))
+      : FALLBACK_ITEMS;
 
   // Filter items based on active tab
   const filteredItems = items.filter(
-    (item) => activeTab === "ALL" || item.category.toUpperCase() === activeTab
+    (item) => activeTab === "ALL" || item.category.toUpperCase() === activeTab,
   );
 
   // Lightbox navigation handlers
   const handlePrev = () => {
     if (lightboxIndex === null) return;
-    setLightboxIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : filteredItems.length - 1));
+    setLightboxIndex((prev) =>
+      prev !== null && prev > 0 ? prev - 1 : filteredItems.length - 1,
+    );
   };
 
   const handleNext = () => {
     if (lightboxIndex === null) return;
-    setLightboxIndex((prev) => (prev !== null && prev < filteredItems.length - 1 ? prev + 1 : 0));
+    setLightboxIndex((prev) =>
+      prev !== null && prev < filteredItems.length - 1 ? prev + 1 : 0,
+    );
   };
 
   // Keyboard navigation for Lightbox
@@ -214,14 +260,16 @@ export default function Gallery() {
     if (!rootRef.current) return;
 
     const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
 
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) return;
 
       const heroCopy = rootRef.current?.querySelectorAll("[data-hero-copy]");
-      const sectionElements = rootRef.current?.querySelectorAll("[data-section-fade]");
+      const sectionElements = rootRef.current?.querySelectorAll(
+        "[data-section-fade]",
+      );
 
       // Initial state
       if (heroCopy?.length) {
@@ -235,7 +283,7 @@ export default function Gallery() {
             ease: "power3.out",
             stagger: 0.12,
             delay: 0.2,
-          }
+          },
         );
       }
 
@@ -249,7 +297,7 @@ export default function Gallery() {
             opacity: 1,
             duration: 1.45,
             ease: "power3.out",
-          }
+          },
         );
 
         gsap.to(heroImageRef.current, {
@@ -293,7 +341,7 @@ export default function Gallery() {
               start: "top 80%",
               once: true,
             },
-          }
+          },
         );
       }
     }, rootRef);
@@ -305,7 +353,6 @@ export default function Gallery() {
     <div
       ref={rootRef}
       className="w-full bg-[#f8f9fa] overflow-x-hidden min-h-screen"
-      style={{ fontFamily: "'Poppins', sans-serif" }}
     >
       {/* Hero Section Banner */}
       <section
@@ -348,7 +395,7 @@ export default function Gallery() {
                 <div
                   data-hero-copy
                   className="mb-[22px] flex flex-wrap items-center justify-center gap-2 text-[8px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-[9px] md:text-[10px]"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                  style={{ fontFamily: "'Clash Display', sans-serif" }}
                 >
                   <Link
                     href="/"
@@ -396,7 +443,7 @@ export default function Gallery() {
           <div
             data-section-fade
             className="mb-3 flex items-center justify-center gap-3 text-[10.5px] font-bold uppercase tracking-[0.32em]"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+            style={{ fontFamily: "'Clash Display', sans-serif" }}
           >
             <span className="h-[2px] w-4 rounded-full bg-[#EF3B3B]" />
             <span className="text-[#EF3B3B]">VISUAL STORIES</span>
@@ -406,19 +453,21 @@ export default function Gallery() {
             data-section-fade
             className="font-black leading-[0.98] tracking-[-0.03em] text-[#1f2724] mb-5"
             style={{
-              fontFamily: "'Barlow Condensed', sans-serif",
+              fontFamily: "'Clash Display', sans-serif",
               fontSize: "clamp(2rem, 5vw, 3.8rem)",
             }}
           >
-            Explore Our Work <span className="italic text-[#14874f]">in Action</span>
+            Explore Our Work{" "}
+            <span className="italic text-[#14874f]">in Action</span>
           </h2>
 
           <p
             data-section-fade
             className="text-neutral-500 text-[14.5px] leading-relaxed max-w-2xl mx-auto"
           >
-            Discover moments from our operations, facilities, community engagements, and milestones
-            that define NEPN&apos;s commitment to excellence.
+            Discover moments from our operations, facilities, community
+            engagements, and milestones that define NEPN&apos;s commitment to
+            excellence.
           </p>
         </div>
 
@@ -437,7 +486,7 @@ export default function Gallery() {
                   ? "bg-[#14874f] text-white border-[#14874f] shadow-md shadow-[#14874f]/15"
                   : "bg-white text-neutral-600 border-neutral-200 hover:border-[#14874f]/50 hover:text-[#14874f]",
               ].join(" ")}
-              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+              style={{ fontFamily: "'Clash Display', sans-serif" }}
             >
               {tab}
             </button>
@@ -448,7 +497,9 @@ export default function Gallery() {
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-24 text-neutral-400">
             <Loader2 className="w-10 h-10 animate-spin text-[#14874f] mb-4" />
-            <p className="text-sm font-semibold tracking-wide">Loading gallery media...</p>
+            <p className="text-sm font-semibold tracking-wide">
+              Loading gallery media...
+            </p>
           </div>
         ) : (
           /* Staggered Masonry Grid Layout */
@@ -478,7 +529,7 @@ export default function Gallery() {
                     {/* Category tag */}
                     <span
                       className="inline-block bg-[#14874f] text-white text-[8px] font-bold tracking-[0.15em] uppercase px-2.5 py-0.5 rounded mb-3"
-                      style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                      style={{ fontFamily: "'Clash Display', sans-serif" }}
                     >
                       {item.category}
                     </span>
@@ -566,7 +617,7 @@ export default function Gallery() {
           <div className="text-center text-white w-full max-w-[700px] mx-auto z-10 pb-6 pt-4 animate-scale-up">
             <span
               className="inline-block bg-[#14874f] text-white text-[8px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded mb-3"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+              style={{ fontFamily: "'Clash Display', sans-serif" }}
             >
               {filteredItems[lightboxIndex].category}
             </span>

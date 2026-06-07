@@ -10,6 +10,7 @@
  */
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import Link from "next/link";
 import NumberFlow from "@number-flow/react";
 import { gsap } from "gsap";
 
@@ -226,13 +227,19 @@ export default function HeroCarousel() {
 
           {/* Buttons */}
           <div ref={btnsRef} className="flex gap-4">
-            <button className="px-6 py-3.5 text-xs font-bold tracking-[0.18em] uppercase text-white bg-[#CC1F1F]">
+            <Link
+              href="/about"
+              className="px-6 py-3.5 text-xs font-bold tracking-[0.18em] uppercase text-white bg-[#CC1F1F] text-center inline-block"
+            >
               DISCOVER NEPN
-            </button>
+            </Link>
 
-            <button className="px-6 py-3.5 text-xs font-bold tracking-[0.18em] uppercase text-white border border-white/60">
+            <Link
+              href="/operations"
+              className="px-6 py-3.5 text-xs font-bold tracking-[0.18em] uppercase text-white border border-white/60 text-center inline-block"
+            >
               OUR OPERATIONS
-            </button>
+            </Link>
           </div>
 
           {/* Dots */}

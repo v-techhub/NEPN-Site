@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -215,7 +216,7 @@ export default function CompanyOverview() {
               className="font-black leading-none text-white"
               style={{
                 fontSize: "clamp(32px, 5vw, 48px)",
-                fontFamily: "'Barlow Condensed', sans-serif",
+                fontFamily: "'Clash Display', sans-serif",
               }}
             >
               2001
@@ -224,7 +225,7 @@ export default function CompanyOverview() {
               className="mt-1 text-[11px] font-bold uppercase tracking-[0.18em]"
               style={{
                 color: "rgba(255,255,255,0.65)",
-                fontFamily: "'Barlow Condensed', sans-serif",
+                fontFamily: "'Clash Display', sans-serif",
               }}
             >
               EST. YEAR
@@ -239,7 +240,7 @@ export default function CompanyOverview() {
             <span className="block h-[2.5px] w-6 flex-shrink-0 rounded-full bg-red-600" />
             <span
               className="text-[11px] font-bold uppercase tracking-[0.22em] text-gray-500"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+              style={{ fontFamily: "'Clash Display', sans-serif" }}
             >
               WHO WE ARE
             </span>
@@ -322,11 +323,12 @@ export default function CompanyOverview() {
 
           {/* CTA */}
           <div ref={btnRef}>
-            <button
-              className="group inline-flex items-center gap-3 px-8 py-4 text-[11.5px] font-bold uppercase tracking-[0.18em] text-white transition-all duration-200 hover:brightness-110 active:scale-[0.97]"
+            <Link
+              href="/about"
+              className="group inline-flex items-center gap-3 px-8 py-4 text-[11.5px] font-bold uppercase tracking-[0.18em] text-white transition-all duration-200 hover:brightness-110 active:scale-[0.97] text-center"
               style={{
                 background: "#006633",
-                fontFamily: "'Barlow Condensed', sans-serif",
+                fontFamily: "'Clash Display', sans-serif",
               }}
             >
               LEARN MORE
@@ -343,14 +345,10 @@ export default function CompanyOverview() {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </svg>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
-
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700;800;900&display=swap');
-      `}</style>
     </section>
   );
 }

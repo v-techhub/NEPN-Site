@@ -92,7 +92,9 @@ export default function Operations() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const maxIndex = isMobile ? OPERATIONAL_STAGES.length - 1 : OPERATIONAL_STAGES.length - 2;
+  const maxIndex = isMobile
+    ? OPERATIONAL_STAGES.length - 1
+    : OPERATIONAL_STAGES.length - 2;
 
   const handlePrev = () => {
     setCurrentIndex((prev) => Math.max(prev - 1, 0));
@@ -141,11 +143,16 @@ export default function Operations() {
 
       const heroCopy = rootRef.current?.querySelectorAll("[data-hero-copy]");
       const introCopy = rootRef.current?.querySelectorAll("[data-intro-copy]");
-      const sliderWrap = rootRef.current?.querySelectorAll("[data-slider-wrap]");
-      const techHeader = rootRef.current?.querySelectorAll("[data-tech-header]");
-      const techGrid = rootRef.current?.querySelectorAll("[data-tech-grid] > div");
+      const sliderWrap =
+        rootRef.current?.querySelectorAll("[data-slider-wrap]");
+      const techHeader =
+        rootRef.current?.querySelectorAll("[data-tech-header]");
+      const techGrid = rootRef.current?.querySelectorAll(
+        "[data-tech-grid] > div",
+      );
       const assetCopy = rootRef.current?.querySelectorAll("[data-asset-copy]");
-      const assetTable = rootRef.current?.querySelectorAll("[data-asset-table]");
+      const assetTable =
+        rootRef.current?.querySelectorAll("[data-asset-table]");
 
       const targets: Element[] = [];
       if (heroCopy) heroCopy.forEach((el) => targets.push(el));
@@ -221,21 +228,34 @@ export default function Operations() {
       }
 
       if (techHeader?.length) {
-        animateStagger(techHeader, rootRef.current?.querySelector("[data-tech-trigger]"));
+        animateStagger(
+          techHeader,
+          rootRef.current?.querySelector("[data-tech-trigger]"),
+        );
       }
 
       if (techGrid?.length) {
-        animateStagger(techGrid, rootRef.current?.querySelector("[data-tech-trigger]"), { delay: 0.2 });
+        animateStagger(
+          techGrid,
+          rootRef.current?.querySelector("[data-tech-trigger]"),
+          { delay: 0.2 },
+        );
       }
 
       if (assetCopy?.length) {
-        animateStagger(assetCopy, rootRef.current?.querySelector("[data-asset-trigger]"));
+        animateStagger(
+          assetCopy,
+          rootRef.current?.querySelector("[data-asset-trigger]"),
+        );
       }
 
       if (assetTable?.length) {
-        animateStagger(assetTable, rootRef.current?.querySelector("[data-asset-trigger]"), { delay: 0.2 });
+        animateStagger(
+          assetTable,
+          rootRef.current?.querySelector("[data-asset-trigger]"),
+          { delay: 0.2 },
+        );
       }
-
     }, rootRef);
 
     return () => ctx.revert();
@@ -252,9 +272,7 @@ export default function Operations() {
         ref={heroRef}
         className="relative isolate w-full overflow-hidden bg-[#0a1210] -mt-[30px]"
       >
-        <div
-          className="absolute inset-x-0 bottom-0 z-30 flex h-[3px] md:h-[4px]"
-        >
+        <div className="absolute inset-x-0 bottom-0 z-30 flex h-[3px] md:h-[4px]">
           <span className="h-full basis-[45%] bg-[#1bc7f0]" />
           <span className="h-full basis-[27%] bg-[#ed2a24]" />
           <span className="h-full basis-[28%] bg-[#173fe3]" />
@@ -288,7 +306,7 @@ export default function Operations() {
                 <div
                   data-hero-copy
                   className="mb-[22px] flex flex-wrap items-center justify-center gap-2 text-[8px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-[9px] md:text-[10px]"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                  style={{ fontFamily: "'Clash Display', sans-serif" }}
                 >
                   <Link
                     href="/"
@@ -307,7 +325,6 @@ export default function Operations() {
                     width: "auto",
                     minHeight: "58.875px",
                     textAlign: "center",
-                    fontFamily: "'Poppins', sans-serif",
                     fontWeight: 700,
                     fontSize: "clamp(30px, 7.5vw, 51.2px)",
                     lineHeight: "1.15",
@@ -319,7 +336,6 @@ export default function Operations() {
                   <span
                     className="italic text-[#82E8B4]"
                     style={{
-                      fontFamily: "'Poppins', sans-serif",
                       fontWeight: 700,
                       fontSize: "clamp(30px, 7.5vw, 51.2px)",
                       lineHeight: "1.15",
@@ -336,18 +352,14 @@ export default function Operations() {
       </section>
 
       {/* Main Content Section */}
-      <section
-        ref={contentRef}
-        className="bg-[#f4f4f4] py-16 sm:py-24"
-      >
+      <section ref={contentRef} className="bg-[#f4f4f4] py-16 sm:py-24">
         <div className="mx-auto max-w-[980px] px-5">
-          
           {/* Section Header */}
           <div className="mb-12">
             <div
               data-intro-copy
               className="mb-3 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.32em]"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+              style={{ fontFamily: "'Clash Display', sans-serif" }}
             >
               <span className="h-[2px] w-4 rounded-full bg-[#ef3b3b]" />
               <span className="text-[#ef3b3b]">What We Do</span>
@@ -357,19 +369,21 @@ export default function Operations() {
               data-intro-copy
               className="font-black leading-[0.98] tracking-[-0.03em] text-[#1f2724]"
               style={{
-                fontFamily: "'Barlow Condensed', sans-serif",
+                fontFamily: "'Clash Display', sans-serif",
                 fontSize: "clamp(2.25rem, 4.9vw, 4.05rem)",
               }}
             >
-              Integrated Energy <span className="italic text-[#14874f]">Excellence</span>
+              Integrated Energy{" "}
+              <span className="italic text-[#14874f]">Excellence</span>
             </h2>
 
-            <p 
+            <p
               data-intro-copy
               className="mt-6 text-[#5d6763] text-sm sm:text-base leading-relaxed max-w-2xl font-sans"
-              style={{ fontFamily: "'Poppins', sans-serif" }}
             >
-              From seismic exploration to production management, guided by technical expertise, safety discipline, and commitment to Nigeria&apos;s energy future.
+              From seismic exploration to production management, guided by
+              technical expertise, safety discipline, and commitment to
+              Nigeria&apos;s energy future.
             </p>
           </div>
 
@@ -377,14 +391,14 @@ export default function Operations() {
           <div data-slider-wrap className="relative overflow-hidden">
             {/* Slider Container */}
             <div className="overflow-hidden">
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-out"
                 style={{
                   transform: `translateX(-${currentIndex * (isMobile ? 100 : 50)}%)`,
                 }}
               >
                 {OPERATIONAL_STAGES.map((stage) => (
-                  <div 
+                  <div
                     key={stage.num}
                     className="w-full md:w-1/2 shrink-0 px-2 sm:px-3"
                   >
@@ -399,32 +413,25 @@ export default function Operations() {
                       />
 
                       {/* Bottom Gradient Overlay (Thickens/Darkens on Hover) */}
-                      <div 
-                        className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent transition-all duration-500 ease-out group-hover:from-black/95 group-hover:via-black/55"
-                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent transition-all duration-500 ease-out group-hover:from-black/95 group-hover:via-black/55" />
 
                       {/* Content (Moves Up on Hover) */}
-                      <div 
-                        className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 flex flex-col justify-end translate-y-3 group-hover:translate-y-0 transition-transform duration-500 ease-out"
-                      >
-                        <p 
+                      <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 flex flex-col justify-end translate-y-3 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                        <p
                           className="text-[9px] sm:text-[10px] font-bold tracking-[0.25em] text-white/70 uppercase mb-2"
-                          style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                          style={{ fontFamily: "'Clash Display', sans-serif" }}
                         >
                           {stage.num}
                         </p>
-                        
-                        <h3 
+
+                        <h3
                           className="text-2xl sm:text-3xl font-black text-white leading-tight mb-3"
-                          style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                          style={{ fontFamily: "'Clash Display', sans-serif" }}
                         >
                           {stage.title}
                         </h3>
-                        
-                        <p 
-                          className="text-[13px] text-white/80 leading-relaxed max-w-[90%] opacity-85 group-hover:opacity-100 transition-opacity duration-500"
-                          style={{ fontFamily: "'Poppins', sans-serif" }}
-                        >
+
+                        <p className="text-[13px] text-white/80 leading-relaxed max-w-[90%] opacity-85 group-hover:opacity-100 transition-opacity duration-500">
                           {stage.body}
                         </p>
                       </div>
@@ -441,8 +448,8 @@ export default function Operations() {
                   onClick={handlePrev}
                   disabled={currentIndex === 0}
                   className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors border-0 outline-none ${
-                    currentIndex === 0 
-                      ? "text-white/30 cursor-not-allowed" 
+                    currentIndex === 0
+                      ? "text-white/30 cursor-not-allowed"
                       : "text-white hover:bg-neutral-800 cursor-pointer"
                   }`}
                   aria-label="Previous slide"
@@ -454,8 +461,8 @@ export default function Operations() {
                   onClick={handleNext}
                   disabled={currentIndex === maxIndex}
                   className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors border-0 outline-none ${
-                    currentIndex === maxIndex 
-                      ? "text-white/30 cursor-not-allowed" 
+                    currentIndex === maxIndex
+                      ? "text-white/30 cursor-not-allowed"
                       : "text-white hover:bg-neutral-800 cursor-pointer"
                   }`}
                   aria-label="Next slide"
@@ -473,22 +480,22 @@ export default function Operations() {
                 data-tech-header
                 className="font-black leading-[0.98] tracking-[-0.03em] text-[#1f2724]"
                 style={{
-                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontFamily: "'Clash Display', sans-serif",
                   fontSize: "clamp(2.25rem, 4.9vw, 4.05rem)",
                 }}
               >
-                Advanced <span className="italic text-[#14874f]">Technology</span>
+                Advanced{" "}
+                <span className="italic text-[#14874f]">Technology</span>
               </h2>
               <p
                 data-tech-header
                 className="mt-3 text-sm sm:text-base text-[#5d6763] max-w-lg mx-auto font-sans"
-                style={{ fontFamily: "'Poppins', sans-serif" }}
               >
                 Leveraging cutting-edge solutions for operational excellence
               </p>
             </div>
 
-            <div 
+            <div
               data-tech-grid
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
             >
@@ -499,14 +506,14 @@ export default function Operations() {
                 >
                   <h3
                     className="text-lg font-bold text-[#1e2620] mb-3"
-                    style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "20px" }}
+                    style={{
+                      fontFamily: "'Clash Display', sans-serif",
+                      fontSize: "20px",
+                    }}
                   >
                     {card.title}
                   </h3>
-                  <p
-                    className="text-[13px] sm:text-sm text-[#5d6763] leading-relaxed font-sans"
-                    style={{ fontFamily: "'Poppins', sans-serif" }}
-                  >
+                  <p className="text-[13px] sm:text-sm text-[#5d6763] leading-relaxed font-sans">
                     {card.body}
                   </p>
                 </div>
@@ -517,13 +524,12 @@ export default function Operations() {
           {/* Primary Asset Section */}
           <div data-asset-trigger className="mt-24 sm:mt-32">
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
-              
               {/* Asset Description */}
               <div>
                 <div
                   data-asset-copy
                   className="mb-3 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.32em]"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                  style={{ fontFamily: "'Clash Display', sans-serif" }}
                 >
                   <span className="h-[2px] w-4 rounded-full bg-[#ef3b3b]" />
                   <span className="text-[#ef3b3b]">Primary Asset</span>
@@ -533,19 +539,21 @@ export default function Operations() {
                   data-asset-copy
                   className="font-black leading-[1.02] tracking-[-0.03em] text-[#1f2724]"
                   style={{
-                    fontFamily: "'Barlow Condensed', sans-serif",
+                    fontFamily: "'Clash Display', sans-serif",
                     fontSize: "clamp(2rem, 4.4vw, 3.45rem)",
                   }}
                 >
-                  Qua Iboe Field, <span className="italic text-[#14874f]">PML 13</span>
+                  Qua Iboe Field,{" "}
+                  <span className="italic text-[#14874f]">PML 13</span>
                 </h2>
 
                 <p
                   data-asset-copy
                   className="mt-6 text-neutral-600 text-sm sm:text-[14.5px] leading-[1.9] max-w-[500px]"
-                  style={{ fontFamily: "'Poppins', sans-serif" }}
                 >
-                  The Qua Iboe field in PML 13, Akwa Ibom State, is NEPN&apos;s flagship operational asset, located in one of Nigeria&apos;s most prolific basins with significant hydrocarbon potential.
+                  The Qua Iboe field in PML 13, Akwa Ibom State, is NEPN&apos;s
+                  flagship operational asset, located in one of Nigeria&apos;s
+                  most prolific basins with significant hydrocarbon potential.
                 </p>
 
                 <div data-asset-copy className="mt-8">
@@ -561,16 +569,16 @@ export default function Operations() {
               </div>
 
               {/* Asset Specifications Table */}
-              <div 
+              <div
                 data-asset-table
                 className="w-full bg-white rounded-2xl shadow-sm border border-neutral-100 overflow-hidden"
               >
                 {/* Table Header */}
                 <div className="bg-[#14874f] px-6 py-4 flex items-center gap-2.5 text-white">
                   <Clock className="w-5 h-5 shrink-0" />
-                  <span 
+                  <span
                     className="font-bold tracking-[0.06em] uppercase text-sm"
-                    style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                    style={{ fontFamily: "'Clash Display', sans-serif" }}
                   >
                     Field Specifications
                   </span>
@@ -579,21 +587,22 @@ export default function Operations() {
                 {/* Table Rows */}
                 <div className="divide-y divide-neutral-100">
                   {SPEC_ROWS.map((row) => (
-                    <div 
+                    <div
                       key={row.label}
                       className="grid grid-cols-[1.2fr_1.8fr] gap-4 px-6 py-4 text-xs sm:text-sm"
-                      style={{ fontFamily: "'Poppins', sans-serif" }}
                     >
-                      <span className="text-neutral-400 font-medium">{row.label}</span>
-                      <span className="text-neutral-800 font-bold text-right sm:text-left">{row.value}</span>
+                      <span className="text-neutral-400 font-medium">
+                        {row.label}
+                      </span>
+                      <span className="text-neutral-800 font-bold text-right sm:text-left">
+                        {row.value}
+                      </span>
                     </div>
                   ))}
                 </div>
               </div>
-
             </div>
           </div>
-
         </div>
       </section>
 
@@ -602,24 +611,17 @@ export default function Operations() {
         <div className="mx-auto flex min-h-[140px] w-full max-w-[1280px] items-center px-[20px]">
           <div className="flex w-full justify-center">
             <div className="flex w-full max-w-[980px] flex-col gap-6 py-8 md:flex-row md:items-center md:justify-between md:gap-8 md:py-0">
-              
               {/* Text */}
               <div className="w-full max-w-[500px]">
                 <p
                   className="text-white font-bold leading-tight"
                   style={{
-                    fontFamily: "'Poppins', sans-serif",
                     fontSize: "26px",
                   }}
                 >
                   Interested in Our Operations?
                 </p>
-                <p
-                  className="mt-[6px] text-white/75 text-xs sm:text-[13px] leading-relaxed"
-                  style={{
-                    fontFamily: "'Poppins', sans-serif",
-                  }}
-                >
+                <p className="mt-[6px] text-white/75 text-xs sm:text-[13px] leading-relaxed">
                   Speak with our technical team about partnership opportunities.
                 </p>
               </div>
@@ -635,15 +637,10 @@ export default function Operations() {
                   <ArrowRight className="w-4 h-4 shrink-0" />
                 </Link>
               </div>
-
             </div>
           </div>
         </div>
       </section>
-
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@700&family=Poppins:wght@400;500;700&display=swap');
-      `}</style>
     </div>
   );
 }

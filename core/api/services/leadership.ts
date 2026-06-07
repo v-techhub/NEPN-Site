@@ -1,6 +1,6 @@
 import { apiFetch } from "../client";
-import { LeadershipMember } from "../types";
+import { PaginatedLeadershipResponse } from "../types";
 
 export const leadershipService = {
-  getLeadership: () => apiFetch<LeadershipMember[]>("leadership"),
+  getLeadership: () => apiFetch<PaginatedLeadershipResponse>("leadership"),
 };

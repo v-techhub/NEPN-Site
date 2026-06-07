@@ -12,6 +12,7 @@
  */
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -113,7 +114,7 @@ export default function MiniCTA() {
             className="font-bold text-white leading-tight"
             style={{
               fontSize: "clamp(18px, 2vw, 24px)",
-              fontFamily: "'Barlow Condensed', sans-serif",
+              fontFamily: "'Clash Display', sans-serif",
               letterSpacing: "-0.01em",
             }}
           >
@@ -130,9 +131,10 @@ export default function MiniCTA() {
 
         {/* Right: button */}
         <div ref={btnRef} className="flex-shrink-0">
-          <button
-            className="inline-flex items-center gap-3 px-7 py-3 text-[11px] font-bold tracking-[0.2em] uppercase text-white border border-white/60 transition-colors duration-200 hover:bg-white hover:text-[#E8200E]"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-3 px-7 py-3 text-[11px] font-bold tracking-[0.2em] uppercase text-white border border-white/60 transition-colors duration-200 hover:bg-white hover:text-[#E8200E] text-center"
+            style={{ fontFamily: "'Clash Display', sans-serif" }}
             onMouseEnter={handleEnter}
             onMouseLeave={handleLeave}
           >
@@ -152,13 +154,9 @@ export default function MiniCTA() {
                 />
               </svg>
             </span>
-          </button>
+          </Link>
         </div>
       </div>
-
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap');
-      `}</style>
     </div>
   );
 }

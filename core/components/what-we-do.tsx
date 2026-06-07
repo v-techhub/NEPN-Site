@@ -10,6 +10,7 @@
  */
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -147,7 +148,7 @@ export default function WhatWeDo() {
               <span className="block w-6 h-[2.5px] bg-red-600 rounded-full flex-shrink-0" />
               <span
                 className="text-[11px] font-bold tracking-[0.22em] uppercase text-gray-500"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                style={{ fontFamily: "'Clash Display', sans-serif" }}
               >
                 OUR BUSINESS AREAS
               </span>
@@ -159,7 +160,7 @@ export default function WhatWeDo() {
               className="font-black leading-tight"
               style={{
                 fontSize: "clamp(34px, 4vw, 56px)",
-                fontFamily: "'Barlow Condensed', sans-serif",
+                fontFamily: "'Clash Display', sans-serif",
                 color: "#111",
               }}
             >
@@ -169,12 +170,13 @@ export default function WhatWeDo() {
 
           {/* ALL OPERATIONS button */}
           <div ref={ctaBtnRef}>
-            <button
-              className="group inline-flex items-center gap-3 px-7 py-3.5 text-[11px] font-bold tracking-[0.18em] uppercase border-2 transition-all duration-200 hover:bg-[#006633] hover:text-white"
+            <Link
+              href="/operations"
+              className="group inline-flex items-center gap-3 px-7 py-3.5 text-[11px] font-bold tracking-[0.18em] uppercase border-2 transition-all duration-200 hover:bg-[#006633] hover:text-white text-center"
               style={{
                 borderColor: "#006633",
                 color: "#006633",
-                fontFamily: "'Barlow Condensed', sans-serif",
+                fontFamily: "'Clash Display', sans-serif",
               }}
             >
               ALL OPERATIONS
@@ -191,7 +193,7 @@ export default function WhatWeDo() {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </svg>
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -230,7 +232,7 @@ export default function WhatWeDo() {
                 style={{
                   fontSize: "clamp(72px, 8vw, 110px)",
                   color: card.numberColor,
-                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontFamily: "'Clash Display', sans-serif",
                   lineHeight: 1,
                 }}
               >
@@ -258,11 +260,12 @@ export default function WhatWeDo() {
               </p>
 
               {/* READ MORE */}
-              <button
+              <Link
+                href="/operations"
                 className="group/link inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] uppercase transition-opacity duration-150 hover:opacity-70 w-fit"
                 style={{
                   color: card.linkColor,
-                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontFamily: "'Clash Display', sans-serif",
                 }}
               >
                 READ MORE
@@ -279,15 +282,11 @@ export default function WhatWeDo() {
                     d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
-              </button>
+              </Link>
             </div>
           ))}
         </div>
       </div>
-
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800;900&display=swap');
-      `}</style>
     </section>
   );
 }

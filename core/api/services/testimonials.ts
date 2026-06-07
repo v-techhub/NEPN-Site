@@ -1,6 +1,6 @@
 import { apiFetch } from "../client";
-import { TestimonialItem } from "../types";
+import { PaginatedTestimonialsResponse } from "../types";
 
 export const testimonialsService = {
-  getTestimonials: () => apiFetch<TestimonialItem[]>("testimonial"),
+  getTestimonials: () => apiFetch<PaginatedTestimonialsResponse>("testimonial"),
 };

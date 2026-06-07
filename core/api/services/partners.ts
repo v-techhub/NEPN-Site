@@ -1,6 +1,6 @@
 import { apiFetch } from "../client";
-import { PartnerItem } from "../types";
+import { PaginatedPartnersResponse } from "../types";
 
 export const partnersService = {
-  getPartners: () => apiFetch<PartnerItem[]>("partners"),
+  getPartners: () => apiFetch<PaginatedPartnersResponse>("partners"),
 };

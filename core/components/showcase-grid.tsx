@@ -17,6 +17,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -31,6 +32,7 @@ const TOP_CARDS = [
     image: "/images/exploration.jpg",
     gradient:
       "linear-gradient(180deg, rgba(17, 126, 67, 0.09) 0%, rgba(17, 126, 67, 0.09) 30%, rgba(17, 126, 67, 0.36) 75%)",
+    href: "/operations",
   },
   {
     num: "02",
@@ -39,6 +41,7 @@ const TOP_CARDS = [
     image: "/images/production.jpg",
     gradient:
       "linear-gradient(180deg, rgba(237, 29, 36, 0.1) 0%, rgba(237, 29, 36, 0.1) 30%, rgba(200, 17, 23, 0.4) 75%)",
+    href: "/operations",
   },
   {
     num: "03",
@@ -47,6 +50,7 @@ const TOP_CARDS = [
     image: "/images/sustainability.jpg",
     gradient:
       "linear-gradient(180deg, rgba(0, 0, 254, 0.1) 0%, rgba(0, 0, 254, 0.1) 30%, rgba(0, 0, 200, 0.4) 75%)",
+    href: "/sustainability",
   },
 ];
 
@@ -56,7 +60,7 @@ export default function ShowcaseGrid() {
   const wrapRef = useRef(null);
 
   // Top card refs
-  const topCardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const topCardRefs = useRef<Array<HTMLElement | null>>([]);
   const topImgRefs = useRef<Array<HTMLDivElement | null>>([]);
   const topOverlayRefs = useRef<Array<HTMLDivElement | null>>([]);
 
@@ -273,12 +277,13 @@ export default function ShowcaseGrid() {
         style={{ height: "clamp(220px, 28vw, 340px)" }}
       >
         {TOP_CARDS.map((card, i) => (
-          <div
+          <Link
             key={card.num}
+            href={card.href}
             ref={(el) => {
               topCardRefs.current[i] = el;
             }}
-            className="relative overflow-hidden cursor-pointer"
+            className="relative overflow-hidden cursor-pointer block"
             onMouseEnter={() => handleCardEnter(i)}
             onMouseLeave={() => handleCardLeave(i)}
           >
@@ -313,7 +318,7 @@ export default function ShowcaseGrid() {
                 className="text-[10px] font-bold tracking-[0.2em] mb-2"
                 style={{
                   color: "rgba(255,255,255,0.65)",
-                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontFamily: "'Clash Display', sans-serif",
                 }}
               >
                 {card.num} / {card.category}
@@ -336,7 +341,7 @@ export default function ShowcaseGrid() {
                 style={{ background: "rgba(255,255,255,0.12)" }}
               />
             )}
-          </div>
+          </Link>
         ))}
       </div>
 
@@ -380,7 +385,7 @@ export default function ShowcaseGrid() {
                 className="text-[10.5px] font-bold tracking-[0.22em] uppercase"
                 style={{
                   color: "rgba(255,255,255,0.65)",
-                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontFamily: "'Clash Display', sans-serif",
                 }}
               >
                 OUR COMMITMENT
@@ -393,7 +398,7 @@ export default function ShowcaseGrid() {
               className="font-bold leading-tight text-white mb-5"
               style={{
                 fontSize: "clamp(26px, 3vw, 40px)",
-                fontFamily: "'Barlow Condensed', sans-serif",
+                fontFamily: "'Clash Display', sans-serif",
                 fontWeight: 700,
               }}
             >
@@ -422,9 +427,10 @@ export default function ShowcaseGrid() {
 
             {/* CTA */}
             <div data-anim>
-              <button
-                className="group inline-flex items-center gap-3 px-6 py-3.5 text-[11px] font-bold tracking-[0.18em] uppercase text-white border border-white/50 transition-all duration-200 hover:bg-white hover:text-[#006633]"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+              <Link
+                href="/sustainability"
+                className="group inline-flex items-center gap-3 px-6 py-3.5 text-[11px] font-bold tracking-[0.18em] uppercase text-white border border-white/50 transition-all duration-200 hover:bg-white hover:text-[#006633] text-center"
+                style={{ fontFamily: "'Clash Display', sans-serif" }}
               >
                 OUR APPROACH
                 <svg
@@ -440,7 +446,7 @@ export default function ShowcaseGrid() {
                     d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -486,7 +492,7 @@ export default function ShowcaseGrid() {
                 className="text-[10.5px] font-bold tracking-[0.22em] uppercase"
                 style={{
                   color: "rgba(255,255,255,0.6)",
-                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontFamily: "'Clash Display', sans-serif",
                 }}
               >
                 QUA IBOE FIELD
@@ -499,7 +505,7 @@ export default function ShowcaseGrid() {
               className="font-bold leading-tight text-white mb-5"
               style={{
                 fontSize: "clamp(26px, 3vw, 40px)",
-                fontFamily: "'Barlow Condensed', sans-serif",
+                fontFamily: "'Clash Display', sans-serif",
                 fontWeight: 700,
               }}
             >
@@ -521,16 +527,17 @@ export default function ShowcaseGrid() {
               className="text-[15px] leading-relaxed mb-8 max-w-[440px]"
               style={{ color: "rgba(255,255,255,0.8)", fontWeight: 400 }}
             >
-              Nigeria&apos;s Qua Iboe field in OML 13, Akwa Ibom State, has been our
-              flagship operational asset since 2001 — a prolific basin that
+              Nigeria&apos;s Qua Iboe field in OML 13, Akwa Ibom State, has been
+              our flagship operational asset since 2001 — a prolific basin that
               underpins our production strategy and long-term growth ambitions.
             </p>
 
             {/* CTA */}
             <div data-anim>
-              <button
-                className="group inline-flex items-center gap-3 px-6 py-3.5 text-[11px] font-bold tracking-[0.18em] uppercase text-white border border-white/50 transition-all duration-200 hover:bg-white hover:text-[#1a1aee]"
-                style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+              <Link
+                href="/operations"
+                className="group inline-flex items-center gap-3 px-6 py-3.5 text-[11px] font-bold tracking-[0.18em] uppercase text-white border border-white/50 transition-all duration-200 hover:bg-white hover:text-[#1a1aee] text-center"
+                style={{ fontFamily: "'Clash Display', sans-serif" }}
               >
                 EXPLORE OPERATIONS
                 <svg
@@ -546,15 +553,11 @@ export default function ShowcaseGrid() {
                     d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
       </div>
-
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800;900&display=swap');
-      `}</style>
     </div>
   );
 }

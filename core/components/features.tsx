@@ -12,6 +12,7 @@
  */
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -35,6 +36,7 @@ const FEATURES = [
     accent: "#006633",
     title: "EXPLORATION & PRODUCTION",
     subtitle: "OML 13 / Qua Iboe field, Akwa Ibom State",
+    href: "/operations",
   },
   {
     id: 2,
@@ -52,6 +54,7 @@ const FEATURES = [
     accent: "#CC1F1F",
     title: "SAFETY & SUSTAINABILITY",
     subtitle: "Zero-incident culture & net zero 2050 roadmap",
+    href: "/sustainability",
   },
   {
     id: 3,
@@ -72,13 +75,14 @@ const FEATURES = [
     accent: "#1a3fa8",
     title: "STRATEGIC PARTNERSHIPS",
     subtitle: "NNPC, NUPRC, financial & technical partners",
+    href: "/partners",
   },
 ];
 
 export default function FeaturesBar() {
   const sectionRef = useRef(null);
   const topBarRef = useRef(null);
-  const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const itemRefs = useRef<Array<HTMLElement | null>>([]);
   const dividerRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
@@ -226,7 +230,8 @@ export default function FeaturesBar() {
                 )}
 
                 {/* Card */}
-                <div
+                <Link
+                  href={feat.href}
                   ref={(el) => {
                     itemRefs.current[i] = el;
                   }}
@@ -248,7 +253,7 @@ export default function FeaturesBar() {
                   <div className="flex-1 min-w-0">
                     <p
                       className="text-[12.5px] font-bold tracking-[0.14em] text-white mb-1.5 truncate"
-                      //   style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                      //   style={{ fontFamily: "'Clash Display', sans-serif" }}
                     >
                       {feat.title}
                     </p>
@@ -279,16 +284,12 @@ export default function FeaturesBar() {
                       d="M9 18l6-6-6-6"
                     />
                   </svg>
-                </div>
+                </Link>
               </div>
             ))}
           </div>
         </div>
       </section>
-
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500&family=Barlow+Condensed:wght@600;700;800&display=swap');
-      `}</style>
     </>
   );
 }
