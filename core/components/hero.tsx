@@ -14,9 +14,21 @@ import Link from "next/link";
 import NumberFlow from "@number-flow/react";
 import { gsap } from "gsap";
 
-// ─── Background Video ─────────────────────────────────────────────────────────
-const HERO_VIDEO =
-  "https://bepikg4pccoyqcez.public.blob.vercel-storage.com/4.1%20Video%20Project%201.mp4";
+// ─── Background Assets ────────────────────────────────────────────────────────
+const BACKGROUNDS = [
+  {
+    type: "video",
+    src: "https://bepikg4pccoyqcez.public.blob.vercel-storage.com/3%20-%20Trim.mp4",
+  },
+  {
+    type: "video",
+    src: "https://bepikg4pccoyqcez.public.blob.vercel-storage.com/4.1%20Video%20Project%201.mp4",
+  },
+  {
+    type: "image",
+    src: "/images/hero_image.jpg",
+  },
+];
 
 // ─── Slide Data (TEXT ONLY NOW) ───────────────────────────────────────────────
 const SLIDES = [
@@ -66,6 +78,7 @@ export default function HeroCarousel() {
   const statsRef = useRef(null);
   const timerRef = useRef(null);
   const tl = useRef(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   // ── Animate content in ──────────────────────────────────────────────────────
   const animateContentIn = useCallback(() => {
@@ -143,6 +156,20 @@ export default function HeroCarousel() {
     );
   }, []);
 
+  // ── Play/Pause background videos ──────────────────────────────────────────
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (!video) return;
+      if (index === current) {
+        video.play().catch((err) => {
+          console.warn("Video autoplay failed or interrupted:", err);
+        });
+      } else {
+        video.pause();
+      }
+    });
+  }, [current]);
+
   // ── Autoplay ────────────────────────────────────────────────────────────────
   useEffect(() => {
     timerRef.current = setInterval(() => {
@@ -150,31 +177,60 @@ export default function HeroCarousel() {
     }, AUTO_PLAY_INTERVAL);
 
     return () => clearInterval(timerRef.current);
-  }, []);
+  }, [current]);
 
   const slide = SLIDES[current];
 
   return (
     <section className="relative w-full h-[92vh] min-h-[560px] max-h-[900px] overflow-hidden bg-black">
-      {/* ── Background Video ───────────────────────────────────────────── */}
+      {/* ── Background Media Slideshow ─────────────────────────────────── */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
-        <video
-          src={HERO_VIDEO}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="w-full h-full object-cover object-center"
-        />
+        {BACKGROUNDS.map((bg, index) => {
+          if (bg.type === "video") {
+            return (
+              <video
+                key={index}
+                ref={(el) => {
+                  videoRefs.current[index] = el;
+                }}
+                src={bg.src}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out"
+                style={{
+                  opacity: current === index ? 1 : 0,
+                  zIndex: current === index ? 2 : 1,
+                  pointerEvents: "none",
+                }}
+              />
+            );
+          } else {
+            return (
+              <img
+                key={index}
+                src={bg.src}
+                alt="Background slide"
+                className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out"
+                style={{
+                  opacity: current === index ? 1 : 0,
+                  zIndex: current === index ? 2 : 1,
+                  pointerEvents: "none",
+                }}
+              />
+            );
+          }
+        })}
       </div>
 
-      {/* Green tint overlay */}
+      {/* Dark gradient + Green tint overlay for enhanced readability & text contrast */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 z-5 pointer-events-none"
         style={{
           background:
-            "linear-gradient(105deg, rgba(0,60,30,0.82) 0%, rgba(0,90,45,0.65) 38%, rgba(0,60,30,0.35) 65%, rgba(0,0,0,0.15) 100%)",
+            "linear-gradient(to right, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.45) 45%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0) 100%), linear-gradient(105deg, rgba(0, 60, 30, 0.82) 0%, rgba(0, 90, 45, 0.65) 38%, rgba(0, 60, 30, 0.35) 65%, rgba(0, 0, 0, 0.15) 100%)",
         }}
       />
 
