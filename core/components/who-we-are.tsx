@@ -53,7 +53,7 @@ const MILESTONES = [
 
 const FEATURE_SPLITS = [
   {
-    image: "/images/production.jpg",
+    image: "/images/dam.jpg",
     alt: "NEPN production infrastructure",
     eyebrow: "OUR MISSION",
     title: "Responsible Energy Development",
@@ -64,7 +64,7 @@ const FEATURE_SPLITS = [
     titleWidth: "max-w-[340px]",
   },
   {
-    image: "/images/machine.jpg",
+    image: "/images/men_on_site.jpg",
     alt: "NEPN team working around gas oil separation equipment",
     eyebrow: "OUR VISION",
     title: "Nigeria's Preeminent Indigenous Operator",
@@ -421,7 +421,7 @@ export default function WhoWeAre() {
         <div className="relative min-h-[220px] sm:min-h-[280px] md:min-h-[330px] lg:min-h-[372px]">
           <div ref={heroImageRef} className="absolute inset-0">
             <Image
-              src="/slides/slide-3.jpg"
+              src="/images/about_bg.png"
               alt="NEPN field operations team"
               fill
               priority

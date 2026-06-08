@@ -17,19 +17,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 const EHS_CARDS = [
   {
-    image: "/images/workers.jpg",
+    image: "/images/safety.jpg",
     title: "Safety First",
     body: "Zero-harm workplace culture with comprehensive safety training and protocols.",
     metric: "0 LTI in 2025",
   },
   {
-    image: "/slides/slide-1.jpg",
+    image: "/images/sick_bed.jpg",
     title: "Health & Wellbeing",
     body: "Comprehensive health programs for employees and host communities.",
     metric: "2000+ beneficiaries",
   },
   {
-    image: "/images/sustainability.jpg",
+    image: "/images/environment.jpg",
     title: "Environmental Protection",
     body: "Rigorous environmental management and monitoring systems.",
     metric: "40% emission reduction",
@@ -38,27 +38,27 @@ const EHS_CARDS = [
 
 const CSR_CARDS = [
   {
-    image: "/slides/slide-3.jpg",
+    image: "/images/corporate_1.jpg",
     text: "Construction and Furnishing of existing Town Hall Phase 1 at Okoritak Host Community",
   },
   {
-    image: "/images/machine.jpg",
+    image: "/images/corporate_2.jpg",
     text: "Skill Acquisition Training for 40 Beneficiaries (Short Courses in Computer Engineering Programs)",
   },
   {
-    image: "/images/workers.jpg",
+    image: "/images/corporate_3.jpg",
     text: "Industrial Certification (BOSIET & OSP) for the Host community youth",
   },
   {
-    image: "/images/facility.jpg",
+    image: "/images/corporate_4.jpg",
     text: "Procure and install 1Nos 100kva Electricity Stepdown Transformer in a section of Iuoachang Host Community.",
   },
   {
-    image: "/images/operations.jpg",
+    image: "/images/corporate_5.jpg",
     text: "HOST COMMUNITY TRADITIONAL LEADERS AND REGULATORS INAUGURATION OF NOJI HCDT BOT MEMBERS",
   },
   {
-    image: "/images/production.jpg",
+    image: "/images/corporate_6.jpg",
     text: "Maintenance of Toilet Facility for Ibuildwuokpom community, Ibeno LGA",
   },
 ];
@@ -321,7 +321,7 @@ export default function Sustainability() {
         <div className="relative min-h-[220px] sm:min-h-[280px] md:min-h-[330px] lg:min-h-[372px]">
           <div ref={heroImageRef} className="absolute inset-0">
             <Image
-              src="/images/sustainability.jpg"
+              src="/images/sustainability_bg.jpg"
               alt="NEPN clean oil and gas processing infrastructure"
               fill
               priority
@@ -559,34 +559,28 @@ export default function Sustainability() {
             {/* Caution Sign Card */}
             <div
               data-safety-card
-              className="relative rounded-2xl overflow-hidden h-[340px] sm:h-[400px] shadow-lg border border-neutral-200/50 flex items-center justify-center p-6 group cursor-default"
+              className="relative rounded-[24px] overflow-hidden aspect-square w-full shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex items-end p-8 sm:p-10 md:p-12 group cursor-default"
             >
               <Image
-                src="/images/operations.jpg"
+                src="/images/safety_sign.jpg"
                 alt="NEPN Operations Warning Shield"
                 fill
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-neutral-900/40 backdrop-blur-[2px]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent transition-opacity duration-300 group-hover:opacity-95" />
 
-              {/* Caution warning signage board inside card */}
-              <div className="relative bg-white/95 border-l-[6px] border-[#ef3b3b] rounded-xl p-6 sm:p-8 max-w-sm w-full shadow-2xl flex flex-col items-center text-center">
-                <div
-                  className="bg-[#ef3b3b]/10 text-[#ef3b3b] font-black tracking-widest text-[10px] sm:text-xs px-3 py-1 rounded mb-4 uppercase"
-                  style={{ fontFamily: "'Clash Display', sans-serif" }}
-                >
-                  Caution / Warning
-                </div>
+              {/* Stats & Description Overlay */}
+              <div className="relative z-10 flex flex-col items-start text-left">
                 <h3
-                  className="text-4xl sm:text-5xl font-black text-neutral-800 leading-none"
+                  className="text-white font-extrabold leading-none tracking-tight text-5xl sm:text-6xl mb-3"
                   style={{ fontFamily: "'Clash Display', sans-serif" }}
                 >
                   5M+
                 </h3>
                 <p
-                  className="mt-2 text-xs sm:text-sm font-bold text-neutral-600 leading-snug uppercase tracking-wider max-w-[80%]"
-                  style={{ fontFamily: "'Clash Display', sans-serif" }}
+                  className="text-white font-semibold leading-snug text-sm sm:text-base max-w-[85%]"
+                  style={{ fontFamily: "'Barlow', sans-serif" }}
                 >
                   Safe Work Hours Without Lost Time Injury
                 </p>
@@ -678,7 +672,7 @@ export default function Sustainability() {
               className="relative rounded-2xl overflow-hidden h-[340px] sm:h-[420px] shadow-md border border-neutral-200/50 group"
             >
               <Image
-                src="/images/workers.jpg"
+                src="/images/man_on_duty.jpg"
                 alt="NEPN mechanical technician working on site"
                 fill
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-103"
@@ -820,15 +814,15 @@ export default function Sustainability() {
             <div className="flex w-full max-w-[980px] flex-col gap-6 py-8 md:flex-row md:items-center md:justify-between md:gap-8 md:py-0">
               {/* Text */}
               <div className="w-full max-w-[500px]">
-                <p
+                <h3
                   className="text-white font-bold leading-tight"
                   style={{
                     fontSize: "26px",
                   }}
                 >
                   Our Sustainability Journey
-                </p>
-                <p className="mt-[6px] text-white/75 text-xs sm:text-[13px] leading-relaxed">
+                </h3>
+                <p className="mt-[6px] text-white/75 text-xs sm:text-[13px] leading-relaxed font-sans">
                   Learn more about our environmental and community commitments.
                 </p>
               </div>

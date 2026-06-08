@@ -14,25 +14,25 @@ const OPERATIONAL_STAGES = [
     num: "01 / EXPLORATION",
     title: "Exploration",
     body: "Advanced 3D seismic analysis and geological mapping driving discovery across PML 13, Qua Iboe field.",
-    image: "/images/exploration.jpg",
+    image: "/images/exploration_home.jpg",
   },
   {
     num: "02 / DRILLING",
     title: "Well Drilling & Completion",
     body: "Precision drilling programmes using best-in-class technology to maximise recovery with highest safety standards.",
-    image: "/slides/slide-2.jpg",
+    image: "/images/operation_bg.jpg",
   },
   {
     num: "03 / PRODUCTION",
     title: "Production & Processing",
     body: "State-of-the-art facilities handling crude oil separation, gas processing, and water injection to support peak production rates.",
-    image: "/images/production.jpg",
+    image: "/images/production_home.jpg",
   },
   {
     num: "04 / ENVIRONMENT",
     title: "HSE & Community Focus",
     body: "Maintaining an impeccable safety record through strict regulatory compliance, rigorous asset integrity inspections, and clean operations.",
-    image: "/images/workers.jpg",
+    image: "/images/sustainability_home.jpg",
   },
 ];
 
@@ -281,7 +281,7 @@ export default function Operations() {
         <div className="relative min-h-[220px] sm:min-h-[280px] md:min-h-[330px] lg:min-h-[372px]">
           <div ref={heroImageRef} className="absolute inset-0">
             <Image
-              src="/images/operations.jpg"
+              src="/images/operation_bg.jpg"
               alt="NEPN offshore energy production facility"
               fill
               priority
@@ -613,15 +613,15 @@ export default function Operations() {
             <div className="flex w-full max-w-[980px] flex-col gap-6 py-8 md:flex-row md:items-center md:justify-between md:gap-8 md:py-0">
               {/* Text */}
               <div className="w-full max-w-[500px]">
-                <p
+                <h3
                   className="text-white font-bold leading-tight"
                   style={{
                     fontSize: "26px",
                   }}
                 >
                   Interested in Our Operations?
-                </p>
-                <p className="mt-[6px] text-white/75 text-xs sm:text-[13px] leading-relaxed">
+                </h3>
+                <p className="mt-[6px] text-white/75 text-xs sm:text-[13px] leading-relaxed font-sans">
                   Speak with our technical team about partnership opportunities.
                 </p>
               </div>
