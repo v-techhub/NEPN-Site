@@ -398,23 +398,24 @@ export default function Partners() {
           {/* Dynamic grid cards based on activeTab */}
           <div
             data-grid-items
-            className={`grid gap-5 ${
+            className={`grid gap-0 ${
               activeTab === "strategic"
-                ? "grid-cols-1 md:grid-cols-3"
+                ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
                 : activeTab === "top"
-                  ? "grid-cols-1 md:grid-cols-3"
+                  ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
                   : "grid-cols-1 md:grid-cols-1 max-w-md"
             }`}
+            style={{ border: "1px solid #e0e0e0" }}
           >
             {isLoading ? (
-              Array.from({ length: 3 }).map((_, i) => (
+              Array.from({ length: 6 }).map((_, i) => (
                 <div
                   key={i}
-                  className="bg-white rounded-2xl p-8 border border-neutral-100/90 flex flex-col justify-center items-center h-48 animate-pulse"
+                  className="bg-white p-8 flex flex-col justify-center items-center animate-pulse"
+                  style={{ border: "1px solid #e0e0e0", minHeight: "200px" }}
                 >
-                  <div className="w-24 h-10 bg-neutral-200 rounded mb-4" />
-                  <div className="w-3/4 h-4 bg-neutral-200 rounded mb-2" />
-                  <div className="w-1/2 h-3 bg-neutral-200 rounded" />
+                  <div className="w-16 h-16 bg-neutral-100 rounded-full mb-5" />
+                  <div className="w-3/4 h-4 bg-neutral-100 rounded" />
                 </div>
               ))
             ) : currentPartners.length === 0 ? (
@@ -427,22 +428,28 @@ export default function Partners() {
               currentPartners.map((partner) => (
                 <div
                   key={partner.name}
-                  className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.015)] border border-neutral-100/90 py-8 px-6 flex flex-col justify-between items-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgb(0,0,0,0.04)] hover:border-neutral-200 group cursor-default"
+                  className="bg-white p-6 sm:p-8 flex flex-col items-center justify-center text-center transition-colors duration-200 hover:bg-[#fafafa] group cursor-default"
+                  style={{ border: "1px solid #e0e0e0", minHeight: "200px" }}
                 >
-                  <div className="w-full flex-1 flex flex-col justify-center items-center">
-                    {/* Fallback-loader logo frame */}
+                  {/* Logo */}
+                  <div className="flex items-center justify-center mb-5 h-[72px]">
                     <PartnerLogo src={partner.logo} name={partner.name} />
-
-                    <h3 className="text-sm font-bold text-[#1e2620] mt-5 leading-snug px-3 max-w-[240px]">
-                      {partner.name}
-                    </h3>
-
-                    {partner.description && (
-                      <p className="mt-4 text-xs sm:text-[13px] text-neutral-500 leading-relaxed font-sans px-2 max-w-[340px]">
-                        {partner.description}
-                      </p>
-                    )}
                   </div>
+
+                  {/* Name */}
+                  <h3
+                    className="text-[13px] sm:text-sm font-semibold text-[#333] leading-snug max-w-[240px]"
+                    style={{ fontFamily: "'Clash Display', sans-serif" }}
+                  >
+                    {partner.name}
+                  </h3>
+
+                  {/* Description — only for non-strategic tabs */}
+                  {activeTab !== "strategic" && partner.description && (
+                    <p className="mt-3 text-xs text-neutral-400 leading-relaxed font-sans px-2 max-w-[280px]">
+                      {partner.description}
+                    </p>
+                  )}
                 </div>
               ))
             )}
@@ -467,9 +474,9 @@ export default function Partners() {
           </div>
 
           <h2
-            className="font-black leading-tight text-white mb-4"
+            className="font-bold leading-snug text-white mb-4 tracking-[-0.01em]"
             style={{
-              fontSize: "clamp(2rem, 4.4vw, 3.45rem)",
+              fontSize: "clamp(2.2rem, 4.4vw, 3.45rem)",
             }}
           >
             Interested in Partnering With NEPN?

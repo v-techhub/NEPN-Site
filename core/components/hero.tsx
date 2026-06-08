@@ -68,7 +68,6 @@ const AUTO_PLAY_INTERVAL = 6000;
 export default function HeroCarousel() {
   const [current, setCurrent] = useState(0);
   const [animating, setAnimating] = useState(false);
-  const [statsVisible, setStatsVisible] = useState(false);
   const [animatedStats, setAnimatedStats] = useState(STATS.map(() => 0));
 
   const badgeRef = useRef(null);
@@ -149,8 +148,9 @@ export default function HeroCarousel() {
         ease: "power3.out",
         delay: 0.8,
         onComplete: () => {
-          setStatsVisible(true);
-          setAnimatedStats(STATS.map((s) => s.value));
+          setTimeout(() => {
+            setAnimatedStats(STATS.map((s) => s.value));
+          }, 50);
         },
       },
     );
@@ -182,7 +182,7 @@ export default function HeroCarousel() {
   const slide = SLIDES[current];
 
   return (
-    <section className="relative w-full h-[92vh] min-h-[560px] max-h-[900px] overflow-hidden bg-black">
+    <section className="relative w-full h-dvh min-h-[560px] overflow-hidden bg-black">
       {/* ── Background Media Slideshow ─────────────────────────────────── */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         {BACKGROUNDS.map((bg, index) => {
@@ -237,7 +237,7 @@ export default function HeroCarousel() {
       {/* ── Main content grid ───────────────────────────────────────────── */}
       <div className="relative z-10 w-full h-full flex">
         {/* LEFT CONTENT */}
-        <div className="flex-1 flex flex-col justify-center px-8 sm:px-12 lg:px-16 xl:px-20 pb-16 pt-[96px] lg:pt-[110px]">
+        <div className="flex-1 flex flex-col justify-center px-8 sm:px-12 lg:px-16 xl:px-20 pb-28 pt-[96px] lg:pt-[110px]">
           {/* Badge */}
           <div ref={badgeRef} className="flex items-center gap-2.5 mb-6">
             <span className="block w-2.5 h-2.5 rounded-full bg-red-500" />
@@ -300,7 +300,7 @@ export default function HeroCarousel() {
           </div>
 
           {/* Dots */}
-          <div className="absolute bottom-8 left-8 flex gap-3">
+          <div className="absolute bottom-10 left-8 sm:left-12 lg:left-16 xl:left-20 flex gap-3">
             {SLIDES.map((_, i) => (
               <button key={i} onClick={() => goTo(i)}>
                 <span
@@ -339,7 +339,7 @@ export default function HeroCarousel() {
             >
               <div className="flex items-start leading-none mb-2">
                 <span className="font-black text-white text-5xl">
-                  {statsVisible ? <NumberFlow value={animatedStats[i]} /> : 0}
+                  <NumberFlow value={animatedStats[i]} />
                 </span>
                 <span className="text-white font-bold ml-1">{stat.suffix}</span>
               </div>

@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import { gsap } from "gsap";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export interface StaggeredMenuItem {
   label: string;
@@ -61,6 +62,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const openRef = useRef(false);
 
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -124,9 +126,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       preLayerElsRef.current = preLayers;
 
       const offscreen = position === "left" ? -100 : 100;
-      gsap.set([panel, ...preLayers], { xPercent: offscreen, opacity: 1 });
+      gsap.set([panel, ...preLayers], { xPercent: offscreen, opacity: 1, visibility: "visible" });
       if (preContainer) {
-        gsap.set(preContainer, { xPercent: 0, opacity: 1 });
+        gsap.set(preContainer, { xPercent: 0, opacity: 1, visibility: "visible" });
       }
 
       gsap.set(plusH, { transformOrigin: "50% 50%", rotate: 0 });
@@ -470,6 +472,18 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     };
   }, [closeOnClickAway, open, closeMenu]);
 
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        closeMenu();
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [closeMenu]);
+
   return (
     <div
       className={`sm-scope z-40 ${isFixed ? "fixed top-0 left-0 w-screen h-screen overflow-hidden pointer-events-none" : "w-full h-full pointer-events-none"}`}
@@ -516,6 +530,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           className="staggered-menu-header w-full flex items-center justify-between pointer-events-none z-20 transition-all duration-300"
           data-scrolled={scrolled || undefined}
           data-open={open || undefined}
+          data-ishome={pathname === "/" || undefined}
           aria-label="Main navigation header"
         >
           <Link
@@ -546,6 +561,62 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               </span>
             </div>
           </Link>
+
+          {/* Desktop Navigation Links - Centered Pill */}
+          {items && items.length > 0 && (
+            <nav className="sm-desktop-nav pointer-events-auto">
+              <div className="sm-desktop-nav-pill">
+                {items
+                  .filter(
+                    (it) =>
+                      it.link !== "/contact" &&
+                      it.link !== "/" &&
+                      it.link !== "/news"
+                  )
+                  .map((it, idx) => {
+                    const isActive = pathname === it.link;
+                    return (
+                      <Link
+                        key={it.label + idx}
+                        href={it.link}
+                        className={`sm-desktop-nav-link${isActive ? " sm-desktop-nav-link--active" : ""}`}
+                        aria-label={it.ariaLabel}
+                      >
+                        {it.label}
+                      </Link>
+                    );
+                  })}
+              </div>
+            </nav>
+          )}
+
+          {/* Desktop Right Section - News + Contact CTA */}
+          {items && items.length > 0 && (
+            <div className="sm-desktop-right pointer-events-auto">
+              {items
+                .filter((it) => it.link === "/news")
+                .map((it, idx) => {
+                  const isActive = pathname === it.link;
+                  return (
+                    <Link
+                      key={it.label + idx}
+                      href={it.link}
+                      className={`sm-desktop-right-link${isActive ? " sm-desktop-right-link--active" : ""}`}
+                      aria-label={it.ariaLabel}
+                    >
+                      {it.label}
+                    </Link>
+                  );
+                })}
+              <Link
+                href="/contact"
+                className="sm-desktop-contact-btn"
+                aria-label="Get in touch with us"
+              >
+                Contact Us
+              </Link>
+            </div>
+          )}
 
           <button
             ref={toggleBtnRef}
@@ -700,9 +771,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .sm-panel-itemWrap { position: relative; overflow: hidden; line-height: 1.1; padding-right: 3.5rem; }
 .sm-scope .sm-icon-line { position: absolute; left: 50%; top: 50%; width: 100%; height: 2px; background: currentColor; border-radius: 2px; transform: translate(-50%, -50%); will-change: transform; }
 .sm-scope .sm-line { display: none !important; }
-.sm-scope .staggered-menu-panel { position: absolute; top: 0; right: 0; width: clamp(260px, 38vw, 420px); height: 100%; background: white; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; flex-direction: column; padding: 6em 2em 2em 2em; overflow-y: auto; z-index: 10; }
+.sm-scope .staggered-menu-panel { position: absolute; top: 0; right: 0; width: clamp(260px, 38vw, 420px); height: 100%; background: white; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; flex-direction: column; padding: 6em 2em 2em 2em; overflow-y: auto; z-index: 10; opacity: 0; visibility: hidden; }
 .sm-scope [data-position='left'] .staggered-menu-panel { right: auto; left: 0; }
-.sm-scope .sm-prelayers { position: absolute; top: 0; right: 0; bottom: 0; width: clamp(260px, 38vw, 420px); pointer-events: none; z-index: 5; }
+.sm-scope .sm-prelayers { position: absolute; top: 0; right: 0; bottom: 0; width: clamp(260px, 38vw, 420px); pointer-events: none; z-index: 5; opacity: 0; visibility: hidden; }
 .sm-scope [data-position='left'] .sm-prelayers { right: auto; left: 0; }
 .sm-scope .sm-prelayer { position: absolute; top: 0; right: 0; height: 100%; width: 100%; transform: translateX(0); }
 .sm-scope .sm-panel-inner { flex: 1; display: flex; flex-direction: column; gap: 1.25rem; }
@@ -725,7 +796,146 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .sm-panel-list[data-numbering] { counter-reset: smItem; }
 .sm-scope .sm-panel-list[data-numbering] .sm-panel-item::after { counter-increment: smItem; content: counter(smItem, decimal-leading-zero); position: absolute; top: 50%; transform: translateY(-50%); right: 0.5rem; font-size: 16px; font-weight: 400; color: var(--sm-accent, #ff0000); letter-spacing: 0; pointer-events: none; user-select: none; opacity: var(--sm-num-opacity, 0); }
 
-@media (max-width: 1024px) {
+/* ── Desktop Navigation (3-section Wollo layout) ── */
+.sm-scope .sm-desktop-nav,
+.sm-scope .sm-desktop-right { display: none; }
+
+@media (min-width: 1024px) {
+  .sm-scope .sm-toggle { display: none !important; }
+
+  .sm-scope .staggered-menu-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .sm-scope .sm-desktop-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sm-scope .sm-desktop-right {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .sm-scope .staggered-menu-header[data-ishome="true"]:not([data-scrolled="true"]) {
+    padding-right: calc(240px + 2.5rem);
+  }
+}
+
+/* Centered pill container */
+.sm-scope .sm-desktop-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  border-radius: 100px;
+  padding: 0.35rem 0.35rem;
+}
+.sm-scope .staggered-menu-header:not([data-scrolled="true"]) .sm-desktop-nav-pill {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+.sm-scope .staggered-menu-header[data-scrolled="true"] .sm-desktop-nav-pill {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Nav links inside pill */
+.sm-scope .sm-desktop-nav-link {
+  position: relative;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  font-family: 'Clash Display', sans-serif !important;
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  transition: color 0.25s ease, background 0.25s ease;
+  white-space: nowrap;
+}
+.sm-scope .staggered-menu-header:not([data-scrolled="true"]) .sm-desktop-nav-link {
+  color: rgba(255, 255, 255, 0.75);
+}
+.sm-scope .staggered-menu-header:not([data-scrolled="true"]) .sm-desktop-nav-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.10);
+}
+.sm-scope .staggered-menu-header:not([data-scrolled="true"]) .sm-desktop-nav-link--active {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+}
+.sm-scope .staggered-menu-header[data-scrolled="true"] .sm-desktop-nav-link {
+  color: #555;
+}
+.sm-scope .staggered-menu-header[data-scrolled="true"] .sm-desktop-nav-link:hover {
+  color: #111;
+  background: rgba(0, 0, 0, 0.05);
+}
+.sm-scope .staggered-menu-header[data-scrolled="true"] .sm-desktop-nav-link--active {
+  color: var(--sm-accent, #CC1F1F);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Right section links */
+.sm-scope .sm-desktop-right-link {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  font-family: 'Clash Display', sans-serif !important;
+  transition: color 0.25s ease;
+  white-space: nowrap;
+}
+.sm-scope .staggered-menu-header:not([data-scrolled="true"]) .sm-desktop-right-link {
+  color: rgba(255, 255, 255, 0.8);
+}
+.sm-scope .staggered-menu-header:not([data-scrolled="true"]) .sm-desktop-right-link:hover {
+  color: #ffffff;
+}
+.sm-scope .staggered-menu-header:not([data-scrolled="true"]) .sm-desktop-right-link--active {
+  color: #ffffff;
+}
+.sm-scope .staggered-menu-header[data-scrolled="true"] .sm-desktop-right-link {
+  color: #555;
+}
+.sm-scope .staggered-menu-header[data-scrolled="true"] .sm-desktop-right-link:hover {
+  color: #111;
+}
+.sm-scope .staggered-menu-header[data-scrolled="true"] .sm-desktop-right-link--active {
+  color: var(--sm-accent, #CC1F1F);
+}
+
+/* Contact CTA Button */
+.sm-scope .sm-desktop-contact-btn {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  font-family: 'Clash Display', sans-serif !important;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  background: var(--sm-accent, #CC1F1F);
+  color: #ffffff;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
+}
+.sm-scope .sm-desktop-contact-btn:hover {
+  background: #a01818;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(204, 31, 31, 0.35);
+}
+
+@media (max-width: 1023px) {
   .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; }
   .sm-scope .sm-panel-item { font-size: clamp(1.8rem, 6vw, 2.5rem); letter-spacing: -1px; }
   .sm-scope .sm-panel-itemWrap { padding-right: 3.5rem; }

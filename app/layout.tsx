@@ -4,6 +4,7 @@ import Navigation from "@/core/components/navigation";
 import Footer from "@/core/components/footer";
 import SmoothScroll from "@/core/components/smooth-scroll";
 import Providers from "@/core/components/providers";
+import EnterpriseLoader from "@/core/components/enterprise-loader";
 import { Quicksand } from "next/font/google";
 import localFont from "next/font/local";
 
@@ -69,6 +70,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${fontSans.variable} ${clashDisplay.variable} antialiased`}
       >
+        <EnterpriseLoader />
         <Providers>
           <SmoothScroll>
             <Navigation />

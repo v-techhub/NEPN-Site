@@ -1,0 +1,306 @@
+/* ─── Brand Tokens ───────────────────────────────────────────────────────── */
+:root {
+  --green-primary:   #006633;
+  --green-secondary: #14874f;
+  --green-dark:      #0c5c34;
+  --green-footer:    #31c48d;
+  --red-corporate:   #CC1F1F;
+  --red-bright:      #ED1D24;
+  --charcoal:        #0e0f11;
+  --charcoal-2:      #141619;
+  --steel:           #1c2028;
+  --steel-mid:       #252c38;
+  --amber:           #b87b2a;
+  --amber-pale:      #c9904a;
+  --white-85:        rgba(255, 255, 255, 0.85);
+  --white-40:        rgba(255, 255, 255, 0.40);
+  --white-10:        rgba(255, 255, 255, 0.10);
+  --white-06:        rgba(255, 255, 255, 0.06);
+
+  /* Wipe easing — shared across all layers */
+  --ease-wipe: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* ─── Root ───────────────────────────────────────────────────────────────── */
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  overflow: hidden;
+  contain: paint;
+  pointer-events: none;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ─── Full-screen Bands ──────────────────────────────────────────────────── */
+/*
+  All bands cover the entire viewport (inset: 0).
+  They stack in z-order below the main panel.
+  At rest they sit flush — you only see the topmost (panel).
+  On wipe, each band slides off upward with an increasing delay,
+  peeling the screen away in layers like a reveal card.
+
+  z-order (highest = exits first, seen last while others still cover):
+    panel  z:10000  charcoal       → exits 1st  (delay: 0ms)
+    band1  z:9999   primary green  → exits 2nd  (delay: 80ms)
+    band2  z:9998   dark green     → exits 3rd  (delay: 180ms)
+    band3  z:9997   secondary green→ exits 4th  (delay: 290ms)
+    band4  z:9996   footer green   → exits 5th  (delay: 410ms)
+    band5  z:9995   corporate red  → exits last (delay: 540ms)
+*/
+.band {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.band1 { background: #B497CF; z-index: 9999; }
+.band2 { background: #5227FF; z-index: 9998; }
+.band3 { background: #B497CF; z-index: 9997; }
+.band4 { background: #5227FF; z-index: 9996; }
+.band5 { background: #B497CF; z-index: 9995; }
+
+/* ── Band wipe animations ── */
+/*
+  Each band uses the same upward translate keyframe but with a different
+  animation-delay. The slight scaleY variation per band adds a physical
+  "snap" quality — heavier layers compress more, lighter ones stretch.
+*/
+.band1Wipe {
+  animation: wipe-up 0.65s var(--ease-wipe) 80ms both;
+}
+.band2Wipe {
+  animation: wipe-up 0.65s var(--ease-wipe) 180ms both;
+}
+.band3Wipe {
+  animation: wipe-up 0.68s var(--ease-wipe) 290ms both;
+}
+.band4Wipe {
+  animation: wipe-up 0.70s var(--ease-wipe) 410ms both;
+}
+.band5Wipe {
+  animation: wipe-up 0.72s var(--ease-wipe) 540ms both;
+}
+
+/* ─── Main Panel ─────────────────────────────────────────────────────────── */
+.panel {
+  position: absolute;
+  inset: 0;
+  z-index: 10000;
+  background: var(--charcoal);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  transform-origin: top center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  contain: paint;
+}
+
+/* Diagonal structural grain */
+.panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 60px,
+    rgba(255, 255, 255, 0.011) 60px,
+    rgba(255, 255, 255, 0.011) 61px
+  );
+  pointer-events: none;
+}
+
+/* Corporate red hairline on top edge */
+.panel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--red-corporate) 15%,
+    var(--red-bright) 50%,
+    var(--red-corporate) 85%,
+    transparent 100%
+  );
+  opacity: 0.75;
+}
+
+.panelWipe {
+  animation: panel-wipe 0.62s var(--ease-wipe) 0ms both;
+}
+
+/* ─── Loader Content ─────────────────────────────────────────────────────── */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  will-change: opacity, transform;
+  animation: content-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.contentOut {
+  animation: content-out 0.22s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+/* ─── Logo Mark ──────────────────────────────────────────────────────────── */
+.logoWrap {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.logoImage {
+  position: relative;
+  z-index: 1;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  user-select: none;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.35));
+}
+
+.ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 0.5px solid rgba(0, 102, 51, 0.45);
+}
+
+.ringOuter {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  border: 0.5px solid var(--white-06);
+}
+
+/* ─── Wordmark ───────────────────────────────────────────────────────────── */
+.wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.wordmarkPrimary {
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  color: var(--white-85);
+  text-transform: uppercase;
+}
+
+.wordmarkDivider {
+  width: 24px;
+  height: 1px;
+  background: var(--green-footer);
+  opacity: 0.8;
+}
+
+.wordmarkSecondary {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.42em;
+  color: var(--green-footer);
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+/* ─── Tagline ────────────────────────────────────────────────────────────── */
+.tagline {
+  margin-top: 28px;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.38em;
+  color: var(--white-40);
+  text-transform: uppercase;
+}
+
+/* ─── Load Bar ───────────────────────────────────────────────────────────── */
+.barTrack {
+  margin-top: 36px;
+  width: 80px;
+  height: 1px;
+  background: var(--white-10);
+  position: relative;
+  overflow: hidden;
+}
+
+.barFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  background: var(--green-secondary);
+  opacity: 0.9;
+  animation: bar-fill 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
+}
+
+/* ─── Keyframes ──────────────────────────────────────────────────────────── */
+
+@keyframes content-in {
+  0%   { opacity: 0; transform: translate3d(0, 10px, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes content-out {
+  0%   { opacity: 1; transform: translate3d(0, 0, 0); }
+  100% { opacity: 0; transform: translate3d(0, -6px, 0); }
+}
+
+@keyframes bar-fill {
+  0%   { width: 0%; }
+  60%  { width: 78%; }
+  100% { width: 100%; }
+}
+
+/*
+  Panel wipe — exits first, slight compression then clean acceleration.
+  No trailing scaleY artifact on the green bands beneath.
+*/
+@keyframes panel-wipe {
+  0%   { transform: translate3d(0, 0%, 0)    scaleY(1); }
+  5%   { transform: translate3d(0, -0.4%, 0) scaleY(1.003); }
+  12%  { transform: translate3d(0, -3%, 0)   scaleY(1.006); }
+  100% { transform: translate3d(0, -102%, 0) scaleY(0.998); }
+}
+
+/*
+  Shared band wipe — all bands use this single keyframe.
+  The stagger comes entirely from animation-delay on each band class,
+  keeping keyframe logic DRY and the motion system coherent.
+*/
+@keyframes wipe-up {
+  0%   { transform: translate3d(0, 0%, 0)    scaleY(1); }
+  6%   { transform: translate3d(0, -0.5%, 0) scaleY(1.004); }
+  100% { transform: translate3d(0, -102%, 0) scaleY(0.998); }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .content,
+  .contentOut,
+  .panel,
+  .panelWipe,
+  .band1Wipe,
+  .band2Wipe,
+  .band3Wipe,
+  .band4Wipe,
+  .band5Wipe,
+  .barFill {
+    animation: none;
+  }
+}
