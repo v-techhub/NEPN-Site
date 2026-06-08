@@ -13,16 +13,16 @@ const TABS = [
     id: "history",
     label: "HISTORY",
     paragraphs: [
-      "Founded in 2001, Network Exploration & Production Nigeria Limited (NEPN) was established to champion indigenous participation in Nigeria's oil and gas sector.",
-      "From modest beginnings, NEPN has grown into a respected operator with a proven track record across upstream exploration and production activities in the Niger Delta.",
+      "Network E&P Nigeria Limited (NEPN) is a fully Nigerian-owned oil and gas company dedicated to sustainable energy solutions. Since 2001, we have been developing the Qua Iboe field in PML 13, playing a vital role in Nigeria's energy landscape.",
+      "100% Nigerian-owned and operated, proving that indigenous companies can lead in one of the world's most demanding industries.",
     ],
   },
   {
     id: "mission",
     label: "MISSION",
     paragraphs: [
-      "To responsibly explore and produce Nigeria's hydrocarbon resources, generating value for our shareholders, host communities, and the nation through operational excellence and ethical business practices.",
-      "We are driven by a commitment to delivering energy security while ensuring the highest standards of health, safety, and environmental stewardship across all operations.",
+      "To explore, develop, and produce hydrocarbon resources in Nigeria with the highest levels of technical expertise, safety, and environmental stewardship, creating sustainable value for shareholders, employees, host communities, and Nigeria.",
+      "To create sustainable value through safe, efficient, and responsible oil and gas operations while upholding the highest standards of environmental and community stewardship",
     ],
   },
   {
@@ -30,7 +30,7 @@ const TABS = [
     label: "VISION",
     paragraphs: [
       "To be the preeminent indigenous E&P company in Nigeria, a globally respected operator known for technical excellence, transparent governance, and transformative community impact.",
-      "100% Nigerian-owned and operated, proving that indigenous companies can lead in one of the world's most demanding industries.",
+      "To deliver energy with excellence, innovation, and responsibility, powering Nigeria's growth today while enabling a sustainable future",
     ],
   },
 ];
@@ -43,8 +43,8 @@ const FACTS = [
 ];
 
 export default function CompanyOverview() {
-  const [activeTab, setActiveTab] = useState("vision");
-  const [displayTab, setDisplayTab] = useState("vision");
+  const [activeTab, setActiveTab] = useState("history");
+  const [displayTab, setDisplayTab] = useState("history");
 
   const sectionRef = useRef<HTMLElement | null>(null);
   const imgWrapRef = useRef<HTMLDivElement | null>(null);
@@ -194,7 +194,7 @@ export default function CompanyOverview() {
           className="relative min-h-[420px] w-full overflow-hidden lg:min-h-0"
         >
           <Image
-            src="/images/facility.jpg"
+            src="/images/dam.jpg"
             alt="NEPN facility"
             fill
             className="object-cover object-center"

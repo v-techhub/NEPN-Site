@@ -29,7 +29,7 @@ const TOP_CARDS = [
     num: "01",
     category: "EXPLORATION",
     title: "Exploration & Surveys",
-    image: "/images/exploration.jpg",
+    image: "/images/exploration_home.jpg",
     gradient:
       "linear-gradient(180deg, rgba(17, 126, 67, 0.09) 0%, rgba(17, 126, 67, 0.09) 30%, rgba(17, 126, 67, 0.36) 75%)",
     href: "/operations",
@@ -38,7 +38,7 @@ const TOP_CARDS = [
     num: "02",
     category: "PRODUCTION",
     title: "Production Management",
-    image: "/images/production.jpg",
+    image: "/images/production_home.jpg",
     gradient:
       "linear-gradient(180deg, rgba(237, 29, 36, 0.1) 0%, rgba(237, 29, 36, 0.1) 30%, rgba(200, 17, 23, 0.4) 75%)",
     href: "/operations",
@@ -47,7 +47,7 @@ const TOP_CARDS = [
     num: "03",
     category: "SUSTAINABILITY",
     title: "HSE & Environment",
-    image: "/images/sustainability.jpg",
+    image: "/images/sustainability_home.jpg",
     gradient:
       "linear-gradient(180deg, rgba(0, 0, 254, 0.1) 0%, rgba(0, 0, 254, 0.1) 30%, rgba(0, 0, 200, 0.4) 75%)",
     href: "/sustainability",
@@ -345,27 +345,12 @@ export default function ShowcaseGrid() {
         ))}
       </div>
 
-      {/* ══ ROW 2: Image left + Green panel right ═════════════════════════════ */}
+      {/* ══ ROW 2: Image Right + Green panel left ═════════════════════════════ */}
       <div
         className="grid grid-cols-1 lg:grid-cols-2"
         style={{ minHeight: "clamp(340px, 42vw, 520px)" }}
       >
-        {/* Left image */}
-        <div
-          ref={midImgRef}
-          className="relative overflow-hidden"
-          style={{ minHeight: "320px" }}
-        >
-          <Image
-            src="/slides/slide-3.jpg"
-            alt="NEPN team commitment"
-            fill
-            className="object-cover object-center"
-            sizes="50vw"
-          />
-        </div>
-
-        {/* Right green panel */}
+        {/* Left green panel */}
         <div
           ref={midPanelRef}
           className="flex items-center"
@@ -450,6 +435,21 @@ export default function ShowcaseGrid() {
             </div>
           </div>
         </div>
+
+        {/* Right image */}
+        <div
+          ref={midImgRef}
+          className="relative overflow-hidden"
+          style={{ minHeight: "320px" }}
+        >
+          <Image
+            src="/images/members_01.jpg"
+            alt="NEPN team commitment"
+            fill
+            className="object-cover object-center"
+            sizes="50vw"
+          />
+        </div>
       </div>
 
       {/* ══ ROW 3: Image left + Blue panel right ══════════════════════════════ */}
@@ -464,7 +464,7 @@ export default function ShowcaseGrid() {
           style={{ minHeight: "320px" }}
         >
           <Image
-            src="/images/banner.jpg"
+            src="/images/sky_shot.jpg"
             alt="OML 13 Qua Iboe field aerial view"
             fill
             className="object-cover object-center"

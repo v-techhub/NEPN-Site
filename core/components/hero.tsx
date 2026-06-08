@@ -15,27 +15,28 @@ import NumberFlow from "@number-flow/react";
 import { gsap } from "gsap";
 
 // ─── Background Video ─────────────────────────────────────────────────────────
-const HERO_VIDEO = "https://bepikg4pccoyqcez.public.blob.vercel-storage.com/hero-video.mp4";
+const HERO_VIDEO =
+  "https://bepikg4pccoyqcez.public.blob.vercel-storage.com/4.1%20Video%20Project%201.mp4";
 
 // ─── Slide Data (TEXT ONLY NOW) ───────────────────────────────────────────────
 const SLIDES = [
   {
     id: 1,
-    badge: "NIGERIA'S INDIGENOUS ENERGY PIONEER",
+    badge: "Powering Progress Through Exploration",
     headingWhite: "Powering\nProgress\nThrough",
     headingGreen: "Exploration",
     body: "At NEPN, we discover and harness energy responsibly to fuel economies and empower communities across Nigeria, driven by excellence, sustainability, and lasting impact.",
   },
   {
     id: 2,
-    badge: "SUSTAINABLE ENERGY FOR TOMORROW",
+    badge: "Transforming Resources Into Opportunities",
     headingWhite: "Building\nA Greener\nFuture",
     headingGreen: "Together",
     body: "We are committed to responsible resource management, reducing our environmental footprint while maximising value for communities and stakeholders across the Niger Delta.",
   },
   {
     id: 3,
-    badge: "COMMUNITY. INNOVATION. EXCELLENCE.",
+    badge: "Exploring Energy Exploring Progress",
     headingWhite: "Driving\nNational\nGrowth",
     headingGreen: "Through Oil & Gas",
     body: "With world-class expertise and a deep local knowledge, NEPN continues to set the standard for indigenous energy exploration and production in Nigeria.",
@@ -45,8 +46,8 @@ const SLIDES = [
 // ─── Stats Data ────────────────────────────────────────────────────────────────
 const STATS = [
   { value: 20, suffix: "+", label: "YEARS OF EXCELLENCE" },
-  { value: 12, suffix: " +", label: "ACTIVE PROJECTS" },
-  { value: 150, suffix: "+", label: "DEDICATED EMPLOYEES" },
+  { value: 24, suffix: " +", label: "ACTIVE PROJECTS" },
+  { value: 100, suffix: "+", label: "DEDICATED EMPLOYEES" },
 ];
 
 const AUTO_PLAY_INTERVAL = 6000;
