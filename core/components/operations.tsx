@@ -14,24 +14,28 @@ const OPERATIONAL_STAGES = [
     num: "01 / EXPLORATION",
     title: "Exploration",
     body: "Advanced 3D seismic analysis and geological mapping driving discovery across PML 13, Qua Iboe field.",
+    details: "The Qua Ibo Marginal Field, discovered by Shell Petroleum Development Company (SPDC) in 1960, is located within a 14 km² farm-out area in PML 13, onshore Akwa Ibom State. A Farm-out Agreement was executed on 29 April 2004 between NEPN, SPDC, and its joint venture partners, granting NEPN development rights to the field.",
     image: "/images/exploration_home.jpg",
   },
   {
     num: "02 / DRILLING",
     title: "Well Drilling & Completion",
     body: "Precision drilling programmes using best-in-class technology to maximise recovery with highest safety standards.",
+    details: "Five wells have been drilled in the field: Qua Ibo–1, Qua Ibo–2, Qua Ibo–3, Qua Ibo–3ST, and Qua Ibo–4. Qua Ibo–1, drilled in 1960, was plugged and abandoned after inconclusive testing. The appraisal well, Qua Ibo–2 (1971), confirmed the presence of oil in five horizons and gas in five zones at depths between 3,310 and 7,100 feet subsea. The reservoirs contain light crude oil with gravities ranging from 20° to over 40° API. NEPN continues to leverage the field’s proven hydrocarbon potential through efficient and professionally managed upstream operations.",
     image: "/images/operation_bg.jpg",
   },
   {
     num: "03 / PRODUCTION",
-    title: "Production & Processing",
-    body: "State-of-the-art facilities handling crude oil separation, gas processing, and water injection to support peak production rates.",
+    title: "Production Management",
+    body: "Safe, efficient production from established wells with continuous optimisation programmes year-on-year.",
+    details: "Network Exploration and Production Limited is leveraging advanced digitalization technologies to maintain low operating costs and strengthen profitability in a lower-for-longer oil price environment. The company is assessing the impact of these technologies on sustainable operations while exploring innovative solutions to optimize recovery from the Qua Ibo field. In pursuit of cost efficiency, NEPN collaborates with research firms, data analytics providers, consultants, and industry stakeholders, alongside partnerships with the Nigerian government, to drive effective and sustainable digital transformation in oil and gas production.",
     image: "/images/production_home.jpg",
   },
   {
-    num: "04 / ENVIRONMENT",
-    title: "HSE & Community Focus",
-    body: "Maintaining an impeccable safety record through strict regulatory compliance, rigorous asset integrity inspections, and clean operations.",
+    num: "04 / HSE",
+    title: "Environmental & HSE Management",
+    body: "Rigorous HSE management systems embedded into every phase of operational activity at all sites.",
+    details: "The company operates a proactive HSE Management System that identifies hazards, assesses risks, and implements mitigation measures while ensuring continuous monitoring and improvement. HSE risks are systematically analyzed to protect employees, contractors, assets, host communities, the environment, and the public, with risk management embedded in all operations.",
     image: "/images/sustainability_home.jpg",
   },
 ];
@@ -434,6 +438,14 @@ export default function Operations() {
                         <p className="text-[13px] text-white/80 leading-relaxed max-w-[90%] opacity-85 group-hover:opacity-100 transition-opacity duration-500">
                           {stage.body}
                         </p>
+
+                        {stage.details && (
+                          <div className="max-h-0 opacity-0 group-hover:max-h-[260px] group-hover:opacity-100 transition-all duration-500 ease-out overflow-hidden">
+                            <p className="text-[12.5px] leading-relaxed text-white/70 font-sans mt-3 border-t border-white/10 pt-3">
+                              {stage.details}
+                            </p>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

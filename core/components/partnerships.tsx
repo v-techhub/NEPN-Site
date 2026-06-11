@@ -19,6 +19,33 @@ import { getImageUrl } from "@/core/api/client";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const DEFAULT_PARTNERS = [
+  {
+    id: "seplat",
+    logo: "/images/partners/seplat.jpg",
+    logoAlt: "Seplat logo",
+    name: "Seplat",
+    description:
+      "Strategic joint venture supporting Nigeria's national oil infrastructure and production goals.",
+  },
+  {
+    id: "nuprc",
+    logo: "/images/partners/nuprc.jpg",
+    logoAlt: "NUPRC logo",
+    name: "NUPRC",
+    description:
+      "Regulatory partnership ensuring full compliance in Nigeria's upstream petroleum sector.",
+  },
+  {
+    id: "oando",
+    logo: "/images/partners/oando.jpg",
+    logoAlt: "Oando logo",
+    name: "Oando",
+    description:
+      "Leading Nigerian and international financial institutions funding our exploration and growth.",
+  },
+];
+
 export default function Partnerships() {
   const { data: cmsPartners, isLoading } = usePartners();
 
@@ -35,13 +62,21 @@ export default function Partnerships() {
       ? cmsPartners.partners
       : [];
 
-  const partners = rawPartners.slice(0, 3).map((p) => ({
-    id: String(p.id),
-    logo: getImageUrl(p.logo),
-    logoAlt: `${p.title} logo`,
-    name: p.title,
-    description: p.description ?? "",
-  }));
+  const partners = [
+    rawPartners.find((p) => p.title.toLowerCase().includes("seplat")),
+    rawPartners.find((p) => p.title.toLowerCase().includes("nuprc")),
+    rawPartners.find((p) => p.title.toLowerCase().includes("oando")),
+  ].map((p, idx) => {
+    const fallback = DEFAULT_PARTNERS[idx];
+    if (!p) return fallback;
+    return {
+      id: String(p.id),
+      logo: getImageUrl(p.logo) || fallback.logo,
+      logoAlt: `${p.title} logo`,
+      name: p.title,
+      description: p.description || fallback.description,
+    };
+  });
 
   useEffect(() => {
     if (isLoading) return;

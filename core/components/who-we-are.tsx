@@ -26,16 +26,16 @@ const MILESTONES = [
     color: "#14874f",
   },
   {
-    year: "2005",
-    title: "Qua Iboe Exploration Begins",
-    body: "First seismic surveys commenced in the Qua Iboe field, OML 13, Akwa Ibom State.",
-    color: "#ef3b3b",
-  },
-  {
     year: "2012",
     title: "Field Office Established",
     body: "Operational field office opened at 5 Terminal Road, Inua Eyet Ikot, Ibeno LGA, Akwa Ibom State.",
     color: "#2647ff",
+  },
+  {
+    year: "2017",
+    title: "Qua Iboe Exploration Begins",
+    body: "First seismic surveys commenced in the Qua Iboe field, PML 13, Akwa Ibom State.",
+    color: "#ef3b3b",
   },
   {
     year: "2018",
@@ -598,7 +598,7 @@ export default function WhoWeAre() {
                 />
 
                 <div className="space-y-7">
-                  {MILESTONES.map((item) => (
+                  {MILESTONES.map((item, idx) => (
                     <div
                       data-story-right
                       key={`${item.year}-${item.title}`}
@@ -611,7 +611,7 @@ export default function WhoWeAre() {
                           fontFamily: "'Clash Display', sans-serif",
                         }}
                       >
-                        {item.year.slice(0, 2)}
+                        {String(idx + 1).padStart(2, "0")}
                       </div>
 
                       <div className="pb-0.5">
@@ -739,7 +739,9 @@ export default function WhoWeAre() {
                       lineHeight: "25.63px",
                       letterSpacing: "0%",
                     }}
-                  ></p>
+                  >
+                    {FEATURE_SPLITS[1].body}
+                  </p>
                 </div>
               </div>
             </div>

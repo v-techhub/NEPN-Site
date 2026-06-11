@@ -81,15 +81,28 @@ export default function Contact() {
 
   const validateForm = () => {
     const tempErrors: Record<string, string> = {};
-    if (!formData.firstName.trim())
+    if (!formData.firstName.trim()) {
       tempErrors.firstName = "First name is required";
-    if (!formData.lastName.trim())
+    } else if (/\d/.test(formData.firstName)) {
+      tempErrors.firstName = "First name cannot contain numbers";
+    }
+
+    if (!formData.lastName.trim()) {
       tempErrors.lastName = "Last name is required";
+    } else if (/\d/.test(formData.lastName)) {
+      tempErrors.lastName = "Last name cannot contain numbers";
+    }
+
     if (!formData.email.trim()) {
       tempErrors.email = "Email address is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       tempErrors.email = "Invalid email format";
     }
+
+    if (formData.phone.trim() && /[a-zA-Z]/.test(formData.phone)) {
+      tempErrors.phone = "Phone number cannot contain letters";
+    }
+
     if (!formData.enquiryType)
       tempErrors.enquiryType = "Please select an enquiry type";
     if (!formData.message.trim())
@@ -734,8 +747,17 @@ export default function Contact() {
                       placeholder="+234 000 000 0000"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full bg-[#f8f9fa] border border-neutral-200 px-4 py-3 rounded-lg text-sm text-neutral-800 placeholder-neutral-400 outline-none transition focus:bg-white focus:border-[#14874f]"
+                      className={`w-full bg-[#f8f9fa] border px-4 py-3 rounded-lg text-sm text-neutral-800 placeholder-neutral-400 outline-none transition focus:bg-white ${
+                        errors.phone
+                          ? "border-red-400 focus:border-red-500"
+                          : "border-neutral-200 focus:border-[#14874f]"
+                      }`}
                     />
+                    {errors.phone && (
+                      <p className="text-xs text-red-500 mt-1.5 font-medium">
+                        {errors.phone}
+                      </p>
+                    )}
                   </div>
                 </div>
 

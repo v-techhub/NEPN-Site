@@ -28,11 +28,12 @@ const TOP_CARDS = [
   {
     num: "01",
     category: "EXPLORATION",
-    title: "Exploration & Surveys",
+    title: "Exploration",
     image: "/images/exploration_home.jpg",
     gradient:
       "linear-gradient(180deg, rgba(17, 126, 67, 0.09) 0%, rgba(17, 126, 67, 0.09) 30%, rgba(17, 126, 67, 0.36) 75%)",
     href: "/operations",
+    subtext: "Advanced 3D seismic and geological analysis driving discovery in PML 13.",
   },
   {
     num: "02",
@@ -42,6 +43,7 @@ const TOP_CARDS = [
     gradient:
       "linear-gradient(180deg, rgba(237, 29, 36, 0.1) 0%, rgba(237, 29, 36, 0.1) 30%, rgba(200, 17, 23, 0.4) 75%)",
     href: "/operations",
+    subtext: "Efficient production from established wells, continuously optimized for maximum output and safety.",
   },
   {
     num: "03",
@@ -51,6 +53,7 @@ const TOP_CARDS = [
     gradient:
       "linear-gradient(180deg, rgba(0, 0, 254, 0.1) 0%, rgba(0, 0, 254, 0.1) 30%, rgba(0, 0, 200, 0.4) 75%)",
     href: "/sustainability",
+    subtext: "Zero-incident culture, gas flaring reduction, and rigorous environmental management across all sites.",
   },
 ];
 
@@ -283,7 +286,7 @@ export default function ShowcaseGrid() {
             ref={(el) => {
               topCardRefs.current[i] = el;
             }}
-            className="relative overflow-hidden cursor-pointer block"
+            className="relative overflow-hidden cursor-pointer block group"
             onMouseEnter={() => handleCardEnter(i)}
             onMouseLeave={() => handleCardLeave(i)}
           >
@@ -312,8 +315,11 @@ export default function ShowcaseGrid() {
               style={{ background: card.gradient }}
             />
 
+            {/* Darken overlay on hover for better subtext contrast */}
+            <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
+
             {/* Card text */}
-            <div className="absolute bottom-0 left-0 right-0 px-6 py-5">
+            <div className="absolute bottom-0 left-0 right-0 px-6 py-6 translate-y-[52px] group-hover:translate-y-0 transition-transform duration-500 ease-out">
               <p
                 className="text-[10px] font-bold tracking-[0.2em] mb-2"
                 style={{
@@ -332,6 +338,9 @@ export default function ShowcaseGrid() {
               >
                 {card.title}
               </h3>
+              <p className="text-[12px] sm:text-[13px] leading-relaxed text-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out mt-3 line-clamp-2">
+                {card.subtext}
+              </p>
             </div>
 
             {/* Thin border between cards */}

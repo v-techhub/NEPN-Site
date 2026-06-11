@@ -230,7 +230,7 @@ export default function HeroCarousel() {
         className="absolute inset-0 z-5 pointer-events-none"
         style={{
           background:
-            "linear-gradient(to right, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.45) 45%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0) 100%), linear-gradient(105deg, rgba(0, 60, 30, 0.82) 0%, rgba(0, 90, 45, 0.65) 38%, rgba(0, 60, 30, 0.35) 65%, rgba(0, 0, 0, 0.15) 100%)",
+            "linear-gradient(to right, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.22) 45%, rgba(0, 0, 0, 0) 80%), linear-gradient(105deg, rgba(0, 50, 25, 0.35) 0%, rgba(0, 75, 35, 0.2) 38%, rgba(0, 50, 25, 0.08) 65%, rgba(0, 0, 0, 0) 100%)",
         }}
       />
 
