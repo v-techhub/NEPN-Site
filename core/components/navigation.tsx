@@ -45,12 +45,12 @@ export default function Navigation() {
       socialItems={socialItems}
       displaySocials={false}
       displayItemNumbering={true}
-      menuButtonColor={scrolled ? "#111111" : "#ffffff"}
+      menuButtonColor="#111111"
       openMenuButtonColor="#111111"
       changeMenuColorOnOpen={true}
       colors={["#B497CF", "#5227FF"]}
       logoUrl="/logo-brand.png"
-      accentColor="#CC1F1F"
+      accentColor="#14874f"
       isFixed={true}
     />
   );

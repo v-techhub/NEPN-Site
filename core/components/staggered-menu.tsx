@@ -548,7 +548,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             />
             <div
               className="sm-logo-text flex flex-col leading-tight transition-colors duration-300 text-left"
-              style={{ color: scrolled || open ? "#111827" : "#ffffff" }}
+              style={{ color: "#111827" }}
             >
               <span className="font-bold tracking-widest uppercase">
                 Network Exploration
@@ -562,52 +562,26 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             </div>
           </Link>
 
-          {/* Desktop Navigation Links - Centered Pill */}
+          {/* Desktop Navigation Menu (Right-aligned) */}
           {items && items.length > 0 && (
-            <nav className="sm-desktop-nav pointer-events-auto">
-              <div className="sm-desktop-nav-pill">
+            <div className="sm-desktop-menu pointer-events-auto">
+              <nav className="sm-desktop-links">
                 {items
-                  .filter(
-                    (it) =>
-                      it.link !== "/contact" &&
-                      it.link !== "/" &&
-                      it.link !== "/news"
-                  )
+                  .filter((it) => it.link !== "/contact")
                   .map((it, idx) => {
                     const isActive = pathname === it.link;
                     return (
                       <Link
                         key={it.label + idx}
                         href={it.link}
-                        className={`sm-desktop-nav-link${isActive ? " sm-desktop-nav-link--active" : ""}`}
+                        className={`sm-desktop-link${isActive ? " sm-desktop-link--active" : ""}`}
                         aria-label={it.ariaLabel}
                       >
                         {it.label}
                       </Link>
                     );
                   })}
-              </div>
-            </nav>
-          )}
-
-          {/* Desktop Right Section - News + Contact CTA */}
-          {items && items.length > 0 && (
-            <div className="sm-desktop-right pointer-events-auto">
-              {items
-                .filter((it) => it.link === "/news")
-                .map((it, idx) => {
-                  const isActive = pathname === it.link;
-                  return (
-                    <Link
-                      key={it.label + idx}
-                      href={it.link}
-                      className={`sm-desktop-right-link${isActive ? " sm-desktop-right-link--active" : ""}`}
-                      aria-label={it.ariaLabel}
-                    >
-                      {it.label}
-                    </Link>
-                  );
-                })}
+              </nav>
               <Link
                 href="/contact"
                 className="sm-desktop-contact-btn"
@@ -620,9 +594,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
           <button
             ref={toggleBtnRef}
-            className={`sm-toggle relative inline-flex items-center gap-[0.3rem] bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible pointer-events-auto ${
-              open ? "text-black" : "text-[#e9e9ef]"
-            }`}
+            className="sm-toggle relative inline-flex items-center gap-[0.3rem] bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible pointer-events-auto text-black"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="staggered-menu-panel"
@@ -745,18 +717,35 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
       <style>{`
 .sm-scope .staggered-menu-wrapper { position: relative; width: 100%; height: 100%; z-index: 40; pointer-events: none; }
-.sm-scope .staggered-menu-header { position: absolute; top: 0; left: 0; width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 2.5rem; background: transparent; pointer-events: none; z-index: 20; transition: all 0.3s ease; }
-.sm-scope .staggered-menu-header[data-scrolled="true"],
-.sm-scope .staggered-menu-header[data-open="true"] {
+.sm-scope .staggered-menu-header {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
   height: 72px;
-  padding: 0 2.5rem;
-  background: rgba(255, 255, 255, 0.40);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-// !  box-shadow: 0 1px 0 rgba(0,0,0,0.08), 0 2px 10px rgba(0,0,0,0.04);
+  padding: 0 1.5rem;
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 20;
+  transition: all 0.3s ease;
+}
+@media (min-width: 640px) {
+  .sm-scope .staggered-menu-header {
+    padding: 0 2.5rem;
+  }
+}
+@media (min-width: 1200px) {
+  .sm-scope .staggered-menu-header {
+    height: 80px;
+  }
+}
+.sm-scope .staggered-menu-header[data-open="true"] {
+  background: transparent !important;
+  border-bottom-color: transparent !important;
 }
 .sm-scope .staggered-menu-header > * { pointer-events: auto; }
 .sm-scope .sm-logo { display: flex; align-items: center; user-select: none; }
@@ -784,7 +773,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     font-size: 7px;
   }
 }
-.sm-scope .sm-toggle { position: relative; display: inline-flex; align-items: center; gap: 0.3rem; background: transparent; border: none; cursor: pointer; color: #e9e9ef; font-weight: 500; line-height: 1; overflow: visible; font-family: 'Clash Display', sans-serif !important; }
+.sm-scope .sm-toggle { position: relative; display: inline-flex; align-items: center; gap: 0.3rem; background: transparent; border: none; cursor: pointer; color: #111111; font-weight: 500; line-height: 1; overflow: visible; font-family: 'Clash Display', sans-serif !important; }
 .sm-scope .sm-toggle:focus-visible { outline: 2px solid #ffffffaa; outline-offset: 4px; border-radius: 4px; }
 .sm-scope .sm-line:last-of-type { margin-top: 6px; }
 .sm-scope .sm-toggle-textWrap { position: relative; margin-right: 0.5em; display: inline-block; height: 1em; overflow: hidden; white-space: nowrap; width: var(--sm-toggle-width, auto); min-width: var(--sm-toggle-width, auto); }
@@ -819,9 +808,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .sm-panel-list[data-numbering] { counter-reset: smItem; }
 .sm-scope .sm-panel-list[data-numbering] .sm-panel-item::after { counter-increment: smItem; content: counter(smItem, decimal-leading-zero); position: absolute; top: 50%; transform: translateY(-50%); right: 0.5rem; font-size: 16px; font-weight: 400; color: var(--sm-accent, #ff0000); letter-spacing: 0; pointer-events: none; user-select: none; opacity: var(--sm-num-opacity, 0); }
 
-/* ── Desktop Navigation (3-section Wollo layout) ── */
-.sm-scope .sm-desktop-nav,
-.sm-scope .sm-desktop-right { display: none; }
+/* ── Desktop Navigation (Right-aligned Wollo layout) ── */
+.sm-scope .sm-desktop-menu { display: none; }
 
 @media (min-width: 1200px) {
   .sm-scope .sm-toggle { display: none !important; }
@@ -832,111 +820,85 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     justify-content: space-between;
   }
 
-  .sm-scope .sm-desktop-nav {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .sm-scope .staggered-menu-header[data-scrolled="true"] {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
   }
 
-  .sm-scope .sm-desktop-right {
+  .sm-scope .sm-desktop-menu {
     display: flex;
     align-items: center;
     gap: 1.25rem;
-    flex-shrink: 0;
+    height: 100%;
   }
 
-  .sm-scope .staggered-menu-header[data-ishome="true"]:not([data-scrolled="true"]) .sm-desktop-right {
-    margin-right: 240px;
+  .sm-scope .sm-desktop-links {
+    display: flex;
+    align-items: stretch;
+    gap: 1.25rem;
+    height: 100%;
+  }
+
+  .sm-scope .sm-desktop-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    font-family: 'Clash Display', sans-serif !important;
+    transition: color 0.25s ease;
+    white-space: nowrap;
+    padding: 0 0.5rem;
+    height: 100%;
+    color: #374151;
+  }
+
+  /* Underline animation for desktop links - aligned to the bottom of the header */
+  .sm-scope .sm-desktop-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(--sm-accent, #14874f);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.25s ease;
+  }
+
+  .sm-scope .sm-desktop-link:hover {
+    color: var(--sm-accent, #14874f);
+  }
+
+  .sm-scope .sm-desktop-link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .sm-scope .sm-desktop-link--active {
+    color: var(--sm-accent, #14874f) !important;
+  }
+
+  .sm-scope .sm-desktop-link--active::after {
+    transform: scaleX(1);
   }
 }
 
-/* Centered pill container */
-.sm-scope .sm-desktop-nav-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0;
-  border-radius: 100px;
-  padding: 0.35rem 0.35rem;
-}
-.sm-scope .staggered-menu-header:not([data-scrolled="true"]) .sm-desktop-nav-pill {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-}
-.sm-scope .staggered-menu-header[data-scrolled="true"] .sm-desktop-nav-pill {
-  background: rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-}
+@media (min-width: 1440px) {
+  .sm-scope .sm-desktop-menu {
+    gap: 2rem;
+  }
 
-/* Nav links inside pill */
-.sm-scope .sm-desktop-nav-link {
-  position: relative;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  font-family: 'Clash Display', sans-serif !important;
-  padding: 0.5rem 1rem;
-  border-radius: 100px;
-  transition: color 0.25s ease, background 0.25s ease;
-  white-space: nowrap;
-}
-.sm-scope .staggered-menu-header:not([data-scrolled="true"]) .sm-desktop-nav-link {
-  color: rgba(255, 255, 255, 0.75);
-}
-.sm-scope .staggered-menu-header:not([data-scrolled="true"]) .sm-desktop-nav-link:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.10);
-}
-.sm-scope .staggered-menu-header:not([data-scrolled="true"]) .sm-desktop-nav-link--active {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.15);
-}
-.sm-scope .staggered-menu-header[data-scrolled="true"] .sm-desktop-nav-link {
-  color: #555;
-}
-.sm-scope .staggered-menu-header[data-scrolled="true"] .sm-desktop-nav-link:hover {
-  color: #111;
-  background: rgba(0, 0, 0, 0.05);
-}
-.sm-scope .staggered-menu-header[data-scrolled="true"] .sm-desktop-nav-link--active {
-  color: var(--sm-accent, #CC1F1F);
-  background: rgba(0, 0, 0, 0.05);
-}
+  .sm-scope .sm-desktop-links {
+    gap: 1.5rem;
+  }
 
-/* Right section links */
-.sm-scope .sm-desktop-right-link {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  font-family: 'Clash Display', sans-serif !important;
-  transition: color 0.25s ease;
-  white-space: nowrap;
-}
-.sm-scope .staggered-menu-header:not([data-scrolled="true"]) .sm-desktop-right-link {
-  color: rgba(255, 255, 255, 0.8);
-}
-.sm-scope .staggered-menu-header:not([data-scrolled="true"]) .sm-desktop-right-link:hover {
-  color: #ffffff;
-}
-.sm-scope .staggered-menu-header:not([data-scrolled="true"]) .sm-desktop-right-link--active {
-  color: #ffffff;
-}
-.sm-scope .staggered-menu-header[data-scrolled="true"] .sm-desktop-right-link {
-  color: #555;
-}
-.sm-scope .staggered-menu-header[data-scrolled="true"] .sm-desktop-right-link:hover {
-  color: #111;
-}
-.sm-scope .staggered-menu-header[data-scrolled="true"] .sm-desktop-right-link--active {
-  color: var(--sm-accent, #CC1F1F);
+  .sm-scope .sm-desktop-link {
+    font-size: 13px;
+    padding: 0 0.75rem;
+  }
 }
 
 /* Contact CTA Button */
@@ -949,7 +911,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   font-family: 'Clash Display', sans-serif !important;
   padding: 0.6rem 1.5rem;
   border-radius: 6px;
-  background: var(--sm-accent, #CC1F1F);
+  background: #CC1F1F;
   color: #ffffff;
   transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
   white-space: nowrap;
