@@ -474,7 +474,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
   React.useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
+      if (window.innerWidth >= 1200) {
         closeMenu();
       }
     };
@@ -547,16 +547,16 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               height={40}
             />
             <div
-              className="flex flex-col leading-tight transition-colors duration-300 text-left"
+              className="sm-logo-text flex flex-col leading-tight transition-colors duration-300 text-left"
               style={{ color: scrolled || open ? "#111827" : "#ffffff" }}
             >
-              <span className="text-[10px] font-bold tracking-widest uppercase">
+              <span className="font-bold tracking-widest uppercase">
                 Network Exploration
               </span>
-              <span className="text-[10px] font-bold tracking-widest uppercase">
+              <span className="font-bold tracking-widest uppercase">
                 &amp; Production
               </span>
-              <span className="text-[9px] font-medium tracking-wider uppercase opacity-85">
+              <span className="font-medium tracking-wider uppercase opacity-85">
                 Nigeria <span className="font-normal italic">Limited</span>
               </span>
             </div>
@@ -761,6 +761,29 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .staggered-menu-header > * { pointer-events: auto; }
 .sm-scope .sm-logo { display: flex; align-items: center; user-select: none; }
 .sm-scope .sm-logo-img { display: block; height: 32px; width: auto; object-fit: contain; }
+.sm-scope .sm-logo-text span {
+  font-size: 10px;
+  transition: font-size 0.25s ease;
+}
+.sm-scope .sm-logo-text span:last-child {
+  font-size: 9px;
+}
+@media (min-width: 1024px) {
+  .sm-scope .sm-logo-text span {
+    font-size: 8.5px;
+  }
+  .sm-scope .sm-logo-text span:last-child {
+    font-size: 7.5px;
+  }
+}
+@media (min-width: 1440px) {
+  .sm-scope .sm-logo-text span {
+    font-size: 8px;
+  }
+  .sm-scope .sm-logo-text span:last-child {
+    font-size: 7px;
+  }
+}
 .sm-scope .sm-toggle { position: relative; display: inline-flex; align-items: center; gap: 0.3rem; background: transparent; border: none; cursor: pointer; color: #e9e9ef; font-weight: 500; line-height: 1; overflow: visible; font-family: 'Clash Display', sans-serif !important; }
 .sm-scope .sm-toggle:focus-visible { outline: 2px solid #ffffffaa; outline-offset: 4px; border-radius: 4px; }
 .sm-scope .sm-line:last-of-type { margin-top: 6px; }
@@ -800,17 +823,19 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .sm-desktop-nav,
 .sm-scope .sm-desktop-right { display: none; }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
   .sm-scope .sm-toggle { display: none !important; }
 
   .sm-scope .staggered-menu-header {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
+    display: flex;
     align-items: center;
-    gap: 1rem;
+    justify-content: space-between;
   }
 
   .sm-scope .sm-desktop-nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -823,8 +848,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     flex-shrink: 0;
   }
 
-  .sm-scope .staggered-menu-header[data-ishome="true"]:not([data-scrolled="true"]) {
-    padding-right: calc(240px + 2.5rem);
+  .sm-scope .staggered-menu-header[data-ishome="true"]:not([data-scrolled="true"]) .sm-desktop-right {
+    margin-right: 240px;
   }
 }
 
@@ -935,7 +960,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   box-shadow: 0 4px 12px rgba(204, 31, 31, 0.35);
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1199px) {
   .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; }
   .sm-scope .sm-panel-item { font-size: clamp(1.8rem, 6vw, 2.5rem); letter-spacing: -1px; }
   .sm-scope .sm-panel-itemWrap { padding-right: 3.5rem; }

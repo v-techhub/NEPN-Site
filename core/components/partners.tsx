@@ -398,21 +398,20 @@ export default function Partners() {
           {/* Dynamic grid cards based on activeTab */}
           <div
             data-grid-items
-            className={`grid gap-0 ${
+            className={`grid gap-6 ${
               activeTab === "strategic"
                 ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
                 : activeTab === "top"
                   ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
-                  : "grid-cols-1 md:grid-cols-1 max-w-md"
+                  : "grid-cols-1 md:grid-cols-1 max-w-md mx-auto"
             }`}
-            style={{ border: "1px solid #e0e0e0" }}
           >
             {isLoading ? (
               Array.from({ length: 6 }).map((_, i) => (
                 <div
                   key={i}
-                  className="bg-white p-8 flex flex-col justify-center items-center animate-pulse"
-                  style={{ border: "1px solid #e0e0e0", minHeight: "200px" }}
+                  className="bg-white p-8 flex flex-col justify-center items-center animate-pulse rounded-[8px] border border-neutral-200/80"
+                  style={{ minHeight: "220px" }}
                 >
                   <div className="w-16 h-16 bg-neutral-100 rounded-full mb-5" />
                   <div className="w-3/4 h-4 bg-neutral-100 rounded" />
@@ -428,8 +427,8 @@ export default function Partners() {
               currentPartners.map((partner) => (
                 <div
                   key={partner.name}
-                  className="bg-white p-6 sm:p-8 flex flex-col items-center justify-center text-center transition-colors duration-200 hover:bg-[#fafafa] group cursor-default"
-                  style={{ border: "1px solid #e0e0e0", minHeight: "200px" }}
+                  className="bg-white p-6 sm:p-8 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md rounded-[8px] border border-neutral-200/80 group cursor-default"
+                  style={{ minHeight: "220px" }}
                 >
                   {/* Logo */}
                   <div className="flex items-center justify-center mb-5 h-[72px]">
