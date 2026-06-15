@@ -28,19 +28,18 @@ export default function Footer() {
       return;
     }
 
-      newsletterMutation.mutate(
-        { email: email.trim() },
-        {
-          onSuccess: () => {
-            setEmail("");
-          },
-          onError: (err: unknown) => {
-            // Handled via inline error display
-          },
-        }
-      );
+    newsletterMutation.mutate(
+      { email: email.trim() },
+      {
+        onSuccess: () => {
+          setEmail("");
+        },
+        onError: (err: unknown) => {
+          // Handled via inline error display
+        },
+      },
+    );
   };
-
 
   return (
     <footer className="bg-[#070707] text-gray-400">
@@ -62,9 +61,8 @@ export default function Footer() {
             <p className="leading-7 text-[15px]">
               A leading indigenous oil and gas company established in 2001,
               dedicated to responsibly harnessing Nigeria&apos;s energy
-              resources with a proven track record in OML 13.
+              resources with a proven track record in PML 13.
             </p>
-
           </div>
 
           {/* QUICK LINKS */}
@@ -75,10 +73,7 @@ export default function Footer() {
 
             <ul className="space-y-4">
               {quickLinks.map((item) => (
-                <li
-                  key={item.label}
-                  className="flex items-center gap-3 group"
-                >
+                <li key={item.label} className="flex items-center gap-3 group">
                   <span className="text-red-500">—</span>
 
                   <Link
@@ -91,7 +86,6 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-
 
           {/* CONTACT */}
           <div>
@@ -159,7 +153,7 @@ export default function Footer() {
                     required
                   />
 
-                  <button 
+                  <button
                     type="submit"
                     disabled={newsletterMutation.isPending}
                     className="bg-red-600 hover:bg-red-700 disabled:bg-red-800 px-6 text-white text-sm font-semibold transition cursor-pointer flex items-center justify-center min-w-[70px]"
@@ -168,11 +162,14 @@ export default function Footer() {
                   </button>
                 </div>
                 {newsletterMutation.isSuccess && (
-                  <p className="text-xs text-[#31c48d] mt-2 font-medium">Thank you for subscribing!</p>
+                  <p className="text-xs text-[#31c48d] mt-2 font-medium">
+                    Thank you for subscribing!
+                  </p>
                 )}
                 {newsletterMutation.isError && (
                   <p className="text-xs text-red-500 mt-2 font-medium">
-                    {newsletterMutation.error?.message || "Subscription failed. Try again."}
+                    {newsletterMutation.error?.message ||
+                      "Subscription failed. Try again."}
                   </p>
                 )}
               </form>
