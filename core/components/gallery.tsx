@@ -25,8 +25,8 @@ const CATEGORIES = ["ALL", "OPERATIONS", "FACILITIES", "COMMUNITY", "EVENTS"];
 const FALLBACK_ITEMS = [
   {
     id: 1,
-    title: "NEPN OML 13 Production Crew",
-    description: "Our dedicated team on site at the OML 13 oil fields Nigeria.",
+    title: "NEPN PML 13 Production Crew",
+    description: "Our dedicated team on site at the PML 13 oil fields Nigeria.",
     image: "/images/workers.jpg",
     category: "operations",
   },
@@ -117,8 +117,8 @@ const getCategoryForCmsItem = (
     d.includes("operation") ||
     t.includes("exploration") ||
     d.includes("exploration") ||
-    t.includes("oml") ||
-    d.includes("oml") ||
+    t.includes("pml") ||
+    d.includes("pml") ||
     t.includes("drill") ||
     d.includes("drill") ||
     t.includes("crew") ||

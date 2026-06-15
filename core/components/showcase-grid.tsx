@@ -33,7 +33,8 @@ const TOP_CARDS = [
     gradient:
       "linear-gradient(180deg, rgba(17, 126, 67, 0.09) 0%, rgba(17, 126, 67, 0.09) 30%, rgba(17, 126, 67, 0.36) 75%)",
     href: "/operations",
-    subtext: "Advanced 3D seismic and geological analysis driving discovery in PML 13.",
+    subtext:
+      "Advanced 3D seismic and geological analysis driving discovery in PML 13.",
   },
   {
     num: "02",
@@ -43,7 +44,8 @@ const TOP_CARDS = [
     gradient:
       "linear-gradient(180deg, rgba(237, 29, 36, 0.1) 0%, rgba(237, 29, 36, 0.1) 30%, rgba(200, 17, 23, 0.4) 75%)",
     href: "/operations",
-    subtext: "Efficient production from established wells, continuously optimized for maximum output and safety.",
+    subtext:
+      "Efficient production from established wells, continuously optimized for maximum output and safety.",
   },
   {
     num: "03",
@@ -53,7 +55,8 @@ const TOP_CARDS = [
     gradient:
       "linear-gradient(180deg, rgba(0, 0, 254, 0.1) 0%, rgba(0, 0, 254, 0.1) 30%, rgba(0, 0, 200, 0.4) 75%)",
     href: "/sustainability",
-    subtext: "Zero-incident culture, gas flaring reduction, and rigorous environmental management across all sites.",
+    subtext:
+      "Zero-incident culture, gas flaring reduction, and rigorous environmental management across all sites.",
   },
 ];
 
@@ -474,7 +477,7 @@ export default function ShowcaseGrid() {
         >
           <Image
             src="/images/sky_shot.jpg"
-            alt="OML 13 Qua Iboe field aerial view"
+            alt="PML 13 Qua Iboe field aerial view"
             fill
             className="object-cover object-center"
             sizes="50vw"
@@ -518,7 +521,7 @@ export default function ShowcaseGrid() {
                 fontWeight: 700,
               }}
             >
-              OML 13 — Our
+              PML 13 — Our
               <br />
               Primary Asset
             </h2>
@@ -536,7 +539,7 @@ export default function ShowcaseGrid() {
               className="text-[15px] leading-relaxed mb-8 max-w-[440px]"
               style={{ color: "rgba(255,255,255,0.8)", fontWeight: 400 }}
             >
-              Nigeria&apos;s Qua Iboe field in OML 13, Akwa Ibom State, has been
+              Nigeria&apos;s Qua Iboe field in PML 13, Akwa Ibom State, has been
               our flagship operational asset since 2001 — a prolific basin that
               underpins our production strategy and long-term growth ambitions.
             </p>

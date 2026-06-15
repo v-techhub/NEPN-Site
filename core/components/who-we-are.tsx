@@ -15,7 +15,7 @@ const STORY_FACTS = [
   { label: "Founded", value: "2001", color: "#14874f" },
   { label: "Headquarters", value: "Ikoyi, Lagos", color: "#ef3b3b" },
   { label: "Field Office", value: "Ibeno, Akwa Ibom", color: "#2647ff" },
-  { label: "Primary Asset", value: "Qua Iboe, OML 13", color: "#14874f" },
+  { label: "Primary Asset", value: "Qua Iboe, PML 13", color: "#14874f" },
 ];
 
 const MILESTONES = [
@@ -534,7 +534,7 @@ export default function WhoWeAre() {
                 </p>
                 <p data-story-left>
                   Since 2001, we have been at the forefront of exploring and
-                  developing the Qua Iboe field in OML 13, playing a vital role
+                  developing the Qua Iboe field in PML 13, playing a vital role
                   in meeting the nation&apos;s energy needs.
                 </p>
                 <p data-story-left>

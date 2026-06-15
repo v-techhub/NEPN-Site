@@ -38,7 +38,7 @@ const TABS = [
 const FACTS = [
   { label: "Founded", value: "2001" },
   { label: "Headquarters", value: "Ikoyi, Lagos State" },
-  { label: "Primary Asset", value: "Qua Iboe Field, OML 13" },
+  { label: "Primary Asset", value: "Qua Iboe Field, PML 13" },
   { label: "Field Office", value: "Ibeno, Akwa Ibom State" },
 ];
 

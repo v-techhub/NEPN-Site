@@ -35,7 +35,7 @@ const FEATURES = [
     ),
     accent: "#006633",
     title: "EXPLORATION & PRODUCTION",
-    subtitle: "OML 13 / Qua Iboe field, Akwa Ibom State",
+    subtitle: "PML 13 / Qua Iboe field, Akwa Ibom State",
     href: "/operations",
   },
   {

@@ -22,7 +22,7 @@ const CARDS = [
     numberColor: "rgba(0,102,51,0.13)",
     accent: "#006633",
     title: "Exploration & Development",
-    body: "Advanced seismic analysis and geological mapping across OML 13, discovering viable hydrocarbon reserves in the Qua Iboe field, Akwa Ibom State.",
+    body: "Advanced seismic analysis and geological mapping across PML 13, discovering viable hydrocarbon reserves in the Qua Iboe field, Akwa Ibom State.",
     linkColor: "#006633",
   },
   {
