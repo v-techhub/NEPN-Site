@@ -17,7 +17,7 @@ function PartnerLogo({ src, name }: { src: string; name: string }) {
 
   if (error || !src) {
     return (
-      <div className="h-14 w-full flex items-center justify-center px-4 select-none">
+      <div className="h-24 w-full flex items-center justify-center px-4 select-none">
         <span className="font-bold text-[11px] sm:text-xs tracking-wider text-neutral-400 text-center uppercase leading-tight font-sans">
           {name}
         </span>
@@ -26,13 +26,13 @@ function PartnerLogo({ src, name }: { src: string; name: string }) {
   }
 
   return (
-    <div className="h-14 w-full flex items-center justify-center relative px-4 transition-all duration-300 group-hover:scale-[1.04]">
+    <div className="h-24 w-full flex items-center justify-center relative px-4 transition-all duration-300 group-hover:scale-[1.05]">
       <Image
         src={src}
         alt={name}
-        width={150}
-        height={48}
-        className="object-contain max-h-12 max-w-[85%]"
+        width={200}
+        height={80}
+        className="object-contain max-h-20 max-w-[95%]"
         onError={() => setError(true)}
       />
     </div>
@@ -411,7 +411,7 @@ export default function Partners() {
                 <div
                   key={i}
                   className="bg-white p-8 flex flex-col justify-center items-center animate-pulse rounded-[8px] border border-neutral-200/80"
-                  style={{ minHeight: "220px" }}
+                  style={{ minHeight: "260px" }}
                 >
                   <div className="w-16 h-16 bg-neutral-100 rounded-full mb-5" />
                   <div className="w-3/4 h-4 bg-neutral-100 rounded" />
@@ -428,10 +428,10 @@ export default function Partners() {
                 <div
                   key={partner.name}
                   className="bg-white p-6 sm:p-8 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md rounded-[8px] border border-neutral-200/80 group cursor-default"
-                  style={{ minHeight: "220px" }}
+                  style={{ minHeight: "260px" }}
                 >
                   {/* Logo */}
-                  <div className="flex items-center justify-center mb-5 h-[72px]">
+                  <div className="flex items-center justify-center mb-5 h-24 w-full">
                     <PartnerLogo src={partner.logo} name={partner.name} />
                   </div>
 

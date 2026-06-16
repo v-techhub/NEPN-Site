@@ -266,9 +266,9 @@ export default function Partnerships() {
             Array.from({ length: 3 }).map((_, i) => (
               <div
                 key={i}
-                className="bg-white flex flex-col items-center px-8 pt-10 pb-10 shadow-[0_2px_14px_rgba(0,0,0,0.05)] animate-pulse h-[280px]"
+                className="bg-white flex flex-col items-center px-8 pt-10 pb-10 shadow-[0_2px_14px_rgba(0,0,0,0.05)] animate-pulse h-[330px]"
               >
-                <div className="w-24 h-12 bg-neutral-200 rounded mb-7 animate-pulse" />
+                <div className="w-36 h-20 bg-neutral-200 rounded mb-7 animate-pulse" />
                 <div className="w-10 h-px bg-gray-200 mb-5" />
                 <div className="w-3/4 h-5 bg-neutral-200 rounded mb-3" />
                 <div className="w-5/6 h-4 bg-neutral-200 rounded" />
@@ -310,14 +310,14 @@ export default function Partnerships() {
                     logoRefs.current[i] = el;
                   }}
                   className="flex items-center justify-center mb-7"
-                  style={{ height: "80px" }}
+                  style={{ height: "120px" }}
                 >
                   <Image
                     src={partner.logo}
                     alt={partner.logoAlt}
-                    width={120}
-                    height={72}
-                    className="object-contain max-h-[72px] w-auto"
+                    width={200}
+                    height={120}
+                    className="object-contain max-h-[110px] w-auto"
                   />
                 </div>
 
