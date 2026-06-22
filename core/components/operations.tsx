@@ -383,7 +383,7 @@ export default function Operations() {
 
             <p
               data-intro-copy
-              className="mt-6 text-[#5d6763] text-sm sm:text-base leading-relaxed max-w-2xl font-sans"
+              className="mt-6 text-[#3a4340] text-[15px] sm:text-base leading-relaxed max-w-2xl font-sans font-medium"
             >
               From seismic exploration to production management, guided by
               technical expertise, safety discipline, and commitment to
@@ -501,7 +501,7 @@ export default function Operations() {
               </h2>
               <p
                 data-tech-header
-                className="mt-3 text-sm sm:text-base text-[#5d6763] max-w-lg mx-auto font-sans"
+                className="mt-3 text-[15px] sm:text-base text-[#3a4340] max-w-lg mx-auto font-sans font-medium"
               >
                 Leveraging cutting-edge solutions for operational excellence
               </p>
@@ -525,7 +525,7 @@ export default function Operations() {
                   >
                     {card.title}
                   </h3>
-                  <p className="text-[13px] sm:text-sm text-[#5d6763] leading-relaxed font-sans">
+                  <p className="text-[13.5px] sm:text-sm text-[#3a4340] leading-relaxed font-sans font-medium">
                     {card.body}
                   </p>
                 </div>
@@ -603,7 +603,7 @@ export default function Operations() {
                       key={row.label}
                       className="grid grid-cols-[1.2fr_1.8fr] gap-4 px-6 py-4 text-xs sm:text-sm"
                     >
-                      <span className="text-neutral-400 font-medium">
+                      <span className="text-neutral-500 font-semibold">
                         {row.label}
                       </span>
                       <span className="text-neutral-800 font-bold text-right sm:text-left">

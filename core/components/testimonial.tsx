@@ -231,7 +231,7 @@ export default function Testimonials() {
           <div ref={eyebrowRef} className="flex items-center gap-3 mb-4">
             <span className="block w-6 h-[2.5px] bg-red-600 rounded-full" />
             <span
-              className="text-[10.5px] font-bold tracking-[0.26em] uppercase text-gray-500"
+              className="text-[10.5px] font-bold tracking-[0.26em] uppercase text-gray-600"
               style={{ fontFamily: "'Clash Display', sans-serif" }}
             >
               TESTIMONIALS
@@ -261,7 +261,7 @@ export default function Testimonials() {
             ))
           ) : testimonials.length === 0 ? (
             <div className="col-span-full py-16 flex flex-col items-center justify-center text-center">
-              <p className="text-neutral-400 font-medium text-sm">
+              <p className="text-neutral-500 font-semibold text-sm">
                 No testimonial content available in the CMS.
               </p>
             </div>

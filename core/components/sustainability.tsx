@@ -417,7 +417,7 @@ export default function Sustainability() {
 
           <p
             data-commit-copy
-            className="mt-6 text-[#5d6763] text-sm sm:text-base leading-[1.8] max-w-3xl mx-auto font-sans"
+            className="mt-6 text-[#3a4340] text-[15px] sm:text-base leading-[1.8] max-w-3xl mx-auto font-sans font-medium"
           >
             Sustainability is central to the Company&apos;s long-term value
             creation, supporting Nigeria&apos;s economic growth through energy
@@ -448,7 +448,7 @@ export default function Sustainability() {
             <span className="italic text-[#14874f]">(EHS) Excellence</span>
           </h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-[#5d6763] text-sm leading-[1.8] font-sans mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-[#3a4340] text-[15px] leading-[1.8] font-sans font-medium mb-12">
             <p data-ehs-header>
               NEPN demonstrates a strong commitment to Environment, Health &
               Safety (EHS) through approved regulatory compliance and proactive
@@ -503,7 +503,7 @@ export default function Sustainability() {
                     <h3 className="text-lg font-bold text-[#1e2620] mb-2">
                       {card.title}
                     </h3>
-                    <p className="text-xs sm:text-[13px] text-neutral-500 leading-relaxed font-sans mb-4">
+                    <p className="text-[13px] sm:text-[13.5px] text-neutral-600 leading-relaxed font-sans font-medium mb-4">
                       {card.body}
                     </p>
                   </div>
@@ -536,7 +536,7 @@ export default function Sustainability() {
 
               <p
                 data-safety-copy
-                className="text-[#5d6763] text-sm sm:text-[14.5px] leading-relaxed mb-8 font-sans"
+                className="text-[#3a4340] text-[15px] sm:text-[15px] leading-relaxed mb-8 font-sans font-medium"
               >
                 Safety is our top priority. Every operation is conducted in
                 strict adherence to international safety standards and Nigerian
@@ -606,7 +606,7 @@ export default function Sustainability() {
             </h2>
             <p
               data-csr-header
-              className="mt-3 text-sm sm:text-base text-[#5d6763] max-w-3xl mx-auto leading-[1.8] font-sans"
+              className="mt-3 text-[15px] sm:text-base text-[#3a4340] max-w-3xl mx-auto leading-[1.8] font-sans font-medium"
             >
               At NEPN, we are committed to responsible oil and gas operations
               that create positive social, economic, and environmental impact.
@@ -629,7 +629,7 @@ export default function Sustainability() {
               </>
             ) : currentCsrCards.length === 0 ? (
               <div className="col-span-full py-16 flex flex-col items-center justify-center text-center">
-                <p className="text-neutral-400 font-medium text-sm">
+                <p className="text-neutral-500 font-semibold text-sm">
                   No CSR projects found.
                 </p>
               </div>

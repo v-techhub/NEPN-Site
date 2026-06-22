@@ -110,7 +110,7 @@ function AccordionItem({
         <div ref={innerRef} className="pb-5 pr-12">
           <p
             className="text-[14.5px] leading-relaxed"
-            style={{ color: "#555", fontFamily: "'Barlow', sans-serif" }}
+            style={{ color: "#444", fontFamily: "'Barlow', sans-serif" }}
           >
             {faq.answer}
           </p>
@@ -225,7 +225,7 @@ export default function FAQ() {
             <div ref={eyebrowRef} className="flex items-center gap-3 mb-4">
               <span className="block w-6 h-[2.5px] bg-red-600 rounded-full flex-shrink-0" />
               <span
-                className="text-[10.5px] font-bold tracking-[0.24em] uppercase text-gray-500"
+                className="text-[10.5px] font-bold tracking-[0.24em] uppercase text-gray-600"
                 style={{ fontFamily: "'Clash Display', sans-serif" }}
               >
                 FAQ
@@ -250,7 +250,7 @@ export default function FAQ() {
             <p
               ref={subRef}
               className="text-[15px] leading-relaxed mb-8"
-              style={{ color: "#666", maxWidth: "360px" }}
+              style={{ color: "#444", maxWidth: "360px" }}
             >
               Quick answers to common enquiries about our operations,
               partnerships, and more.
@@ -302,7 +302,7 @@ export default function FAQ() {
               </div>
             ) : faqs.length === 0 ? (
               <div className="py-16 text-center">
-                <p className="text-neutral-400 font-medium text-sm">
+                <p className="text-neutral-500 font-semibold text-sm">
                   FAQ content has not been published yet.
                 </p>
               </div>

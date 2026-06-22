@@ -463,7 +463,7 @@ export default function Gallery() {
 
           <p
             data-section-fade
-            className="text-neutral-500 text-[14.5px] leading-relaxed max-w-2xl mx-auto"
+            className="text-neutral-700 text-[14.5px] leading-relaxed max-w-2xl mx-auto font-medium"
           >
             Discover moments from our operations, facilities, community
             engagements, and milestones that define NEPN&apos;s commitment to
@@ -495,7 +495,7 @@ export default function Gallery() {
 
         {/* Loading Spinner */}
         {isLoading ? (
-          <div className="flex flex-col items-center justify-center py-24 text-neutral-400">
+          <div className="flex flex-col items-center justify-center py-24 text-neutral-500">
             <Loader2 className="w-10 h-10 animate-spin text-[#14874f] mb-4" />
             <p className="text-sm font-semibold tracking-wide">
               Loading gallery media...
@@ -558,7 +558,7 @@ export default function Gallery() {
         {/* Empty State */}
         {!isLoading && filteredItems.length === 0 && (
           <div className="text-center py-20 border border-dashed border-neutral-200 rounded-3xl bg-neutral-50/50">
-            <p className="text-neutral-500 text-sm font-semibold tracking-wide uppercase">
+            <p className="text-neutral-600 text-sm font-bold tracking-wide uppercase">
               No media files available in this category
             </p>
           </div>

@@ -147,7 +147,7 @@ export default function WhatWeDo() {
             <div ref={eyebrowRef} className="flex items-center gap-3 mb-4">
               <span className="block w-6 h-[2.5px] bg-red-600 rounded-full flex-shrink-0" />
               <span
-                className="text-[11px] font-bold tracking-[0.22em] uppercase text-gray-500"
+                className="text-[11px] font-bold tracking-[0.22em] uppercase text-gray-600"
                 style={{ fontFamily: "'Clash Display', sans-serif" }}
               >
                 OUR BUSINESS AREAS
@@ -254,7 +254,7 @@ export default function WhatWeDo() {
               {/* Body */}
               <p
                 className="text-[14.5px] leading-relaxed mb-8 flex-1"
-                style={{ color: "#555" }}
+                style={{ color: "#444", fontWeight: 500 }}
               >
                 {card.body}
               </p>

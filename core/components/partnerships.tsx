@@ -276,7 +276,7 @@ export default function Partnerships() {
             ))
           ) : partners.length === 0 ? (
             <div className="col-span-full py-16 flex flex-col items-center justify-center text-center">
-              <p className="text-neutral-400 font-medium text-sm">
+              <p className="text-neutral-500 font-semibold text-sm">
                 No partner content available in the CMS.
               </p>
             </div>
@@ -338,10 +338,10 @@ export default function Partnerships() {
                 {/* Description */}
                 {partner.description ? (
                   <p
-                    className="text-[14px] leading-relaxed"
+                    className="text-[14.5px] leading-relaxed"
                     style={{
-                      color: "#666",
-                      fontWeight: 400,
+                      color: "#444",
+                      fontWeight: 500,
                       maxWidth: "320px",
                     }}
                   >

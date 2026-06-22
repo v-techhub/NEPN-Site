@@ -367,7 +367,7 @@ export default function News() {
 
           <p
             data-intro-copy
-            className="mt-6 text-[#5d6763] text-sm sm:text-base leading-relaxed max-w-2xl font-sans"
+            className="mt-6 text-[#3a4340] text-[15px] sm:text-base leading-relaxed max-w-2xl font-sans font-medium"
           >
             Company announcements, industry trends, project milestones, and
             thought leadership from Nigeria&apos;s energy sector.
@@ -393,7 +393,7 @@ export default function News() {
               </div>
             ) : currentArticles.length === 0 ? (
               <div className="col-span-full py-16 flex flex-col items-center justify-center text-center">
-                <p className="text-neutral-400 font-medium text-sm">
+                <p className="text-neutral-500 font-semibold text-sm">
                   No news articles found in the CMS.
                 </p>
               </div>
@@ -443,14 +443,14 @@ export default function News() {
                           {article.title}
                         </h3>
 
-                        <p className="text-xs sm:text-[13px] text-neutral-500 leading-relaxed font-sans mb-6">
+                        <p className="text-[13px] sm:text-[13.5px] text-neutral-600 leading-relaxed font-sans font-medium mb-6">
                           {article.excerpt}
                         </p>
                       </div>
 
                       <div className="flex items-center gap-2 pt-4 border-t border-neutral-100">
                         <span className="w-3 h-[2px] bg-[#ef3b3b] rounded-full" />
-                        <span className="text-[10.5px] font-semibold text-neutral-400 font-sans">
+                        <span className="text-[10.5px] font-bold text-neutral-500 font-sans">
                           {article.date} · {article.readTime}
                         </span>
                       </div>

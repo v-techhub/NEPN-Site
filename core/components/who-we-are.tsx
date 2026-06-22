@@ -526,7 +526,7 @@ export default function WhoWeAre() {
                 className="mt-5 h-[3px] w-10 rounded-full bg-[#14874f]"
               />
 
-              <div className="mt-7 max-w-[560px] space-y-7 text-[15px] leading-[2.02] text-[#5d6763] sm:text-[16px]">
+              <div className="mt-7 max-w-[560px] space-y-7 text-[15px] leading-[2.02] text-[#3a4340] font-medium sm:text-[16px]">
                 <p data-story-left>
                   Network E&amp;P Nigeria Limited (NEPN) is a fully
                   Nigerian-owned oil and gas company dedicated to promoting
@@ -562,7 +562,7 @@ export default function WhoWeAre() {
                     >
                       {fact.label}
                     </p>
-                    <p className="mt-1 text-[14px] leading-relaxed text-[#5b6762]">
+                    <p className="mt-1 text-[14px] leading-relaxed text-[#3d4a46] font-medium">
                       {fact.value}
                     </p>
                   </div>
@@ -627,7 +627,7 @@ export default function WhoWeAre() {
                         <h3 className="mt-1 text-[18px] font-bold leading-tight text-[#28322e]">
                           {item.title}
                         </h3>
-                        <p className="mt-1.5 max-w-[470px] text-[14px] leading-[1.75] text-[#6a7570]">
+                        <p className="mt-1.5 max-w-[470px] text-[14px] leading-[1.75] text-[#4a5550] font-medium">
                           {item.body}
                         </p>
                       </div>
@@ -782,7 +782,7 @@ export default function WhoWeAre() {
                       >
                         {val.title}
                       </h3>
-                      <p className="text-[13px] text-[#5d6763] leading-relaxed">
+                      <p className="text-[13.5px] text-[#3a4340] leading-relaxed font-medium">
                         {val.body}
                       </p>
                     </div>
@@ -823,7 +823,7 @@ export default function WhoWeAre() {
                   className={`pb-3 font-bold text-[10px] sm:text-xs tracking-[0.15em] transition-all relative uppercase cursor-pointer ${
                     activeTab === "management"
                       ? "text-[#168241]"
-                      : "text-neutral-400 hover:text-neutral-600"
+                      : "text-neutral-500 hover:text-neutral-700"
                   }`}
                   style={{ fontFamily: "'Clash Display', sans-serif" }}
                 >
@@ -837,7 +837,7 @@ export default function WhoWeAre() {
                   className={`pb-3 font-bold text-[10px] sm:text-xs tracking-[0.15em] transition-all relative uppercase cursor-pointer ${
                     activeTab === "board"
                       ? "text-[#168241]"
-                      : "text-neutral-400 hover:text-neutral-600"
+                      : "text-neutral-500 hover:text-neutral-700"
                   }`}
                   style={{ fontFamily: "'Clash Display', sans-serif" }}
                 >
@@ -858,7 +858,7 @@ export default function WhoWeAre() {
                   </>
                 ) : currentLeaders.length === 0 ? (
                   <div className="col-span-full py-16 flex flex-col items-center justify-center text-center">
-                    <p className="text-neutral-400 font-medium text-sm">
+                    <p className="text-neutral-500 font-semibold text-sm">
                       No leadership team members found.
                     </p>
                   </div>

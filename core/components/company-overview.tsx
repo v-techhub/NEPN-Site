@@ -239,7 +239,7 @@ export default function CompanyOverview() {
           <div ref={eyebrowRef} className="mb-5 flex items-center gap-3">
             <span className="block h-[2.5px] w-6 flex-shrink-0 rounded-full bg-red-600" />
             <span
-              className="text-[11px] font-bold uppercase tracking-[0.22em] text-gray-500"
+              className="text-[11px] font-bold uppercase tracking-[0.22em] text-gray-600"
               style={{ fontFamily: "'Clash Display', sans-serif" }}
             >
               WHO WE ARE

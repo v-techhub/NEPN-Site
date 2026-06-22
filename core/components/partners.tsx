@@ -18,7 +18,7 @@ function PartnerLogo({ src, name }: { src: string; name: string }) {
   if (error || !src) {
     return (
       <div className="h-24 w-full flex items-center justify-center px-4 select-none">
-        <span className="font-bold text-[11px] sm:text-xs tracking-wider text-neutral-400 text-center uppercase leading-tight font-sans">
+        <span className="font-bold text-[11px] sm:text-xs tracking-wider text-neutral-600 text-center uppercase leading-tight font-sans">
           {name}
         </span>
       </div>
@@ -333,7 +333,7 @@ export default function Partners() {
 
           <p
             data-intro-copy
-            className="mt-6 text-[#5d6763] text-sm sm:text-base leading-relaxed max-w-3xl font-sans"
+            className="mt-6 text-[#3a4340] text-[15px] sm:text-base leading-relaxed max-w-3xl font-sans font-medium"
           >
             At NEPN, we recognize that sustainable success is built on strong
             partnerships. We collaborate with industry leaders, government
@@ -356,7 +356,7 @@ export default function Partners() {
               className={`pb-3 font-bold text-[10px] sm:text-xs tracking-[0.15em] transition-all relative uppercase cursor-pointer ${
                 activeTab === "strategic"
                   ? "text-[#168241]"
-                  : "text-neutral-400 hover:text-neutral-600"
+                  : "text-neutral-500 hover:text-neutral-700"
               }`}
               style={{ fontFamily: "'Clash Display', sans-serif" }}
             >
@@ -370,7 +370,7 @@ export default function Partners() {
               className={`pb-3 font-bold text-[10px] sm:text-xs tracking-[0.15em] transition-all relative uppercase cursor-pointer ${
                 activeTab === "top"
                   ? "text-[#168241]"
-                  : "text-neutral-400 hover:text-neutral-600"
+                  : "text-neutral-500 hover:text-neutral-700"
               }`}
               style={{ fontFamily: "'Clash Display', sans-serif" }}
             >
@@ -384,7 +384,7 @@ export default function Partners() {
               className={`pb-3 font-bold text-[10px] sm:text-xs tracking-[0.15em] transition-all relative uppercase cursor-pointer ${
                 activeTab === "jv"
                   ? "text-[#168241]"
-                  : "text-neutral-400 hover:text-neutral-600"
+                  : "text-neutral-500 hover:text-neutral-700"
               }`}
               style={{ fontFamily: "'Clash Display', sans-serif" }}
             >
@@ -419,7 +419,7 @@ export default function Partners() {
               ))
             ) : currentPartners.length === 0 ? (
               <div className="col-span-full py-16 flex flex-col items-center justify-center text-center">
-                <p className="text-neutral-400 font-medium text-sm">
+                <p className="text-neutral-500 font-semibold text-sm">
                   No partners found.
                 </p>
               </div>
@@ -437,7 +437,7 @@ export default function Partners() {
 
                   {/* Name */}
                   <h3
-                    className="text-[13px] sm:text-sm font-semibold text-[#333] leading-snug max-w-[240px]"
+                    className="text-sm sm:text-[15px] font-bold text-[#1a1f1d] leading-snug max-w-[240px]"
                     style={{ fontFamily: "'Clash Display', sans-serif" }}
                   >
                     {partner.name}
@@ -445,7 +445,7 @@ export default function Partners() {
 
                   {/* Description — only for non-strategic tabs */}
                   {activeTab !== "strategic" && partner.description && (
-                    <p className="mt-3 text-xs text-neutral-400 leading-relaxed font-sans px-2 max-w-[280px]">
+                    <p className="mt-3 text-[13px] text-neutral-600 leading-relaxed font-sans font-medium px-2 max-w-[280px]">
                       {partner.description}
                     </p>
                   )}
