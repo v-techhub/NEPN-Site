@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ChevronLeft, ChevronRight, Clock, ArrowRight } from "lucide-react";
+import { Clock, ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -83,31 +83,6 @@ export default function Operations() {
   const heroOverlayRef = useRef<HTMLDivElement | null>(null);
   const contentRef = useRef<HTMLElement | null>(null);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(true);
-
-  // Resize handler to adjust carousel visible items
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const maxIndex = isMobile
-    ? OPERATIONAL_STAGES.length - 1
-    : OPERATIONAL_STAGES.length - 2;
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => Math.max(prev - 1, 0));
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
-  };
-
   // GSAP scroll trigger parallax and staggered entry animations
   useEffect(() => {
     if (!rootRef.current) return;
@@ -147,8 +122,8 @@ export default function Operations() {
 
       const heroCopy = rootRef.current?.querySelectorAll("[data-hero-copy]");
       const introCopy = rootRef.current?.querySelectorAll("[data-intro-copy]");
-      const sliderWrap =
-        rootRef.current?.querySelectorAll("[data-slider-wrap]");
+      const stageCards =
+        rootRef.current?.querySelectorAll("[data-stage-card]");
       const techHeader =
         rootRef.current?.querySelectorAll("[data-tech-header]");
       const techGrid = rootRef.current?.querySelectorAll(
@@ -161,7 +136,7 @@ export default function Operations() {
       const targets: Element[] = [];
       if (heroCopy) heroCopy.forEach((el) => targets.push(el));
       if (introCopy) introCopy.forEach((el) => targets.push(el));
-      if (sliderWrap) sliderWrap.forEach((el) => targets.push(el));
+      if (stageCards) stageCards.forEach((el) => targets.push(el));
       if (techHeader) techHeader.forEach((el) => targets.push(el));
       if (techGrid) techGrid.forEach((el) => targets.push(el));
       if (assetCopy) assetCopy.forEach((el) => targets.push(el));
@@ -227,8 +202,8 @@ export default function Operations() {
         animateStagger(introCopy, contentRef.current);
       }
 
-      if (sliderWrap?.length) {
-        animateStagger(sliderWrap, contentRef.current, { delay: 0.25 });
+      if (stageCards?.length) {
+        animateStagger(stageCards, contentRef.current, { delay: 0.25 });
       }
 
       if (techHeader?.length) {
@@ -391,98 +366,56 @@ export default function Operations() {
             </p>
           </div>
 
-          {/* Sliding Stages Carousel */}
-          <div data-slider-wrap className="relative overflow-hidden">
-            {/* Slider Container */}
-            <div className="overflow-hidden">
+          {/* 2×2 Operational Stages Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {OPERATIONAL_STAGES.map((stage) => (
               <div
-                className="flex transition-transform duration-500 ease-out"
-                style={{
-                  transform: `translateX(-${currentIndex * (isMobile ? 100 : 50)}%)`,
-                }}
+                data-stage-card
+                key={stage.num}
+                className="group relative h-[340px] sm:h-[380px] rounded-[4px] overflow-hidden cursor-default shadow-sm border border-neutral-200/50"
               >
-                {OPERATIONAL_STAGES.map((stage) => (
-                  <div
-                    key={stage.num}
-                    className="w-full md:w-1/2 shrink-0 px-2 sm:px-3"
+                {/* Stage Image */}
+                <Image
+                  src={stage.image}
+                  alt={stage.title}
+                  fill
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+
+                {/* Bottom Gradient Overlay — darkens more on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/5 transition-all duration-500 ease-out group-hover:from-black/95 group-hover:via-black/65 group-hover:to-black/15" />
+
+                {/* Content */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-7 flex flex-col justify-end stage-card-content">
+                  <p
+                    className="text-[9px] sm:text-[10px] font-bold tracking-[0.25em] text-white/70 uppercase mb-2"
+                    style={{ fontFamily: "'Clash Display', sans-serif" }}
                   >
-                    <div className="group relative h-[380px] sm:h-[420px] rounded-2xl overflow-hidden cursor-default shadow-sm border border-neutral-200/50">
-                      {/* Stage Image */}
-                      <Image
-                        src={stage.image}
-                        alt={stage.title}
-                        fill
-                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
+                    {stage.num}
+                  </p>
 
-                      {/* Bottom Gradient Overlay (Thickens/Darkens on Hover) */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent transition-all duration-500 ease-out group-hover:from-black/95 group-hover:via-black/55" />
+                  <h3
+                    className="text-xl sm:text-2xl font-black text-white leading-tight mb-2"
+                    style={{ fontFamily: "'Clash Display', sans-serif" }}
+                  >
+                    {stage.title}
+                  </h3>
 
-                      {/* Content (Moves Up on Hover) */}
-                      <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 flex flex-col justify-end translate-y-3 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                        <p
-                          className="text-[9px] sm:text-[10px] font-bold tracking-[0.25em] text-white/70 uppercase mb-2"
-                          style={{ fontFamily: "'Clash Display', sans-serif" }}
-                        >
-                          {stage.num}
-                        </p>
+                  <p className="text-[13px] sm:text-[13.5px] text-white/90 leading-relaxed max-w-[95%] font-bold opacity-80 group-hover:opacity-100 transition-all duration-500 ease-out stage-card-body">
+                    {stage.body}
+                  </p>
 
-                        <h3
-                          className="text-2xl sm:text-3xl font-black text-white leading-tight mb-3"
-                          style={{ fontFamily: "'Clash Display', sans-serif" }}
-                        >
-                          {stage.title}
-                        </h3>
-
-                        <p className="text-[13px] text-white/80 leading-relaxed max-w-[90%] opacity-85 group-hover:opacity-100 transition-opacity duration-500">
-                          {stage.body}
-                        </p>
-
-                        {stage.details && (
-                          <div className="max-h-0 opacity-0 group-hover:max-h-[260px] group-hover:opacity-100 transition-all duration-500 ease-out overflow-hidden">
-                            <p className="text-[12.5px] leading-relaxed text-white/70 font-sans mt-3 border-t border-white/10 pt-3">
-                              {stage.details}
-                            </p>
-                          </div>
-                        )}
-                      </div>
+                  {stage.details && (
+                    <div className="stage-card-details overflow-hidden">
+                      <p className="text-[12px] sm:text-[12.5px] leading-relaxed text-white/75 font-medium font-sans mt-3 border-t border-white/15 pt-3">
+                        {stage.details}
+                      </p>
                     </div>
-                  </div>
-                ))}
+                  )}
+                </div>
               </div>
-            </div>
-
-            {/* Slider Navigation Buttons */}
-            <div className="mt-8 flex justify-center">
-              <div className="inline-flex items-center gap-4 bg-neutral-900/90 text-white rounded-full p-2.5 shadow-md">
-                <button
-                  onClick={handlePrev}
-                  disabled={currentIndex === 0}
-                  className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors border-0 outline-none ${
-                    currentIndex === 0
-                      ? "text-white/30 cursor-not-allowed"
-                      : "text-white hover:bg-neutral-800 cursor-pointer"
-                  }`}
-                  aria-label="Previous slide"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <span className="h-4 w-px bg-white/20" />
-                <button
-                  onClick={handleNext}
-                  disabled={currentIndex === maxIndex}
-                  className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors border-0 outline-none ${
-                    currentIndex === maxIndex
-                      ? "text-white/30 cursor-not-allowed"
-                      : "text-white hover:bg-neutral-800 cursor-pointer"
-                  }`}
-                  aria-label="Next slide"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
+            ))}
           </div>
 
           {/* Advanced Technology Section */}
@@ -514,7 +447,7 @@ export default function Operations() {
               {TECH_CARDS.map((card) => (
                 <div
                   key={card.title}
-                  className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.015)] border border-neutral-100 p-8 flex flex-col justify-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgb(0,0,0,0.045)] hover:border-neutral-200 cursor-default"
+                  className="bg-white rounded-[4px] shadow-[0_8px_30px_rgb(0,0,0,0.015)] border border-neutral-100 p-8 flex flex-col justify-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgb(0,0,0,0.045)] hover:border-neutral-200 cursor-default"
                 >
                   <h3
                     className="text-lg font-bold text-[#1e2620] mb-3"
@@ -582,9 +515,9 @@ export default function Operations() {
 
               {/* Asset Specifications Table */}
               <div
-                data-asset-table
-                className="w-full bg-white rounded-2xl shadow-sm border border-neutral-100 overflow-hidden"
-              >
+                  data-asset-table
+                  className="w-full bg-white rounded-[4px] shadow-sm border border-neutral-100 overflow-hidden"
+                >
                 {/* Table Header */}
                 <div className="bg-[#14874f] px-6 py-4 flex items-center gap-2.5 text-white">
                   <Clock className="w-5 h-5 shrink-0" />
