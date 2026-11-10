@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { CORPORATE_INTRO } from "@/core/content/corporate";
 import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "gsap";
@@ -12,10 +13,7 @@ const TABS = [
   {
     id: "history",
     label: "HISTORY",
-    paragraphs: [
-      "Network E&P Nigeria Limited (NEPN) is a fully Nigerian-owned oil and gas company dedicated to sustainable energy solutions. Since 2001, we have been developing the Qua Iboe field in PML 13, playing a vital role in Nigeria's energy landscape.",
-      "100% Nigerian-owned and operated, proving that indigenous companies can lead in one of the world's most demanding industries.",
-    ],
+    paragraphs: [...CORPORATE_INTRO, "Our ambition is to transition from a single-asset producer into a diversified, multi-asset upstream company."],
   },
   {
     id: "mission",
@@ -38,7 +36,7 @@ const TABS = [
 const FACTS = [
   { label: "Founded", value: "2001" },
   { label: "Headquarters", value: "Ikoyi, Lagos State" },
-  { label: "Primary Asset", value: "Qua Iboe Field, PML 13" },
+  { label: "Primary Asset", value: "Qua Ibo Field, PML 13" },
   { label: "Field Office", value: "Ibeno, Akwa Ibom State" },
 ];
 
@@ -170,7 +168,7 @@ export default function CompanyOverview() {
       }
 
       // Set initial indicator position — runs once after refs are ready
-      const activeIndex = TABS.findIndex((tab) => tab.id === "vision");
+      const activeIndex = TABS.findIndex((tab) => tab.id === "history");
       const activeTabEl = tabRefs.current[activeIndex];
       if (activeTabEl && indicatorRef.current) {
         gsap.set(indicatorRef.current, {
@@ -194,7 +192,7 @@ export default function CompanyOverview() {
           className="relative min-h-[420px] w-full overflow-hidden lg:min-h-0"
         >
           <Image
-            src="/images/dam.jpg"
+            src="/images/facility.jpg"
             alt="NEPN facility"
             fill
             className="object-cover object-center"

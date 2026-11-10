@@ -22,7 +22,7 @@ const CARDS = [
     numberColor: "rgba(0,102,51,0.13)",
     accent: "#006633",
     title: "Exploration & Development",
-    body: "Advanced seismic analysis and geological mapping across PML 13, discovering viable hydrocarbon reserves in the Qua Iboe field, Akwa Ibom State.",
+    body: "Advanced seismic analysis and geological mapping across PML 13, discovering viable hydrocarbon reserves in the Qua Ibo field, Akwa Ibom State.",
     linkColor: "#006633",
   },
   {
@@ -37,8 +37,8 @@ const CARDS = [
     number: "03",
     numberColor: "rgba(80,80,180,0.13)",
     accent: "#4a4ab8",
-    title: "Sustainable Energy",
-    body: "Pioneering Nigeria's energy transition through responsible flaring reduction, net zero commitments, and community-centred environmental stewardship.",
+    title: "Responsible Operations",
+    body: "Pursuing gas commercialization, progressive reduction of routine flaring and improved environmental performance.",
     linkColor: "#1a3fa8",
   },
 ];

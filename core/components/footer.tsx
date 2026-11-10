@@ -179,18 +179,11 @@ export default function Footer() {
 
         {/* BOTTOM BAR */}
         <div className="border-t border-[#1a1a1a] mt-16 pt-6 flex flex-col md:flex-row justify-between text-sm text-gray-500">
-          <p>© 2026 Network E&P Nigeria Limited. All rights reserved.</p>
+          <p>© 2026 Network Exploration and Production Nigeria Limited. All rights reserved.</p>
 
           <div className="flex gap-8 mt-3 md:mt-0">
-            <Link href="/" className="hover:text-white transition">
-              Site Map
-            </Link>
-            <Link href="/" className="hover:text-white transition">
-              Terms
-            </Link>
-            <Link href="/privacy" className="hover:text-white transition">
-              Privacy Policy
-            </Link>
+            <Link href="/sitemap" className="hover:text-white transition">Site Map</Link>
+
           </div>
         </div>
       </div>

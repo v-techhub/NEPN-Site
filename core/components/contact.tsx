@@ -12,10 +12,6 @@ import {
   Clock,
   Send,
   CheckCircle2,
-  Linkedin,
-  Twitter,
-  Facebook,
-  Youtube,
   Globe,
   Sparkles,
   Loader2,
@@ -124,7 +120,11 @@ export default function Contact() {
           SUBJECT_MAPPING[formData.enquiryType] ||
           formData.enquiryType ||
           "General Enquiry",
-        message: formData.message,
+        message: [
+          formData.message.trim(),
+          formData.phone.trim() && `Phone: ${formData.phone.trim()}`,
+          formData.organisation.trim() && `Organisation: ${formData.organisation.trim()}`,
+        ].filter(Boolean).join("\n\n"),
       },
       {
         onSuccess: () => {
@@ -555,24 +555,7 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Social handles */}
-            <div className="relative z-10 flex gap-3 mt-14 pt-8 border-t border-white/10">
-              {[
-                { name: "Linkedin", icon: <Linkedin size={15} />, href: "#" },
-                { name: "Twitter", icon: <Twitter size={15} />, href: "#" },
-                { name: "Facebook", icon: <Facebook size={15} />, href: "#" },
-                { name: "Youtube", icon: <Youtube size={15} />, href: "#" },
-              ].map((item, idx) => (
-                <a
-                  key={idx}
-                  href={item.href}
-                  className="w-10 h-10 rounded-full border border-white/15 text-white/80 hover:border-white hover:text-white hover:bg-white/5 flex items-center justify-center transition duration-300"
-                  title={item.name}
-                >
-                  {item.icon}
-                </a>
-              ))}
-            </div>
+
           </div>
 
           {/* Right panel - Contact Form */}
@@ -864,18 +847,6 @@ export default function Contact() {
                     </p>
                   )}
                 </div>
-
-                {/* Privacy disclaimer */}
-                <p className="text-[11.5px] text-neutral-400 leading-normal font-normal pt-2">
-                  By submitting, you agree to our{" "}
-                  <Link
-                    href="/privacy"
-                    className="text-[#14874f] font-semibold hover:underline"
-                  >
-                    Privacy Policy
-                  </Link>
-                  .
-                </p>
 
                 {/* Submit button */}
                 <div className="pt-2">

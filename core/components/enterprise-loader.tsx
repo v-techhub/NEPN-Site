@@ -30,7 +30,7 @@ export default function EnterpriseLoader() {
       className={styles.root}
       role="status"
       aria-live="polite"
-      aria-label="Loading Network E&P Nigeria Limited"
+      aria-label="Loading Network Exploration and Production Nigeria Limited"
     >
       {/*
         ── Full-screen staggered bands ──
@@ -66,7 +66,7 @@ export default function EnterpriseLoader() {
             <div className={styles.ring} />
             <Image
               src="/logo-brand.png"
-              alt="Network E&P Nigeria Limited"
+              alt="Network Exploration and Production Nigeria Limited"
               width={56}
               height={56}
               priority
@@ -78,7 +78,7 @@ export default function EnterpriseLoader() {
           <div className={styles.wordmark}>
             <span className={styles.wordmarkPrimary}>NEPN</span>
             <div className={styles.wordmarkDivider} />
-            <span className={styles.wordmarkSecondary}>Network E&amp;P Nigeria</span>
+            <span className={styles.wordmarkSecondary}>Network Exploration and Production Nigeria Limited</span>
           </div>
 
           {/* Tagline */}

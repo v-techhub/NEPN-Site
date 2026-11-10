@@ -35,7 +35,7 @@ const FEATURES = [
     ),
     accent: "#006633",
     title: "EXPLORATION & PRODUCTION",
-    subtitle: "PML 13 / Qua Iboe field, Akwa Ibom State",
+    subtitle: "PML 13 / Qua Ibo field, Akwa Ibom State",
     href: "/operations",
   },
   {
@@ -53,7 +53,7 @@ const FEATURES = [
     ),
     accent: "#CC1F1F",
     title: "SAFETY & SUSTAINABILITY",
-    subtitle: "Zero-incident culture & net zero 2050 roadmap",
+    subtitle: "Gas commercialization, flare reduction & responsible operations",
     href: "/sustainability",
   },
   {
@@ -74,7 +74,7 @@ const FEATURES = [
     ),
     accent: "#1a3fa8",
     title: "STRATEGIC PARTNERSHIPS",
-    subtitle: "NNPC, NUPRC, financial & technical partners",
+    subtitle: "Joint Venture & commercial relationships",
     href: "/partners",
   },
 ];

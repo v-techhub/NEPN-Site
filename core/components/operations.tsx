@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { OPERATIONS_INTRO } from "@/core/content/corporate";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
@@ -13,8 +14,8 @@ const OPERATIONAL_STAGES = [
   {
     num: "01 / EXPLORATION",
     title: "Exploration",
-    body: "Advanced 3D seismic analysis and geological mapping driving discovery across PML 13, Qua Iboe field.",
-    details: "The Qua Ibo Marginal Field, discovered by Shell Petroleum Development Company (SPDC) in 1960, is located within a 14 km² farm-out area in PML 13, onshore Akwa Ibom State. A Farm-out Agreement was executed on 29 April 2004 between NEPN, SPDC, and its joint venture partners, granting NEPN development rights to the field.",
+    body: "Advanced 3D seismic analysis and geological mapping driving discovery across PML 13, Qua Ibo field.",
+    details: "The Qua Ibo Marginal Field, discovered by Shell Petroleum Development Company (SPDC) in 1960, is located within a 14 km² farm-out area in the then OML 13 (now PML 13), onshore Akwa Ibom State. A Farm-out Agreement was executed on 29 April 2004 between NEPN, SPDC, and its joint venture partners, granting NEPN development rights to the field.",
     image: "/images/exploration_home.jpg",
   },
   {
@@ -28,7 +29,7 @@ const OPERATIONAL_STAGES = [
     num: "03 / PRODUCTION",
     title: "Production Management",
     body: "Safe, efficient production from established wells with continuous optimisation programmes year-on-year.",
-    details: "Network Exploration and Production Limited is leveraging advanced digitalization technologies to maintain low operating costs and strengthen profitability in a lower-for-longer oil price environment. The company is assessing the impact of these technologies on sustainable operations while exploring innovative solutions to optimize recovery from the Qua Ibo field. In pursuit of cost efficiency, NEPN collaborates with research firms, data analytics providers, consultants, and industry stakeholders, alongside partnerships with the Nigerian government, to drive effective and sustainable digital transformation in oil and gas production.",
+    details: "NEPN achieved first oil on 13 February 2015. Production is supported by the Central Processing Facility (CPF), production wells, flowlines, crude oil storage facilities and the Frontier-Universal-Network (FUN) evacuation facilities. Reservoir surveillance, production optimization, facilities management and asset integrity support safe, efficient operations.",
     image: "/images/production_home.jpg",
   },
   {
@@ -42,38 +43,38 @@ const OPERATIONAL_STAGES = [
 
 const TECH_CARDS = [
   {
-    title: "Enhanced Oil Recovery (EOR)",
-    body: "Advanced techniques to maximize resource extraction",
+    "title": "Reservoir Management",
+    "body": "Reservoir surveillance and evaluation to support field development and production."
   },
   {
-    title: "SCADA Systems",
-    body: "Supervisory Control and Data Acquisition for real-time operations",
+    "title": "Drilling",
+    "body": "Development drilling and well completion informed by the appraisal history of the field."
   },
   {
-    title: "Digital Twin Technology",
-    body: "Virtual replicas of physical assets for optimization",
+    "title": "Production Optimization",
+    "body": "Disciplined asset management to sustain and improve production."
   },
   {
-    title: "AI-Powered Analytics",
-    body: "Machine learning for predictive maintenance and efficiency",
+    "title": "Facilities Management",
+    "body": "Management of processing facilities, flowlines and crude storage infrastructure."
   },
   {
-    title: "Automated Safety Systems",
-    body: "Emergency shutdown and response automation",
+    "title": "Asset Integrity",
+    "body": "Maintenance, inspection and process safety across production infrastructure."
   },
   {
-    title: "Environmental Monitoring",
-    body: "Continuous tracking of emissions and environmental impact",
-  },
+    "title": "Hydrocarbon Evacuation",
+    "body": "Established crude evacuation through the Frontier-Universal-Network (FUN) facilities."
+  }
 ];
 
 const SPEC_ROWS = [
-  { label: "Field Name", value: "Qua Iboe Field" },
+  { label: "Field Name", value: "Qua Ibo Field" },
   { label: "License Block", value: "PML 13" },
   { label: "Location", value: "Akwa Ibom State, Nigeria" },
-  { label: "Operations Since", value: "2001" },
+  { label: "First Oil", value: "13 February 2015" },
   { label: "Head Office", value: "Ikoyi, Lagos State" },
-  { label: "Ownership", value: "100% Indigenous Nigerian" },
+  { label: "Operator", value: "NEPN" },
 ];
 
 export default function Operations() {
@@ -356,14 +357,10 @@ export default function Operations() {
               <span className="italic text-[#14874f]">Excellence</span>
             </h2>
 
-            <p
+            {OPERATIONS_INTRO.map((paragraph) => (<p key={paragraph}
               data-intro-copy
               className="mt-6 text-[#3a4340] text-[15px] sm:text-base leading-relaxed max-w-2xl font-sans font-medium"
-            >
-              From seismic exploration to production management, guided by
-              technical expertise, safety discipline, and commitment to
-              Nigeria&apos;s energy future.
-            </p>
+            >{paragraph}</p>))}
           </div>
 
           {/* 2×2 Operational Stages Grid */}
@@ -429,14 +426,14 @@ export default function Operations() {
                   fontSize: "clamp(2.25rem, 4.9vw, 4.05rem)",
                 }}
               >
-                Advanced{" "}
-                <span className="italic text-[#14874f]">Technology</span>
+                Operational{" "}
+                <span className="italic text-[#14874f]">Capabilities</span>
               </h2>
               <p
                 data-tech-header
                 className="mt-3 text-[15px] sm:text-base text-[#3a4340] max-w-lg mx-auto font-sans font-medium"
               >
-                Leveraging cutting-edge solutions for operational excellence
+                Reservoir management, production efficiency and disciplined asset management
               </p>
             </div>
 
@@ -488,7 +485,7 @@ export default function Operations() {
                     fontSize: "clamp(2rem, 4.4vw, 3.45rem)",
                   }}
                 >
-                  Qua Iboe Field,{" "}
+                  Qua Ibo Field,{" "}
                   <span className="italic text-[#14874f]">PML 13</span>
                 </h2>
 
@@ -496,7 +493,7 @@ export default function Operations() {
                   data-asset-copy
                   className="mt-6 text-neutral-600 text-sm sm:text-[14.5px] leading-[1.9] max-w-[500px]"
                 >
-                  The Qua Iboe field in PML 13, Akwa Ibom State, is NEPN&apos;s
+                  The Qua Ibo field in PML 13, Akwa Ibom State, is NEPN&apos;s
                   flagship operational asset, located in one of Nigeria&apos;s
                   most prolific basins with significant hydrocarbon potential.
                 </p>

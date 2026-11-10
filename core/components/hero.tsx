@@ -11,7 +11,6 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
-import NumberFlow from "@number-flow/react";
 import { gsap } from "gsap";
 
 // ─── Background Assets ────────────────────────────────────────────────────────
@@ -56,11 +55,6 @@ const SLIDES = [
 ];
 
 // ─── Stats Data ────────────────────────────────────────────────────────────────
-const STATS = [
-  { value: 20, suffix: "+", label: "YEARS OF EXCELLENCE" },
-  { value: 24, suffix: " +", label: "ACTIVE PROJECTS" },
-  { value: 100, suffix: "+", label: "DEDICATED EMPLOYEES" },
-];
 
 const AUTO_PLAY_INTERVAL = 6000;
 
@@ -68,13 +62,11 @@ const AUTO_PLAY_INTERVAL = 6000;
 export default function HeroCarousel() {
   const [current, setCurrent] = useState(0);
   const [animating, setAnimating] = useState(false);
-  const [animatedStats, setAnimatedStats] = useState(STATS.map(() => 0));
 
   const badgeRef = useRef(null);
   const headingRef = useRef(null);
   const bodyRef = useRef(null);
   const btnsRef = useRef(null);
-  const statsRef = useRef(null);
   const timerRef = useRef(null);
   const tl = useRef(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -135,26 +127,6 @@ export default function HeroCarousel() {
   useEffect(() => {
     animateContentIn();
   }, [current, animateContentIn]);
-
-  // ── Initial mount animations ────────────────────────────────────────────────
-  useEffect(() => {
-    gsap.fromTo(
-      statsRef.current,
-      { x: 60, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power3.out",
-        delay: 0.8,
-        onComplete: () => {
-          setTimeout(() => {
-            setAnimatedStats(STATS.map((s) => s.value));
-          }, 50);
-        },
-      },
-    );
-  }, []);
 
   // ── Play/Pause background videos ──────────────────────────────────────────
   useEffect(() => {
@@ -317,39 +289,7 @@ export default function HeroCarousel() {
           </div>
         </div>
 
-        {/* RIGHT STATS */}
-        <div
-          ref={statsRef}
-          className="hidden lg:flex flex-col justify-center w-[240px] h-full pt-[80px]"
-          style={{
-            background: "rgba(40,40,40,0.72)",
-            backdropFilter: "blur(8px)",
-          }}
-        >
-          {STATS.map((stat, i) => (
-            <div
-              key={i}
-              className="flex-1 flex flex-col justify-center px-10"
-              style={{
-                borderBottom:
-                  i < STATS.length - 1
-                    ? "1px solid rgba(255,255,255,0.07)"
-                    : "none",
-              }}
-            >
-              <div className="flex items-start leading-none mb-2">
-                <span className="font-black text-white text-5xl">
-                  <NumberFlow value={animatedStats[i]} />
-                </span>
-                <span className="text-white font-bold ml-1">{stat.suffix}</span>
-              </div>
 
-              <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-white/40">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );

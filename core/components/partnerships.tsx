@@ -21,29 +21,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 const DEFAULT_PARTNERS = [
   {
-    id: "seplat",
-    logo: "/images/partners/seplat.jpg",
-    logoAlt: "Seplat logo",
-    name: "Seplat",
-    description:
-      "Strategic joint venture supporting Nigeria's national oil infrastructure and production goals.",
+    "id": "joint-venture",
+    "logo": "",
+    "logoAlt": "",
+    "name": "Joint Venture Partner",
+    "description": "Joint Venture relationships support field development, financing and production operations."
   },
   {
-    id: "nuprc",
-    logo: "/images/partners/nuprc.jpg",
-    logoAlt: "NUPRC logo",
-    name: "NUPRC",
-    description:
-      "Regulatory partnership ensuring full compliance in Nigeria's upstream petroleum sector.",
+    "id": "commercial",
+    "logo": "",
+    "logoAlt": "",
+    "name": "Commercial Partners",
+    "description": "Commercial relationships support services, infrastructure and upstream development opportunities."
   },
   {
-    id: "oando",
-    logo: "/images/partners/oando.jpg",
-    logoAlt: "Oando logo",
-    name: "Oando",
-    description:
-      "Leading Nigerian and international financial institutions funding our exploration and growth.",
-  },
+    "id": "regulatory",
+    "logo": "",
+    "logoAlt": "",
+    "name": "Regulatory Authorities",
+    "description": "Regulatory authorities oversee compliance with applicable requirements. They are distinct from commercial and Joint Venture partners."
+  }
 ];
 
 export default function Partnerships() {
@@ -62,21 +59,12 @@ export default function Partnerships() {
       ? cmsPartners.partners
       : [];
 
-  const partners = [
-    rawPartners.find((p) => p.title.toLowerCase().includes("seplat")),
-    rawPartners.find((p) => p.title.toLowerCase().includes("nuprc")),
-    rawPartners.find((p) => p.title.toLowerCase().includes("oando")),
-  ].map((p, idx) => {
-    const fallback = DEFAULT_PARTNERS[idx];
-    if (!p) return fallback;
-    return {
-      id: String(p.id),
-      logo: getImageUrl(p.logo) || fallback.logo,
-      logoAlt: `${p.title} logo`,
-      name: p.title,
-      description: p.description || fallback.description,
-    };
-  });
+  const partners = rawPartners.length > 0
+    ? rawPartners.slice(0, 3).map((p) => ({
+        id: String(p.id), logo: getImageUrl(p.logo), logoAlt: `${p.title} logo`,
+        name: p.title, description: p.description || "",
+      }))
+    : DEFAULT_PARTNERS;
 
   useEffect(() => {
     if (isLoading) return;
@@ -312,13 +300,13 @@ export default function Partnerships() {
                   className="flex items-center justify-center mb-7"
                   style={{ height: "120px" }}
                 >
-                  <Image
+                  {partner.logo && <Image
                     src={partner.logo}
                     alt={partner.logoAlt}
                     width={200}
                     height={120}
                     className="object-contain max-h-[110px] w-auto"
-                  />
+                  />}
                 </div>
 
                 {/* Divider */}

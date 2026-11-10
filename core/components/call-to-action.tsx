@@ -249,7 +249,7 @@ export default function CTABanner() {
             fontWeight: 400,
           }}
         >
-          100% Nigerian-owned, proven track record in the Qua Iboe field, and a
+          An indigenous Nigerian upstream company with a track record in the Qua Ibo Field and a
           vision extending far beyond the barrel.
         </p>
 

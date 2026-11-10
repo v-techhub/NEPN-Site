@@ -416,10 +416,7 @@ export default function ShowcaseGrid() {
               className="text-[15px] leading-relaxed mb-8 max-w-[440px]"
               style={{ color: "rgba(255,255,255,0.8)", fontWeight: 400 }}
             >
-              At NEPN, sustainability is fundamental to how we operate —
-              delivering zero-incident operations, investing in communities, and
-              working toward net zero because our responsibility extends far
-              beyond the barrel.
+              NEPN is committed to responsible oil and gas operations through gas commercialization opportunities, progressive reduction of routine flaring, environmental monitoring and operational efficiency.
             </p>
 
             {/* CTA */}
@@ -477,7 +474,7 @@ export default function ShowcaseGrid() {
         >
           <Image
             src="/images/sky_shot.jpg"
-            alt="PML 13 Qua Iboe field aerial view"
+            alt="PML 13 Qua Ibo field aerial view"
             fill
             className="object-cover object-center"
             sizes="50vw"
@@ -507,7 +504,7 @@ export default function ShowcaseGrid() {
                   fontFamily: "'Clash Display', sans-serif",
                 }}
               >
-                QUA IBOE FIELD
+                QUA IBO FIELD
               </span>
             </div>
 
@@ -539,9 +536,7 @@ export default function ShowcaseGrid() {
               className="text-[15px] leading-relaxed mb-8 max-w-[440px]"
               style={{ color: "rgba(255,255,255,0.8)", fontWeight: 400 }}
             >
-              Nigeria&apos;s Qua Iboe field in PML 13, Akwa Ibom State, has been
-              our flagship operational asset since 2001 — a prolific basin that
-              underpins our production strategy and long-term growth ambitions.
+              NEPN operates the Qua Ibo Field in PML 13, Akwa Ibom State. First oil was achieved on 13 February 2015. Sustaining this asset and pursuing future development opportunities support our ambition to build a diversified, multi-asset upstream portfolio.
             </p>
 
             {/* CTA */}

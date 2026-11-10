@@ -191,22 +191,15 @@ export default function Partners() {
       name: p.title,
       logo: getImageUrl(p.logo),
       description:
-        p.description ||
-        "Strategic joint venture partnership supporting Nigeria's energy infrastructure and production goals.",
+        p.description || "",
     }));
 
-  const activeStrategic = parseCmsPartners(rawPartners);
-  const activeTop = parseCmsPartners(
-    rawPartners.filter(
-      (p) =>
-        p.title.toLowerCase().includes("oando") ||
-        p.title.toLowerCase().includes("nuprc") ||
-        p.title.toLowerCase().includes("environment"),
-    ),
-  );
-  const activeJv = parseCmsPartners(
-    rawPartners.filter((p) => p.title.toLowerCase().includes("oando")),
-  );
+  // Group records for presentation without changing CMS names, logos or descriptions.
+  const isRegulator = (title: string) => /nuprc|regulatory|commission|ministry|environment|\bdpr\b/i.test(title);
+  const isJointVenture = (title: string) => /oando|joint venture/i.test(title);
+  const activeStrategic = parseCmsPartners(rawPartners.filter((p) => !isRegulator(p.title) && !isJointVenture(p.title)));
+  const activeTop = parseCmsPartners(rawPartners.filter((p) => isRegulator(p.title)));
+  const activeJv = parseCmsPartners(rawPartners.filter((p) => !isRegulator(p.title) && isJointVenture(p.title)));
 
   const currentPartners =
     activeTab === "strategic"
@@ -335,10 +328,7 @@ export default function Partners() {
             data-intro-copy
             className="mt-6 text-[#3a4340] text-[15px] sm:text-base leading-relaxed max-w-3xl font-sans font-medium"
           >
-            At NEPN, we recognize that sustainable success is built on strong
-            partnerships. We collaborate with industry leaders, government
-            agencies, and local communities to deliver excellence across all our
-            operations.
+            NEPN works with its Joint Venture Partner on field development and production, and with commercial partners on services and development opportunities. Regulatory authorities oversee compliance and are distinct from our commercial and Joint Venture relationships.
           </p>
         </div>
       </section>
@@ -360,7 +350,7 @@ export default function Partners() {
               }`}
               style={{ fontFamily: "'Clash Display', sans-serif" }}
             >
-              Strategic Partners
+              Commercial Partners
               {activeTab === "strategic" && (
                 <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#ef3b3b]" />
               )}
@@ -374,7 +364,7 @@ export default function Partners() {
               }`}
               style={{ fontFamily: "'Clash Display', sans-serif" }}
             >
-              Top Partners
+              Regulatory Authorities
               {activeTab === "top" && (
                 <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#ef3b3b]" />
               )}

@@ -18,10 +18,10 @@ const clashDisplay = localFont({
   variable: "--font-clash-display",
 });
 
-const SITE_NAME = "Network E&P Nigeria Limited";
+const SITE_NAME = "Network Exploration and Production Nigeria Limited";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://networkeandp.com";
 const SITE_DESCRIPTION =
-  "Network E&P Nigeria Limited (NEPN) is a fully Nigerian-owned oil and gas company dedicated to promoting sustainable energy solutions throughout Nigeria.";
+  "Network Exploration and Production Nigeria Limited (NEPN) is an indigenous Nigerian upstream oil and gas company engaged in the exploration, development and production of hydrocarbon resources.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

@@ -82,6 +82,7 @@ export interface PaginatedLeadershipResponse {
 }
 
 export interface GalleryItem extends CmsBaseEntity {
+  type?: string;
   title: string;
   description: string;
   image: string;

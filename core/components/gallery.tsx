@@ -10,7 +10,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Maximize2,
-  ArrowRight,
   Loader2,
 } from "lucide-react";
 import { useGallery } from "@/core/hooks/queries/useGallery";
@@ -21,93 +20,10 @@ gsap.registerPlugin(ScrollTrigger);
 // Categories supported in the layout
 const CATEGORIES = ["ALL", "OPERATIONS", "FACILITIES", "COMMUNITY", "EVENTS"];
 
-// Curated list of fallback gallery items using local public images
-const FALLBACK_ITEMS = [
-  {
-    id: 1,
-    title: "NEPN PML 13 Production Crew",
-    description: "Our dedicated team on site at the PML 13 oil fields Nigeria.",
-    image: "/images/workers.jpg",
-    category: "operations",
-  },
-  {
-    id: 2,
-    title: "Processing Facility Gate",
-    description:
-      "Entrance gate to our primary processing facility in Akwa Ibom.",
-    image: "/images/facility.jpg",
-    category: "facilities",
-  },
-  {
-    id: 3,
-    title: "Onsite Flow Station Operations",
-    description:
-      "Continuous monitoring of our active oil pipelines and structures.",
-    image: "/images/operations.jpg",
-    category: "operations",
-  },
-  {
-    id: 4,
-    title: "Crude Storage Tanks",
-    description:
-      "High-capacity storage tanks for processed crude oil at terminal.",
-    image: "/images/production.jpg",
-    category: "facilities",
-  },
-  {
-    id: 5,
-    title: "Community Health Outreach",
-    description:
-      "Free medical screening event organized for our host community.",
-    image: "/images/sustainability.jpg",
-    category: "community",
-  },
-  {
-    id: 6,
-    title: "Seismic Exploration Survey",
-    description:
-      "Mapping underground structures for prospective drilling sites.",
-    image: "/images/exploration.jpg",
-    category: "operations",
-  },
-  {
-    id: 7,
-    title: "Flow Control Valve Systems",
-    description:
-      "State-of-the-art flow control valves maintaining pipeline safety.",
-    image: "/images/machine.jpg",
-    category: "facilities",
-  },
-  {
-    id: 8,
-    title: "Annual Stakeholders Meeting",
-    description:
-      "Reviewing our corporate performance and strategic roadmap with partners.",
-    image: "/slides/slide-2.jpg",
-    category: "events",
-  },
-  {
-    id: 9,
-    title: "Safety Milestone Ceremony",
-    description:
-      "Celebrating 5 million hours without Lost Time Injury (LTI) in field operations.",
-    image: "/slides/slide-3.jpg",
-    category: "events",
-  },
-  {
-    id: 10,
-    title: "Akwa Ibom Office Headquarter",
-    description: "Our regional command hub supporting field operations.",
-    image: "/slides/slide-1.jpg",
-    category: "facilities",
-  },
-];
-
 // Helper to assign categories to CMS items based on title or description keywords
 const getCategoryForCmsItem = (
   title: string = "",
   description: string = "",
-  index: number = 0,
 ): string => {
   const t = title.toLowerCase();
   const d = (description || "").toLowerCase();
@@ -177,18 +93,11 @@ const getCategoryForCmsItem = (
     return "events";
   }
 
-  // Falling back to a cyclic distribution if no keywords match
-  const fallbackCategories = [
-    "operations",
-    "facilities",
-    "community",
-    "events",
-  ];
-  return fallbackCategories[index % fallbackCategories.length];
+  return "general";
 };
 
 export default function Gallery() {
-  const { data: galleryItems, isLoading } = useGallery();
+  const { data: galleryItems = [], isLoading, isError, refetch } = useGallery();
   const rootRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLElement | null>(null);
   const heroImageRef = useRef<HTMLDivElement | null>(null);
@@ -198,17 +107,14 @@ export default function Gallery() {
   const [activeTab, setActiveTab] = useState("ALL");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  // Process data from CMS and assign categories dynamically, fall back to local items if empty
-  const items =
-    galleryItems && galleryItems.length > 0
-      ? galleryItems.map((item, idx) => ({
-          id: item.id,
-          title: item.title,
-          description: item.description || "",
-          image: getImageUrl(item.image),
-          category: getCategoryForCmsItem(item.title, item.description, idx),
-        }))
-      : FALLBACK_ITEMS;
+  const items = galleryItems.map((item) => ({
+    id: item.id,
+    title: item.title,
+    description: item.description,
+    image: getImageUrl(item.image),
+    category: item.type?.trim().toLowerCase() ||
+      getCategoryForCmsItem(item.title, item.description),
+  }));
 
   // Filter items based on active tab
   const filteredItems = items.filter(
@@ -479,7 +385,7 @@ export default function Gallery() {
           {CATEGORIES.map((tab) => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => { setActiveTab(tab); setLightboxIndex(null); }}
               className={[
                 "h-[40px] px-6 text-[11px] font-extrabold uppercase tracking-[0.08em] transition-all duration-300 rounded cursor-pointer outline-none border",
                 activeTab === tab
@@ -500,6 +406,13 @@ export default function Gallery() {
             <p className="text-sm font-semibold tracking-wide">
               Loading gallery media...
             </p>
+          </div>
+        ) : isError ? (
+          <div role="alert" className="text-center py-20 text-neutral-600">
+            <p>We couldn&apos;t load the gallery images. Please try again.</p>
+            <button onClick={() => refetch()} className="mt-4 rounded bg-[#14874f] px-6 py-2 text-sm font-semibold text-white cursor-pointer">
+              Try again
+            </button>
           </div>
         ) : (
           /* Staggered Masonry Grid Layout */
@@ -556,7 +469,7 @@ export default function Gallery() {
         )}
 
         {/* Empty State */}
-        {!isLoading && filteredItems.length === 0 && (
+        {!isLoading && !isError && filteredItems.length === 0 && (
           <div className="text-center py-20 border border-dashed border-neutral-200 rounded-3xl bg-neutral-50/50">
             <p className="text-neutral-600 text-sm font-bold tracking-wide uppercase">
               No media files available in this category

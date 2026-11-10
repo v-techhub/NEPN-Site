@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ENVIRONMENT_INTRO, COMMUNITY_INTRO } from "@/core/content/corporate";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
@@ -20,20 +21,17 @@ const EHS_CARDS = [
     image: "/images/safety.jpg",
     title: "Safety First",
     body: "Zero-harm workplace culture with comprehensive safety training and protocols.",
-    metric: "0 LTI in 2025",
-  },
+      },
   {
     image: "/images/sick_bed.jpg",
     title: "Health & Wellbeing",
     body: "Comprehensive health programs for employees and host communities.",
-    metric: "2000+ beneficiaries",
-  },
+      },
   {
     image: "/images/environment.jpg",
     title: "Environmental Protection",
     body: "Rigorous environmental management and monitoring systems.",
-    metric: "40% emission reduction",
-  },
+      },
 ];
 
 const CSR_CARDS = [
@@ -64,31 +62,14 @@ const CSR_CARDS = [
 ];
 
 const COMPLIANCE_ITEMS = [
-  "ISO 45001 Occupational Health & Safety certified",
-  "API 510, 570, and 653 compliance",
-  "DPR (Department of Petroleum Resources) approved",
-  "Regular third-party safety audits",
-  "Comprehensive emergency response plans",
+  "Environmental compliance and monitoring",
+  "Greenhouse gas emissions monitoring",
+  "Waste management and responsible resource utilization",
+  "Asset integrity and process safety",
+  "Continuous improvement in operational practices"
 ];
 
-const PERFORMANCE_METRICS = [
-  {
-    label: "Complete environmental baseline studies",
-    value: "In Progress - 2026",
-  },
-  {
-    label: "Achieve ISO 14001 certification",
-    value: "Planned - 2028",
-  },
-  {
-    label: "50% reduction in carbon intensity",
-    value: "Target - 2030",
-  },
-  {
-    label: "Compliance Rate",
-    value: "100%",
-  },
-];
+
 
 export default function Sustainability() {
   const { data: galleryItems, isLoading } = useGallery();
@@ -160,9 +141,7 @@ export default function Sustainability() {
       const csrGrid = rootRef.current?.querySelectorAll(
         "[data-csr-grid] > div",
       );
-      const impactCopy =
-        rootRef.current?.querySelectorAll("[data-impact-copy]");
-      const statsBar = rootRef.current?.querySelectorAll(
+const statsBar = rootRef.current?.querySelectorAll(
         "[data-stats-bar] > div",
       );
 
@@ -175,8 +154,7 @@ export default function Sustainability() {
       if (safetyCard) safetyCard.forEach((el) => targets.push(el));
       if (csrHeader) csrHeader.forEach((el) => targets.push(el));
       if (csrGrid) csrGrid.forEach((el) => targets.push(el));
-      if (impactCopy) impactCopy.forEach((el) => targets.push(el));
-      if (statsBar) statsBar.forEach((el) => targets.push(el));
+if (statsBar) statsBar.forEach((el) => targets.push(el));
 
       if (targets.length) {
         gsap.set(targets, { willChange: "transform, opacity" });
@@ -283,19 +261,9 @@ export default function Sustainability() {
         );
       }
 
-      if (impactCopy?.length) {
-        animateReveal(
-          impactCopy,
-          rootRef.current?.querySelector("[data-impact-trigger]"),
-        );
-      }
 
-      if (statsBar?.length) {
-        animateReveal(
-          statsBar,
-          rootRef.current?.querySelector("[data-stats-trigger]"),
-        );
-      }
+
+
     }, rootRef);
 
     return () => ctx.revert();
@@ -411,25 +379,14 @@ export default function Sustainability() {
               fontSize: "clamp(2.25rem, 4.9vw, 4.05rem)",
             }}
           >
-            Building a{" "}
-            <span className="italic text-[#14874f]">Sustainable Future</span>
+            Greener and More{" "}
+            <span className="italic text-[#14874f]">Responsible Operations</span>
           </h2>
 
-          <p
+          {ENVIRONMENT_INTRO.map((paragraph) => (<p key={paragraph}
             data-commit-copy
             className="mt-6 text-[#3a4340] text-[15px] sm:text-base leading-[1.8] max-w-3xl mx-auto font-sans font-medium"
-          >
-            Sustainability is central to the Company&apos;s long-term value
-            creation, supporting Nigeria&apos;s economic growth through energy
-            supply, job creation, infrastructure development, and government
-            revenue. Its shared value approach ensures benefits for employees,
-            partners, host communities, and society, while promoting high
-            industry standards. The Company emphasizes transparency and
-            accountability, continuously improving its sustainability
-            performance and aligning its reporting with global standards such as
-            the Global Reporting Initiative (GRI) and International Finance
-            Corporation (IFC).
-          </p>
+          >{paragraph}</p>))}
         </div>
       </section>
 
@@ -473,13 +430,7 @@ export default function Sustainability() {
               contractors, equipment, host communities, the public, and the
               environment, while ensuring compliance with industry standards
               across facility design, asset lifecycle, and operational
-              activities. Its effectiveness is reflected in an outstanding
-              safety record, including zero Lost Time Accidents during the NRG
-              201 rig operations (2008–2009), 700,000 man-hours without incident
-              during Henan drilling operations in 2013, and over 3.3 million
-              cumulative man-hours without a Lost Time Incident, demonstrating a
-              sustained commitment to safety, operational excellence, and
-              responsible energy development.
+              activities. Safe operations are supported by continuous risk assessment, monitoring and improvement.
             </p>
           </div>
 
@@ -507,9 +458,6 @@ export default function Sustainability() {
                       {card.body}
                     </p>
                   </div>
-                  <p className="text-sm font-bold text-[#1b1cff]">
-                    {card.metric}
-                  </p>
                 </div>
               </div>
             ))}
@@ -572,17 +520,12 @@ export default function Sustainability() {
 
               {/* Stats & Description Overlay */}
               <div className="relative z-10 flex flex-col items-start text-left">
-                <h3
-                  className="text-white font-extrabold leading-none tracking-tight text-5xl sm:text-6xl mb-3"
-                  style={{ fontFamily: "'Clash Display', sans-serif" }}
-                >
-                  5M+
-                </h3>
+
                 <p
                   className="text-white font-semibold leading-snug text-sm sm:text-base max-w-[85%]"
                   style={{ fontFamily: "'Barlow', sans-serif" }}
                 >
-                  Safe Work Hours Without Lost Time Injury
+                  Protecting people, communities and the environment
                 </p>
               </div>
             </div>
@@ -602,21 +545,12 @@ export default function Sustainability() {
                 fontSize: "clamp(2.25rem, 4.9vw, 4.05rem)",
               }}
             >
-              Corporate Social Responsibility.
+              Host Community Development
             </h2>
-            <p
+            {COMMUNITY_INTRO.map((paragraph) => (<p key={paragraph}
               data-csr-header
               className="mt-3 text-[15px] sm:text-base text-[#3a4340] max-w-3xl mx-auto leading-[1.8] font-sans font-medium"
-            >
-              At NEPN, we are committed to responsible oil and gas operations
-              that create positive social, economic, and environmental impact.
-              Through our Corporate Social Responsibility (CSR) initiatives, we
-              support community development, education, healthcare,
-              environmental sustainability, and local empowerment. We strive to
-              operate with integrity, prioritize safety, and build lasting
-              partnerships that contribute to sustainable growth and improved
-              livelihoods in the communities where we operate.
-            </p>
+            >{paragraph}</p>))}
           </div>
 
           {/* CSR Image cards grid */}
@@ -658,151 +592,6 @@ export default function Sustainability() {
                 </div>
               ))
             )}
-          </div>
-        </div>
-      </section>
-
-      {/* Measurable Impact Section */}
-      <section data-impact-trigger className="bg-[#f4f4f4] py-16 sm:py-24">
-        <div className="mx-auto max-w-[980px] px-5">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-16 items-center">
-            {/* Worker Image */}
-            <div
-              data-impact-copy
-              className="relative rounded-2xl overflow-hidden h-[340px] sm:h-[420px] shadow-md border border-neutral-200/50 group"
-            >
-              <Image
-                src="/images/man_on_duty.jpg"
-                alt="NEPN mechanical technician working on site"
-                fill
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-103"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </div>
-
-            {/* Performance metrics list */}
-            <div>
-              <div
-                data-impact-copy
-                className="mb-3 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.32em]"
-                style={{ fontFamily: "'Clash Display', sans-serif" }}
-              >
-                <span className="h-[2px] w-4 rounded-full bg-[#ef3b3b]" />
-                <span className="text-[#ef3b3b]">Our Performance</span>
-              </div>
-
-              <h2
-                data-impact-copy
-                className="font-black leading-[1.02] tracking-[-0.03em] text-[#1f2724] mb-6"
-                style={{
-                  fontFamily: "'Clash Display', sans-serif",
-                  fontSize: "clamp(2rem, 4.4vw, 3.45rem)",
-                }}
-              >
-                MEASURABLE <span className="italic text-[#14874f]">IMPACT</span>
-              </h2>
-
-              <p
-                data-impact-copy
-                className="text-[#5d6763] text-sm sm:text-[14.5px] leading-relaxed mb-8 font-sans"
-              >
-                We track and report our sustainability performance across
-                environmental, social, and governance metrics to ensure
-                transparency and continuous improvement.
-              </p>
-
-              <div
-                data-impact-copy
-                className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6"
-              >
-                {PERFORMANCE_METRICS.map((metric) => (
-                  <div
-                    key={metric.label}
-                    className="border-l-[3.5px] border-[#14874f] pl-4"
-                  >
-                    <p
-                      className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#14874f]"
-                      style={{ fontFamily: "'Clash Display', sans-serif" }}
-                    >
-                      {metric.label}
-                    </p>
-                    <p className="mt-1 text-sm font-bold text-neutral-800">
-                      {metric.value}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Four Column Stats strip */}
-      <section
-        data-stats-trigger
-        className="bg-white border-t border-b border-neutral-200/60 py-10 sm:py-12"
-      >
-        <div className="mx-auto max-w-[980px] px-5">
-          <div
-            data-stats-bar
-            className="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-4 text-center divide-y md:divide-y-0 md:divide-x divide-neutral-200/60"
-          >
-            <div className="pt-0 md:pt-0">
-              <p
-                className="text-[34px] sm:text-[40px] font-black text-[#14874f] leading-none"
-                style={{ fontFamily: "'Clash Display', sans-serif" }}
-              >
-                100%
-              </p>
-              <p
-                className="mt-2 text-[9px] font-bold text-[#14874f] uppercase tracking-widest leading-none"
-                style={{ fontFamily: "'Clash Display', sans-serif" }}
-              >
-                Nigerian Owned
-              </p>
-            </div>
-            <div className="pt-0 md:pt-0">
-              <p
-                className="text-[34px] sm:text-[40px] font-black text-[#ef3b3b] leading-none"
-                style={{ fontFamily: "'Clash Display', sans-serif" }}
-              >
-                Zero
-              </p>
-              <p
-                className="mt-2 text-[9px] font-bold text-[#ef3b3b] uppercase tracking-widest leading-none"
-                style={{ fontFamily: "'Clash Display', sans-serif" }}
-              >
-                Major HSE Incidents
-              </p>
-            </div>
-            <div className="pt-6 md:pt-0">
-              <p
-                className="text-[34px] sm:text-[40px] font-black text-[#1b1cff] leading-none"
-                style={{ fontFamily: "'Clash Display', sans-serif" }}
-              >
-                2040
-              </p>
-              <p
-                className="mt-2 text-[9px] font-bold text-[#1b1cff] uppercase tracking-widest leading-none"
-                style={{ fontFamily: "'Clash Display', sans-serif" }}
-              >
-                Achieve Net-Zero Operations
-              </p>
-            </div>
-            <div className="pt-6 md:pt-0">
-              <p
-                className="text-[34px] sm:text-[40px] font-black text-[#14874f] leading-none"
-                style={{ fontFamily: "'Clash Display', sans-serif" }}
-              >
-                30+
-              </p>
-              <p
-                className="mt-2 text-[9px] font-bold text-[#14874f] uppercase tracking-widest leading-none"
-                style={{ fontFamily: "'Clash Display', sans-serif" }}
-              >
-                CSR Programmes Active
-              </p>
-            </div>
           </div>
         </div>
       </section>

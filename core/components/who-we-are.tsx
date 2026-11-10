@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { CORPORATE_INTRO, MILESTONES, STRATEGIC_GOALS } from "@/core/content/corporate";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
@@ -15,41 +16,9 @@ const STORY_FACTS = [
   { label: "Founded", value: "2001", color: "#14874f" },
   { label: "Headquarters", value: "Ikoyi, Lagos", color: "#ef3b3b" },
   { label: "Field Office", value: "Ibeno, Akwa Ibom", color: "#2647ff" },
-  { label: "Primary Asset", value: "Qua Iboe, PML 13", color: "#14874f" },
+  { label: "Primary Asset", value: "Qua Ibo, PML 13", color: "#14874f" },
 ];
 
-const MILESTONES = [
-  {
-    year: "2001",
-    title: "Company Founded",
-    body: "NEPN incorporated as a fully indigenous Nigerian oil and gas company committed to responsible energy development.",
-    color: "#14874f",
-  },
-  {
-    year: "2012",
-    title: "Field Office Established",
-    body: "Operational field office opened at 5 Terminal Road, Inua Eyet Ikot, Ibeno LGA, Akwa Ibom State.",
-    color: "#2647ff",
-  },
-  {
-    year: "2017",
-    title: "Qua Iboe Exploration Begins",
-    body: "First seismic surveys commenced in the Qua Iboe field, PML 13, Akwa Ibom State.",
-    color: "#ef3b3b",
-  },
-  {
-    year: "2018",
-    title: "Production Growth",
-    body: "Significant production milestones achieved, cementing NEPN as a credible indigenous operator.",
-    color: "#14874f",
-  },
-  {
-    year: "2024+",
-    title: "Net Zero Commitment",
-    body: "Net zero roadmap formalised; expanded community development and environmental management deployed.",
-    color: "#ef3b3b",
-  },
-];
 
 const FEATURE_SPLITS = [
   {
@@ -527,22 +496,7 @@ export default function WhoWeAre() {
               />
 
               <div className="mt-7 max-w-[560px] space-y-7 text-[15px] leading-[2.02] text-[#3a4340] font-medium sm:text-[16px]">
-                <p data-story-left>
-                  Network E&amp;P Nigeria Limited (NEPN) is a fully
-                  Nigerian-owned oil and gas company dedicated to promoting
-                  sustainable energy solutions throughout Nigeria.
-                </p>
-                <p data-story-left>
-                  Since 2001, we have been at the forefront of exploring and
-                  developing the Qua Iboe field in PML 13, playing a vital role
-                  in meeting the nation&apos;s energy needs.
-                </p>
-                <p data-story-left>
-                  We are proud to be 100% Nigerian-owned and operated, a
-                  testament to the vision that indigenous companies can lead and
-                  excel in one of the world&apos;s most technically demanding
-                  industries.
-                </p>
+                {CORPORATE_INTRO.map((paragraph) => (<p data-story-left key={paragraph}>{paragraph}</p>))}
               </div>
 
               <div className="mt-10 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:max-w-[540px]">
@@ -636,6 +590,22 @@ export default function WhoWeAre() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-16 sm:py-24" aria-labelledby="strategic-goals">
+        <div className="mx-auto max-w-[1100px] px-5 sm:px-8">
+          <h2 id="strategic-goals" className="text-3xl sm:text-4xl font-bold text-[#1f2724] mb-10">Our Strategic Goals</h2>
+          <div className="divide-y divide-neutral-200">
+            {STRATEGIC_GOALS.map((goal) => (
+              <article key={goal.number} className="grid grid-cols-[40px_1fr] gap-5 py-7 sm:grid-cols-[65px_1fr]">
+                <span className="text-xl font-bold text-[#14874f]">{goal.number}</span>
+                <div><h3 className="text-xl font-bold text-[#1f2724]">{goal.title}</h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-[#3a4340] max-w-3xl">{goal.body}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
