@@ -8,6 +8,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Award, Target, Users, TrendingUp, X, ArrowRight } from "lucide-react";
 import { useLeadership } from "@/core/hooks/queries/useLeadership";
+import { useCompanyData } from "@/core/hooks/queries/useCompanyData";
 import { getImageUrl } from "@/core/api/client";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -26,7 +27,7 @@ const FEATURE_SPLITS = [
     alt: "NEPN production infrastructure",
     eyebrow: "OUR MISSION",
     title: "Responsible Energy Development",
-    body: "To explore, develop, and produce hydrocarbon resources in Nigeria with the highest levels of technical expertise, safety, and environmental stewardship - creating sustainable value for shareholders, employees, host communities, and the nation of Nigeria.",
+    body: "To explore, develop, and produce hydrocarbon resources in Nigeria with the highest levels of technical expertise, safety, and environmental stewardship, creating sustainable value for shareholders, employees, host communities, and Nigeria.",
     panelColor: "#168441",
     eyebrowAccent: "rgba(255,255,255,0.75)",
     textColor: "rgba(255,255,255,0.84)",
@@ -37,7 +38,7 @@ const FEATURE_SPLITS = [
     alt: "NEPN team working around gas oil separation equipment",
     eyebrow: "OUR VISION",
     title: "Nigeria's Preeminent Indigenous Operator",
-    body: "To be the preeminent indigenous exploration and production company in Nigeria - a globally respected operator known for technical excellence, transparent governance, and transformative community impact that leaves a lasting legacy for future generations.",
+    body: "To be the preeminent indigenous E&P company in Nigeria, a globally respected operator known for technical excellence, transparent governance, and transformative community impact.",
     panelColor: "#1b1cff",
     eyebrowAccent: "rgba(255,255,255,0.78)",
     textColor: "rgba(255,255,255,0.84)",
@@ -100,6 +101,20 @@ const LeadershipSkeletonCard = () => (
 
 export default function WhoWeAre() {
   const { data: cmsLeaders, isLoading } = useLeadership();
+  const { data: companyData } = useCompanyData();
+
+  const historyParagraphs = companyData?.history
+    ? companyData.history.split(/\n\s*\n|\n/).map((p) => p.trim()).filter(Boolean)
+    : CORPORATE_INTRO;
+
+  const missionText = companyData?.mission
+    ? companyData.mission.split(/\n\s*\n|\n/).map((p) => p.trim()).filter(Boolean)[0] || companyData.mission
+    : FEATURE_SPLITS[0].body;
+
+  const visionText = (companyData?.values || companyData?.vision)
+    ? (companyData.values || companyData.vision)!.split(/\n\s*\n|\n/).map((p) => p.trim()).filter(Boolean)[0] || (companyData.values || companyData.vision)!
+    : FEATURE_SPLITS[1].body;
+
   const rootRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLElement | null>(null);
   const storyRef = useRef<HTMLElement | null>(null);
@@ -496,7 +511,11 @@ export default function WhoWeAre() {
               />
 
               <div className="mt-7 max-w-[560px] space-y-7 text-[15px] leading-[2.02] text-[#3a4340] font-medium sm:text-[16px]">
-                {CORPORATE_INTRO.map((paragraph) => (<p data-story-left key={paragraph}>{paragraph}</p>))}
+                {historyParagraphs.map((paragraph, idx) => (
+                  <p data-story-left key={idx}>
+                    {paragraph}
+                  </p>
+                ))}
               </div>
 
               <div className="mt-10 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:max-w-[540px]">
@@ -655,7 +674,7 @@ export default function WhoWeAre() {
                     className="mt-5 max-w-[360px] text-[12px] leading-[1.92] sm:text-[12.5px]"
                     style={{ color: FEATURE_SPLITS[0].textColor }}
                   >
-                    {FEATURE_SPLITS[0].body}
+                    {missionText}
                   </p>
                 </div>
               </div>
@@ -710,7 +729,7 @@ export default function WhoWeAre() {
                       letterSpacing: "0%",
                     }}
                   >
-                    {FEATURE_SPLITS[1].body}
+                    {visionText}
                   </p>
                 </div>
               </div>

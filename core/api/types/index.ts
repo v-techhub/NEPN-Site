@@ -112,6 +112,21 @@ export interface FaqItem {
   updated_at?: string;
 }
 
+export interface WhatWeDoItem extends CmsBaseEntity {
+  number?: number | string;
+  title: string;
+  description: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface CompanyData {
+  history?: string;
+  mission?: string;
+  values?: string;
+  vision?: string;
+}
+
 export interface ContactFormPayload {
   name: string;
   email: string;

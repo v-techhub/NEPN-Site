@@ -16,6 +16,8 @@
 - `testimonial` powers testimonials.
 - `faq` powers FAQ accordion content.
 - `leadership` powers the about/Who We Are leadership cards.
+- `what-we-do` powers the homepage "What We Do" business area cards.
+- `company-data` powers the corporate overview tabs (History, Mission, Vision/Values) and story sections.
 - `gallery` powers sustainability/CSR imagery.
 - `contact-form` and `email-submission` are used by mutations for the contact form and newsletter subscription.
 
@@ -40,7 +42,7 @@ Cache policy:
 
 ## Assumptions
 
-- The CMS endpoints available to this project are the ones already reflected in the repository services:
-  `slider`, `posts`, `partners`, `testimonial`, `faq`, `leadership`, `gallery`, `contact-form`, and `email-submission`.
+- The CMS endpoints available to this project are:
+  `slider`, `posts`, `partners`, `testimonial`, `faq`, `leadership`, `gallery`, `what-we-do`, `company-data`, `contact-form`, and `email-submission`.
 - I treated the existing static homepage sections as design-led content where the CMS does not currently expose a matching resource.
 - Network E&P branding, page structure, and image assets remain part of the site shell, while CMS data fills the content-heavy sections.

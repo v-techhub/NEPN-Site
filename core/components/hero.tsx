@@ -154,7 +154,7 @@ export default function HeroCarousel() {
   const slide = SLIDES[current];
 
   return (
-    <section className="relative w-full h-dvh min-h-[560px] overflow-hidden bg-black">
+    <section className="relative w-full h-dvh min-h-[600px] overflow-hidden bg-black">
       {/* ── Background Media Slideshow ─────────────────────────────────── */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         {BACKGROUNDS.map((bg, index) => {
@@ -209,27 +209,33 @@ export default function HeroCarousel() {
       {/* ── Main content grid ───────────────────────────────────────────── */}
       <div className="relative z-10 w-full h-full flex">
         {/* LEFT CONTENT */}
-        <div className="flex-1 flex flex-col justify-center px-8 sm:px-12 lg:px-16 xl:px-20 pb-28 pt-[96px] lg:pt-[110px]">
+        <div className="flex-1 flex flex-col justify-center px-8 sm:px-12 lg:px-16 xl:px-20 pt-[88px] sm:pt-[96px] lg:pt-[104px] pb-16 sm:pb-20">
           {/* Badge */}
-          <div ref={badgeRef} className="flex items-center gap-2.5 mb-6">
-            <span className="block w-2.5 h-2.5 rounded-full bg-red-500" />
-            <div
-              className="h-[1.5px] flex-1 max-w-[340px]"
-              style={{ background: "rgba(255,255,255,0.18)" }}
-            />
-            <span className="text-[11px] font-bold tracking-[0.22em] uppercase text-white/85">
+          <div ref={badgeRef} className="flex items-center gap-3 mb-4 sm:mb-5">
+            <span className="block w-6 h-[2.5px] rounded-full bg-[#CC1F1F] shrink-0" />
+            <span
+              className="text-[11px] sm:text-xs font-bold tracking-[0.22em] uppercase text-white/90"
+              style={{ fontFamily: "'Clash Display', sans-serif" }}
+            >
               {slide.badge}
             </span>
+            <div
+              className="h-[1.5px] w-12 sm:w-20 hidden sm:block"
+              style={{ background: "rgba(255,255,255,0.2)" }}
+            />
           </div>
 
           {/* Heading */}
-          <div ref={headingRef} className="mb-5">
-            <h1 className="font-black leading-[0.92] tracking-tight">
+          <div ref={headingRef} className="mb-4 sm:mb-5">
+            <h1
+              className="font-black leading-[0.94] tracking-tight"
+              style={{ fontFamily: "'Clash Display', sans-serif" }}
+            >
               {slide.headingWhite.split("\n").map((line, i) => (
                 <span
                   key={i}
                   className="block text-white"
-                  style={{ fontSize: "clamp(34px, 6vw, 96px)" }}
+                  style={{ fontSize: "clamp(32px, 5.2vw, 82px)" }}
                 >
                   {line}
                 </span>
@@ -237,7 +243,7 @@ export default function HeroCarousel() {
               <span
                 className="block"
                 style={{
-                  fontSize: "clamp(34px, 6vw, 96px)",
+                  fontSize: "clamp(32px, 5.2vw, 82px)",
                   color: "#22c55e",
                 }}
               >
@@ -249,32 +255,37 @@ export default function HeroCarousel() {
           {/* Body */}
           <p
             ref={bodyRef}
-            className="max-w-[520px] text-[15px] leading-relaxed mb-8 text-white/80"
+            className="max-w-[540px] text-sm sm:text-[15px] leading-relaxed mb-6 sm:mb-8 text-white/80"
           >
             {slide.body}
           </p>
 
           {/* Buttons */}
-          <div ref={btnsRef} className="flex gap-4">
+          <div ref={btnsRef} className="flex flex-wrap gap-3.5 sm:gap-4">
             <Link
               href="/about"
-              className="px-6 py-3.5 text-xs font-bold tracking-[0.18em] uppercase text-white bg-[#CC1F1F] text-center inline-block"
+              className="px-6 py-3.5 text-xs font-bold tracking-[0.18em] uppercase text-white bg-[#CC1F1F] hover:bg-[#a01818] transition-colors duration-200 text-center inline-block"
             >
               DISCOVER NEPN
             </Link>
 
             <Link
               href="/operations"
-              className="px-6 py-3.5 text-xs font-bold tracking-[0.18em] uppercase text-white border border-white/60 text-center inline-block"
+              className="px-6 py-3.5 text-xs font-bold tracking-[0.18em] uppercase text-white border border-white/60 hover:border-white hover:bg-white/10 transition-colors duration-200 text-center inline-block"
             >
               OUR OPERATIONS
             </Link>
           </div>
 
           {/* Dots */}
-          <div className="absolute bottom-10 left-8 sm:left-12 lg:left-16 xl:left-20 flex gap-3">
+          <div className="absolute bottom-6 sm:bottom-8 lg:bottom-10 left-8 sm:left-12 lg:left-16 xl:left-20 flex gap-3 z-20">
             {SLIDES.map((_, i) => (
-              <button key={i} onClick={() => goTo(i)}>
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                className="cursor-pointer py-1"
+              >
                 <span
                   className="block rounded-full transition-all duration-500"
                   style={{

@@ -13,52 +13,91 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useWhatWeDo } from "@/core/hooks/queries/useWhatWeDo";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const CARDS = [
+const DEFAULT_CARDS = [
   {
+    id: 1,
     number: "01",
-    numberColor: "rgba(0,102,51,0.13)",
-    accent: "#006633",
     title: "Exploration & Development",
     body: "Advanced seismic analysis and geological mapping across PML 13, discovering viable hydrocarbon reserves in the Qua Ibo field, Akwa Ibom State.",
+  },
+  {
+    id: 2,
+    number: "02",
+    title: "Production Operations",
+    body: "Safe, efficient hydrocarbon production from established wells with continuous optimization programmes that sustain and grow our output year-on-year.",
+  },
+  {
+    id: 3,
+    number: "03",
+    title: "Responsible Operations",
+    body: "Pursuing gas commercialization, progressive reduction of routine flaring and improved environmental performance.",
+  },
+];
+
+const CARD_THEMES = [
+  {
+    numberColor: "rgba(0,102,51,0.13)",
+    accent: "#006633",
     linkColor: "#006633",
   },
   {
-    number: "02",
     numberColor: "rgba(204,31,31,0.12)",
     accent: "#CC1F1F",
-    title: "Production Operations",
-    body: "Safe, efficient hydrocarbon production from established wells with continuous optimization programmes that sustain and grow our output year-on-year.",
     linkColor: "#CC1F1F",
   },
   {
-    number: "03",
     numberColor: "rgba(80,80,180,0.13)",
     accent: "#4a4ab8",
-    title: "Responsible Operations",
-    body: "Pursuing gas commercialization, progressive reduction of routine flaring and improved environmental performance.",
     linkColor: "#1a3fa8",
   },
 ];
 
 export default function WhatWeDo() {
-  const sectionRef = useRef(null);
-  const eyebrowRef = useRef(null);
-  const headingRef = useRef(null);
-  const ctaBtnRef = useRef(null);
-  const cardRefs = useRef([]);
-  const accentRefs = useRef([]);
-  const numberRefs = useRef([]);
+  const { data: cmsItems, isLoading } = useWhatWeDo();
+
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const eyebrowRef = useRef<HTMLDivElement | null>(null);
+  const headingRef = useRef<HTMLHeadingElement | null>(null);
+  const ctaBtnRef = useRef<HTMLDivElement | null>(null);
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const accentRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const numberRefs = useRef<Array<HTMLDivElement | null>>([]);
+
+  const rawCards = cmsItems && cmsItems.length > 0 ? cmsItems : DEFAULT_CARDS;
+
+  const cards = rawCards.map((item, i) => {
+    const theme = CARD_THEMES[i % CARD_THEMES.length];
+    const rawNumber = "number" in item ? item.number : i + 1;
+    const numberStr = String(rawNumber ?? i + 1).padStart(2, "0");
+    const body =
+      "description" in item
+        ? (item as { description: string }).description
+        : (item as { body: string }).body;
+
+    return {
+      id: item.id ?? i + 1,
+      number: numberStr,
+      numberColor: theme.numberColor,
+      accent: theme.accent,
+      title: item.title,
+      body,
+      linkColor: theme.linkColor,
+    };
+  });
 
   useEffect(() => {
+    if (isLoading && !cmsItems) return;
+
     const ctx = gsap.context(() => {
       const st = { trigger: sectionRef.current, start: "top 78%", once: true };
 
       // Eyebrow + heading slide up
       gsap.fromTo(
-        [eyebrowRef.current, headingRef.current, ctaBtnRef.current],
+        [eyebrowRef.current, headingRef.current, ctaBtnRef.current].filter(Boolean),
         { y: 36, opacity: 0 },
         {
           y: 0,
@@ -71,73 +110,86 @@ export default function WhatWeDo() {
       );
 
       // Cards rise up with stagger
-      gsap.fromTo(
-        cardRefs.current,
-        { y: 60, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.75,
-          ease: "power3.out",
-          stagger: 0.15,
-          delay: 0.2,
-          scrollTrigger: st,
-        },
-      );
+      const validCards = cardRefs.current.filter(Boolean);
+      if (validCards.length > 0) {
+        gsap.fromTo(
+          validCards,
+          { y: 60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.75,
+            ease: "power3.out",
+            stagger: 0.15,
+            delay: 0.2,
+            scrollTrigger: st,
+          },
+        );
+      }
 
       // Large ghost numbers count up opacity
-      gsap.fromTo(
-        numberRefs.current,
-        { opacity: 0, scale: 0.85 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.9,
-          ease: "power2.out",
-          stagger: 0.15,
-          delay: 0.4,
-          scrollTrigger: st,
-        },
-      );
+      const validNumbers = numberRefs.current.filter(Boolean);
+      if (validNumbers.length > 0) {
+        gsap.fromTo(
+          validNumbers,
+          { opacity: 0, scale: 0.85 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.9,
+            ease: "power2.out",
+            stagger: 0.15,
+            delay: 0.4,
+            scrollTrigger: st,
+          },
+        );
+      }
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isLoading, cmsItems]);
 
   // ── Card hover: accent top border ────────────────────────────────────────────
-  const handleEnter = (i) => {
-    gsap.to(accentRefs.current[i], {
-      scaleX: 1,
-      duration: 0.38,
-      ease: "power3.out",
-    });
-    gsap.to(cardRefs.current[i], {
-      y: -4,
-      boxShadow: "0 12px 36px rgba(0,0,0,0.10)",
-      duration: 0.3,
-      ease: "power2.out",
-    });
+  const handleEnter = (i: number) => {
+    if (accentRefs.current[i]) {
+      gsap.to(accentRefs.current[i], {
+        scaleX: 1,
+        duration: 0.38,
+        ease: "power3.out",
+      });
+    }
+    if (cardRefs.current[i]) {
+      gsap.to(cardRefs.current[i], {
+        y: -4,
+        boxShadow: "0 12px 36px rgba(0,0,0,0.10)",
+        duration: 0.3,
+        ease: "power2.out",
+      });
+    }
   };
 
-  const handleLeave = (i) => {
-    gsap.to(accentRefs.current[i], {
-      scaleX: 0,
-      duration: 0.32,
-      ease: "power2.inOut",
-    });
-    gsap.to(cardRefs.current[i], {
-      y: 0,
-      boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
-      duration: 0.3,
-      ease: "power2.inOut",
-    });
+  const handleLeave = (i: number) => {
+    if (accentRefs.current[i]) {
+      gsap.to(accentRefs.current[i], {
+        scaleX: 0,
+        duration: 0.32,
+        ease: "power2.inOut",
+      });
+    }
+    if (cardRefs.current[i]) {
+      gsap.to(cardRefs.current[i], {
+        y: 0,
+        boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
+        duration: 0.3,
+        ease: "power2.inOut",
+      });
+    }
   };
 
   return (
     <section
       ref={sectionRef}
       className="w-full py-16 lg:py-24"
-      //   style={{ background: "#f0ede6", fontFamily: "'Barlow', sans-serif" }}
     >
       <div className="max-w-7xl mx-auto px-6 xl:px-10">
         {/* ── Header row ──────────────────────────────────────────────────── */}
@@ -199,9 +251,9 @@ export default function WhatWeDo() {
 
         {/* ── Cards grid ──────────────────────────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-gray-200 bg-white divide-y md:divide-y-0 md:divide-x divide-gray-200">
-          {CARDS.map((card, i) => (
+          {cards.map((card, i) => (
             <div
-              key={card.number}
+              key={card.id ?? card.number}
               ref={(el) => {
                 cardRefs.current[i] = el;
               }}

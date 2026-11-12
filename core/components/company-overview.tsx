@@ -6,14 +6,26 @@ import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useCompanyData } from "@/core/hooks/queries/useCompanyData";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TABS = [
+function parseParagraphs(text: string | undefined | null): string[] {
+  if (!text) return [];
+  return text
+    .split(/\n\s*\n|\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+}
+
+const DEFAULT_TABS = [
   {
     id: "history",
     label: "HISTORY",
-    paragraphs: [...CORPORATE_INTRO, "Our ambition is to transition from a single-asset producer into a diversified, multi-asset upstream company."],
+    paragraphs: [
+      ...CORPORATE_INTRO,
+      "Our ambition is to transition from a single-asset producer into a diversified, multi-asset upstream company.",
+    ],
   },
   {
     id: "mission",
@@ -41,8 +53,36 @@ const FACTS = [
 ];
 
 export default function CompanyOverview() {
+  const { data: companyData } = useCompanyData();
+
   const [activeTab, setActiveTab] = useState("history");
   const [displayTab, setDisplayTab] = useState("history");
+
+  const tabs = [
+    {
+      id: "history",
+      label: "HISTORY",
+      paragraphs: companyData?.history
+        ? parseParagraphs(companyData.history)
+        : DEFAULT_TABS[0].paragraphs,
+    },
+    {
+      id: "mission",
+      label: "MISSION",
+      paragraphs: companyData?.mission
+        ? parseParagraphs(companyData.mission)
+        : DEFAULT_TABS[1].paragraphs,
+    },
+    {
+      id: "vision",
+      label: "VISION",
+      paragraphs: (companyData?.values || companyData?.vision)
+        ? parseParagraphs(companyData.values || companyData.vision)
+        : DEFAULT_TABS[2].paragraphs,
+    },
+  ];
+
+  const currentTab = tabs.find((tab) => tab.id === displayTab) ?? tabs[0];
 
   const sectionRef = useRef<HTMLElement | null>(null);
   const imgWrapRef = useRef<HTMLDivElement | null>(null);
@@ -68,11 +108,16 @@ export default function CompanyOverview() {
     });
   };
 
+  useEffect(() => {
+    const index = tabs.findIndex((tab) => tab.id === activeTab);
+    moveIndicator(index >= 0 ? index : 0);
+  }, [activeTab]);
+
   // ── Tab switch: only animates content, never re-triggers entrance ──────────
   const handleTab = (id: string) => {
     if (id === activeTab || !tabContentRef.current) return;
 
-    const index = TABS.findIndex((tab) => tab.id === id);
+    const index = tabs.findIndex((tab) => tab.id === id);
     moveIndicator(index);
 
     gsap.to(tabContentRef.current, {
@@ -168,7 +213,7 @@ export default function CompanyOverview() {
       }
 
       // Set initial indicator position — runs once after refs are ready
-      const activeIndex = TABS.findIndex((tab) => tab.id === "history");
+      const activeIndex = tabs.findIndex((tab) => tab.id === "history");
       const activeTabEl = tabRefs.current[activeIndex];
       if (activeTabEl && indicatorRef.current) {
         gsap.set(indicatorRef.current, {
@@ -179,9 +224,7 @@ export default function CompanyOverview() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []); // ← empty: runs once on mount, never on tab change
-
-  const currentTab = TABS.find((tab) => tab.id === displayTab);
+  }, [tabs]); // ← runs once or when tabs change
 
   return (
     <section ref={sectionRef} className="w-full overflow-hidden bg-white">
@@ -261,14 +304,14 @@ export default function CompanyOverview() {
           {/* Tab bar */}
           <div ref={tabBarRef} className="relative mb-7">
             <div className="flex items-center gap-0 border-b border-gray-200">
-              {TABS.map((tab, index) => (
+              {tabs.map((tab, index) => (
                 <button
                   key={tab.id}
                   ref={(el) => {
                     tabRefs.current[index] = el;
                   }}
                   onClick={() => handleTab(tab.id)}
-                  className="relative px-5 pb-3.5 pt-1 text-[11.5px] font-bold tracking-[0.16em] transition-colors duration-150"
+                  className="relative px-5 pb-3.5 pt-1 text-[11.5px] font-bold tracking-[0.16em] transition-colors duration-150 cursor-pointer"
                   style={{ color: activeTab === tab.id ? "#006633" : "#888" }}
                 >
                   {tab.label}
@@ -284,9 +327,9 @@ export default function CompanyOverview() {
 
           {/* Tab content */}
           <div ref={tabContentRef} className="mb-8 min-h-[120px] space-y-4">
-            {currentTab?.paragraphs.map((paragraph) => (
+            {currentTab.paragraphs.map((paragraph, idx) => (
               <p
-                key={paragraph}
+                key={`${displayTab}-${idx}`}
                 className="text-[15px] leading-relaxed"
                 style={{ color: "#333", fontWeight: 400 }}
               >
