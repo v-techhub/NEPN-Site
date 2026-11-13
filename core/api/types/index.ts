@@ -127,6 +127,79 @@ export interface CompanyData {
   vision?: string;
 }
 
+export interface AboutData {
+  badge?: string;
+  title?: string;
+  highlight_title?: string;
+  paragraph_1?: string;
+  paragraph_2?: string;
+  paragraph_3?: string;
+  paragraph_4?: string;
+  content?: string;
+  founded?: string;
+  headquarters?: string;
+  field_office?: string;
+  primary_asset?: string;
+}
+
+export interface HistoryMilestoneItem extends CmsBaseEntity {
+  step?: string | number;
+  year: string;
+  title: string;
+  description?: string;
+  body?: string;
+  badge_color?: "green" | "blue" | "red" | string;
+  order_index?: number;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface ValueItem extends CmsBaseEntity {
+  title: string;
+  description: string;
+  icon?: string;
+  order_index?: number;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface ContactInfoData {
+  phone?: string;
+  email?: string;
+  head_office?: string;
+  secondary_phone?: string;
+  secondary_email?: string;
+  working_hours?: string;
+}
+
+export interface CapabilityItem extends CmsBaseEntity {
+  title: string;
+  description: string;
+  body?: string;
+  order_index?: number;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface CommitmentData {
+  badge?: string;
+  title?: string;
+  highlight_title?: string;
+  paragraph_1?: string;
+  paragraph_2?: string;
+  paragraph_3?: string;
+  content?: string;
+}
+
+export interface CommunityDevelopmentData {
+  title?: string;
+  subtitle?: string;
+  paragraph_1?: string;
+  paragraph_2?: string;
+  paragraph_3?: string;
+  content?: string;
+}
+
 export interface ContactFormPayload {
   name: string;
   email: string;

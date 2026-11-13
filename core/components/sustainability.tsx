@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { ENVIRONMENT_INTRO, COMMUNITY_INTRO } from "@/core/content/corporate";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { useGallery } from "@/core/hooks/queries/useGallery";
+import { useCommitment } from "@/core/hooks/queries/useCommitment";
+import { useCommunityDevelopment } from "@/core/hooks/queries/useCommunityDevelopment";
 import { getImageUrl } from "@/core/api/client";
 
 const CsrSkeletonCard = () => (
@@ -73,6 +75,56 @@ const COMPLIANCE_ITEMS = [
 
 export default function Sustainability() {
   const { data: galleryItems, isLoading } = useGallery();
+  const { data: commitmentData } = useCommitment();
+
+  const commitmentParagraphs = useMemo(() => {
+    if (commitmentData) {
+      const explicit = [
+        commitmentData.paragraph_1,
+        commitmentData.paragraph_2,
+        commitmentData.paragraph_3,
+      ]
+        .map((p) => p?.trim())
+        .filter(Boolean) as string[];
+
+      if (explicit.length > 0) return explicit;
+
+      if (commitmentData.content) {
+        return commitmentData.content
+          .split(/\n\s*\n|\n/)
+          .map((p) => p.trim())
+          .filter(Boolean);
+      }
+    }
+
+    return ENVIRONMENT_INTRO;
+  }, [commitmentData]);
+
+  const { data: communityData } = useCommunityDevelopment();
+
+  const communityParagraphs = useMemo(() => {
+    if (communityData) {
+      const explicit = [
+        communityData.paragraph_1,
+        communityData.paragraph_2,
+        communityData.paragraph_3,
+      ]
+        .map((p) => p?.trim())
+        .filter(Boolean) as string[];
+
+      if (explicit.length > 0) return explicit;
+
+      if (communityData.content) {
+        return communityData.content
+          .split(/\n\s*\n|\n/)
+          .map((p) => p.trim())
+          .filter(Boolean);
+      }
+    }
+
+    return COMMUNITY_INTRO;
+  }, [communityData]);
+
   const rootRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLElement | null>(null);
   const heroImageRef = useRef<HTMLDivElement | null>(null);
@@ -267,7 +319,7 @@ if (statsBar) statsBar.forEach((el) => targets.push(el));
     }, rootRef);
 
     return () => ctx.revert();
-  }, [isLoading]);
+  }, [isLoading, commitmentParagraphs, communityParagraphs]);
 
   return (
     <div
@@ -368,7 +420,9 @@ if (statsBar) statsBar.forEach((el) => targets.push(el));
             style={{ fontFamily: "'Clash Display', sans-serif" }}
           >
             <span className="h-[2px] w-4 rounded-full bg-[#ef3b3b]" />
-            <span className="text-[#0f8f55]">Our Commitment</span>
+            <span className="text-[#0f8f55]">
+              {commitmentData?.badge || "Our Commitment"}
+            </span>
           </div>
 
           <h2
@@ -379,14 +433,21 @@ if (statsBar) statsBar.forEach((el) => targets.push(el));
               fontSize: "clamp(2.25rem, 4.9vw, 4.05rem)",
             }}
           >
-            Greener and More{" "}
-            <span className="italic text-[#14874f]">Responsible Operations</span>
+            {commitmentData?.title || "Greener and More"}{" "}
+            <span className="italic text-[#14874f] block sm:inline">
+              {commitmentData?.highlight_title || "Responsible Operations"}
+            </span>
           </h2>
 
-          {ENVIRONMENT_INTRO.map((paragraph) => (<p key={paragraph}
-            data-commit-copy
-            className="mt-6 text-[#3a4340] text-[15px] sm:text-base leading-[1.8] max-w-3xl mx-auto font-sans font-medium"
-          >{paragraph}</p>))}
+          {commitmentParagraphs.map((paragraph, idx) => (
+            <p
+              key={idx}
+              data-commit-copy
+              className="mt-6 text-[#3a4340] text-[15px] sm:text-base leading-[1.8] max-w-3xl mx-auto font-sans font-medium"
+            >
+              {paragraph}
+            </p>
+          ))}
         </div>
       </section>
 
@@ -545,12 +606,33 @@ if (statsBar) statsBar.forEach((el) => targets.push(el));
                 fontSize: "clamp(2.25rem, 4.9vw, 4.05rem)",
               }}
             >
-              Host Community Development
+              {communityData?.title ? (
+                <>
+                  {communityData.title}
+                  {communityData.subtitle && (
+                    <>
+                      <br />
+                      {communityData.subtitle}
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  Host Community
+                  <br />
+                  Development
+                </>
+              )}
             </h2>
-            {COMMUNITY_INTRO.map((paragraph) => (<p key={paragraph}
-              data-csr-header
-              className="mt-3 text-[15px] sm:text-base text-[#3a4340] max-w-3xl mx-auto leading-[1.8] font-sans font-medium"
-            >{paragraph}</p>))}
+            {communityParagraphs.map((paragraph, idx) => (
+              <p
+                key={idx}
+                data-csr-header
+                className="mt-3 text-[15px] sm:text-base text-[#3a4340] max-w-3xl mx-auto leading-[1.8] font-sans font-medium"
+              >
+                {paragraph}
+              </p>
+            ))}
           </div>
 
           {/* CSR Image cards grid */}

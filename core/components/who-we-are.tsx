@@ -3,12 +3,27 @@
 import Link from "next/link";
 import { CORPORATE_INTRO, MILESTONES, STRATEGIC_GOALS } from "@/core/content/corporate";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Award, Target, Users, TrendingUp, X, ArrowRight } from "lucide-react";
+import {
+  Award,
+  Target,
+  Users,
+  TrendingUp,
+  Shield,
+  Heart,
+  Zap,
+  Globe,
+  Lightbulb,
+  X,
+  ArrowRight,
+} from "lucide-react";
 import { useLeadership } from "@/core/hooks/queries/useLeadership";
 import { useCompanyData } from "@/core/hooks/queries/useCompanyData";
+import { useAbout } from "@/core/hooks/queries/useAbout";
+import { useHistory } from "@/core/hooks/queries/useHistory";
+import { useValues } from "@/core/hooks/queries/useValues";
 import { getImageUrl } from "@/core/api/client";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -19,6 +34,45 @@ const STORY_FACTS = [
   { label: "Field Office", value: "Ibeno, Akwa Ibom", color: "#2647ff" },
   { label: "Primary Asset", value: "Qua Ibo, PML 13", color: "#14874f" },
 ];
+
+function getMilestoneColor(color?: string, index: number = 0): string {
+  if (!color) {
+    const cycle = ["#14874f", "#2647ff", "#ef3b3b"];
+    return cycle[index % cycle.length];
+  }
+  const normalized = color.toLowerCase().trim();
+  if (normalized === "green") return "#14874f";
+  if (normalized === "blue") return "#2647ff";
+  if (normalized === "red") return "#ef3b3b";
+  if (color.startsWith("#") || color.startsWith("rgb")) return color;
+  return "#14874f";
+}
+
+const VALUE_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  award: Award,
+  target: Target,
+  users: Users,
+  "trending-up": TrendingUp,
+  trending_up: TrendingUp,
+  trendingup: TrendingUp,
+  shield: Shield,
+  heart: Heart,
+  zap: Zap,
+  globe: Globe,
+  lightbulb: Lightbulb,
+};
+
+function resolveValueIcon(
+  icon?: string,
+  fallbackIndex: number = 0,
+): React.ComponentType<{ className?: string }> {
+  if (icon) {
+    const key = icon.toLowerCase().trim();
+    if (VALUE_ICONS[key]) return VALUE_ICONS[key];
+  }
+  const defaultIcons = [Award, Target, Users, TrendingUp];
+  return defaultIcons[fallbackIndex % defaultIcons.length];
+}
 
 
 const FEATURE_SPLITS = [
@@ -102,10 +156,109 @@ const LeadershipSkeletonCard = () => (
 export default function WhoWeAre() {
   const { data: cmsLeaders, isLoading } = useLeadership();
   const { data: companyData } = useCompanyData();
+  const { data: aboutData } = useAbout();
+  const { data: cmsHistory } = useHistory();
+  const { data: cmsValues } = useValues();
 
-  const historyParagraphs = companyData?.history
-    ? companyData.history.split(/\n\s*\n|\n/).map((p) => p.trim()).filter(Boolean)
-    : CORPORATE_INTRO;
+  const valuesList = useMemo(() => {
+    if (cmsValues && Array.isArray(cmsValues) && cmsValues.length > 0) {
+      return cmsValues.map((val, idx) => ({
+        id: val.id,
+        title: val.title,
+        body: val.description,
+        icon: resolveValueIcon(val.icon, idx),
+      }));
+    }
+
+    return OUR_VALUES.map((val, idx) => ({
+      id: idx + 1,
+      title: val.title,
+      body: val.body,
+      icon: val.icon,
+    }));
+  }, [cmsValues]);
+
+  const milestones = useMemo(() => {
+    if (cmsHistory && Array.isArray(cmsHistory) && cmsHistory.length > 0) {
+      return cmsHistory.map((item, idx) => ({
+        step: item.step ? String(item.step).padStart(2, "0") : String(idx + 1).padStart(2, "0"),
+        year: item.year,
+        title: item.title,
+        body: item.description || item.body || "",
+        color: getMilestoneColor(item.badge_color, idx),
+      }));
+    }
+
+    return MILESTONES.map((item, idx) => ({
+      step: String(idx + 1).padStart(2, "0"),
+      year: item.year,
+      title: item.title,
+      body: item.body,
+      color: item.color,
+    }));
+  }, [cmsHistory]);
+
+  const storyParagraphs = useMemo(() => {
+    if (aboutData) {
+      const explicit = [
+        aboutData.paragraph_1,
+        aboutData.paragraph_2,
+        aboutData.paragraph_3,
+        aboutData.paragraph_4,
+      ]
+        .map((p) => p?.trim())
+        .filter(Boolean) as string[];
+
+      if (explicit.length > 0) return explicit;
+
+      if (aboutData.content) {
+        return aboutData.content
+          .split(/\n\s*\n|\n/)
+          .map((p) => p.trim())
+          .filter(Boolean);
+      }
+    }
+
+    if (companyData?.history) {
+      return companyData.history
+        .split(/\n\s*\n|\n/)
+        .map((p) => p.trim())
+        .filter(Boolean);
+    }
+
+    return CORPORATE_INTRO;
+  }, [aboutData, companyData?.history]);
+
+  const storyFacts = useMemo(
+    () => [
+      {
+        label: "Founded",
+        value: aboutData?.founded || "2001",
+        color: "#14874f",
+      },
+      {
+        label: "Headquarters",
+        value: aboutData?.headquarters || "Ikoyi, Lagos",
+        color: "#ef3b3b",
+      },
+      {
+        label: "Field Office",
+        value: aboutData?.field_office || "Ibeno, Akwa Ibom",
+        color: "#2647ff",
+      },
+      {
+        label: "Primary Asset",
+        value: aboutData?.primary_asset || "Qua Ibo, PML 13",
+        color: "#14874f",
+      },
+    ],
+    [
+      aboutData?.founded,
+      aboutData?.headquarters,
+      aboutData?.field_office,
+      aboutData?.primary_asset,
+    ],
+  );
 
   const missionText = companyData?.mission
     ? companyData.mission.split(/\n\s*\n|\n/).map((p) => p.trim()).filter(Boolean)[0] || companyData.mission
@@ -372,7 +525,7 @@ export default function WhoWeAre() {
     }, rootRef);
 
     return () => ctx.revert();
-  }, [activeTab, isLoading]);
+  }, [activeTab, isLoading, milestones, valuesList]);
 
   return (
     <div
@@ -488,7 +641,9 @@ export default function WhoWeAre() {
                 style={{ fontFamily: "'Clash Display', sans-serif" }}
               >
                 <span className="h-[2px] w-4 rounded-full bg-[#ef3b3b]" />
-                <span className="text-[#0f8f55]">Our Story</span>
+                <span className="text-[#0f8f55]">
+                  {aboutData?.badge || "Our Story"}
+                </span>
               </div>
 
               <h2
@@ -499,10 +654,29 @@ export default function WhoWeAre() {
                   fontSize: "clamp(2.25rem, 4.9vw, 4.05rem)",
                 }}
               >
-                Nigeria&apos;s Leading{" "}
-                <span className="text-[#14874f]">Indigenous</span>
-                <br />
-                <span className="text-[#14874f]">E&amp;P Company</span>
+                {aboutData?.title ? (
+                  <>
+                    {aboutData.title}
+                    {aboutData.highlight_title ? (
+                      <span className="block text-[#14874f]">
+                        {aboutData.highlight_title.includes("Indigenous E&P Company") ? (
+                          <>
+                            Indigenous<br />E&amp;P Company
+                          </>
+                        ) : (
+                          aboutData.highlight_title
+                        )}
+                      </span>
+                    ) : null}
+                  </>
+                ) : (
+                  <>
+                    Nigeria&apos;s Leading{" "}
+                    <span className="text-[#14874f]">Indigenous</span>
+                    <br />
+                    <span className="text-[#14874f]">E&amp;P Company</span>
+                  </>
+                )}
               </h2>
 
               <div
@@ -511,7 +685,7 @@ export default function WhoWeAre() {
               />
 
               <div className="mt-7 max-w-[560px] space-y-7 text-[15px] leading-[2.02] text-[#3a4340] font-medium sm:text-[16px]">
-                {historyParagraphs.map((paragraph, idx) => (
+                {storyParagraphs.map((paragraph, idx) => (
                   <p data-story-left key={idx}>
                     {paragraph}
                   </p>
@@ -519,7 +693,7 @@ export default function WhoWeAre() {
               </div>
 
               <div className="mt-10 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:max-w-[540px]">
-                {STORY_FACTS.map((fact) => (
+                {storyFacts.map((fact) => (
                   <div
                     data-story-left
                     key={fact.label}
@@ -571,10 +745,10 @@ export default function WhoWeAre() {
                 />
 
                 <div className="space-y-7">
-                  {MILESTONES.map((item, idx) => (
+                  {milestones.map((item, idx) => (
                     <div
                       data-story-right
-                      key={`${item.year}-${item.title}`}
+                      key={`${item.year}-${item.title}-${idx}`}
                       className="relative grid grid-cols-[22px_1fr] gap-x-4"
                     >
                       <div
@@ -584,7 +758,7 @@ export default function WhoWeAre() {
                           fontFamily: "'Clash Display', sans-serif",
                         }}
                       >
-                        {String(idx + 1).padStart(2, "0")}
+                        {item.step}
                       </div>
 
                       <div className="pb-0.5">
@@ -752,11 +926,11 @@ export default function WhoWeAre() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {OUR_VALUES.map((val) => {
+                {valuesList.map((val) => {
                   const IconComponent = val.icon;
                   return (
                     <div
-                      key={val.title}
+                      key={`${val.title}-${val.id}`}
                       className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.015)] border border-neutral-100 p-8 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgb(0,0,0,0.04)] group cursor-default"
                     >
                       <div className="w-14 h-14 rounded-full bg-[#2b3cff]/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">

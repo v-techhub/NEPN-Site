@@ -18,6 +18,13 @@
 - `leadership` powers the about/Who We Are leadership cards.
 - `what-we-do` powers the homepage "What We Do" business area cards.
 - `company-data` powers the corporate overview tabs (History, Mission, Vision/Values) and story sections.
+- `about` powers the `/about` (Who We Are) story section (badge, titles, paragraphs, and quick facts).
+- `history` powers the `/about` "Our Journey / A History of Milestones" timeline cards.
+- `values` powers the `/about` "Our Values" cards (Integrity, Excellence, Community Focus, Innovation).
+- `capabilities` powers the `/operations` "Operational Capabilities" grid cards.
+- `commitment` powers the `/sustainability` "Our Commitment" environmental stewardship section.
+- `community-development` powers the `/sustainability` "Host Community Development" CSR header and copy.
+- `contact-info` powers the footer and contact page contact details (phone, email, head office, working hours).
 - `gallery` powers sustainability/CSR imagery.
 - `contact-form` and `email-submission` are used by mutations for the contact form and newsletter subscription.
 

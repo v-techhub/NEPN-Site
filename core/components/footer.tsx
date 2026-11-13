@@ -5,8 +5,14 @@ import Link from "next/link";
 import { useState } from "react";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { useNewsletter } from "@/core/hooks/queries/useNewsletter";
+import { useContactInfo } from "@/core/hooks/queries/useContactInfo";
 
 export default function Footer() {
+  const { data: contactInfo } = useContactInfo();
+
+  const phone = contactInfo?.phone || "09088855012";
+  const emailAddress = contactInfo?.email || "Info@networkeandp.com";
+  const headOffice = contactInfo?.head_office || "14 Ademola Street, SW Ikoyi, Lagos";
   const quickLinks = [
     { label: "Home", href: "/" },
     { label: "Who We Are", href: "/about" },
@@ -102,7 +108,12 @@ export default function Footer() {
 
                 <div>
                   <p className="text-xs text-gray-500 tracking-wide">PHONE</p>
-                  <p className="text-[15px] text-gray-300">09088855012</p>
+                  <a
+                    href={`tel:${phone.replace(/\s+/g, "")}`}
+                    className="text-[15px] text-gray-300 hover:text-white transition"
+                  >
+                    {phone}
+                  </a>
                 </div>
               </div>
 
@@ -114,9 +125,12 @@ export default function Footer() {
 
                 <div>
                   <p className="text-xs text-gray-500 tracking-wide">EMAIL</p>
-                  <p className="text-[15px] text-gray-300">
-                    Info@networkeandp.com
-                  </p>
+                  <a
+                    href={`mailto:${emailAddress}`}
+                    className="text-[15px] text-gray-300 hover:text-white transition"
+                  >
+                    {emailAddress}
+                  </a>
                 </div>
               </div>
 
@@ -131,7 +145,7 @@ export default function Footer() {
                     HEAD OFFICE
                   </p>
                   <p className="text-[15px] text-gray-300">
-                    14 Ademola Street, SW Ikoyi, Lagos
+                    {headOffice}
                   </p>
                 </div>
               </div>

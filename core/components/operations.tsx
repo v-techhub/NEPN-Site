@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { OPERATIONS_INTRO } from "@/core/content/corporate";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Clock, ArrowRight } from "lucide-react";
+import { useCapabilities } from "@/core/hooks/queries/useCapabilities";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -78,6 +79,22 @@ const SPEC_ROWS = [
 ];
 
 export default function Operations() {
+  const { data: cmsCapabilities } = useCapabilities();
+
+  const capabilities = useMemo(() => {
+    if (
+      cmsCapabilities &&
+      Array.isArray(cmsCapabilities) &&
+      cmsCapabilities.length > 0
+    ) {
+      return cmsCapabilities.map((item) => ({
+        title: item.title,
+        body: item.description || item.body || "",
+      }));
+    }
+    return TECH_CARDS;
+  }, [cmsCapabilities]);
+
   const rootRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLElement | null>(null);
   const heroImageRef = useRef<HTMLDivElement | null>(null);
@@ -239,7 +256,7 @@ export default function Operations() {
     }, rootRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [capabilities]);
 
   return (
     <div
@@ -441,9 +458,9 @@ export default function Operations() {
               data-tech-grid
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
             >
-              {TECH_CARDS.map((card) => (
+              {capabilities.map((card, idx) => (
                 <div
-                  key={card.title}
+                  key={`${card.title}-${idx}`}
                   className="bg-white rounded-[4px] shadow-[0_8px_30px_rgb(0,0,0,0.015)] border border-neutral-100 p-8 flex flex-col justify-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgb(0,0,0,0.045)] hover:border-neutral-200 cursor-default"
                 >
                   <h3

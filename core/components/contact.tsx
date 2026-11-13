@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useContact } from "@/core/hooks/queries/useContact";
 import { useNewsletter } from "@/core/hooks/queries/useNewsletter";
+import { useContactInfo } from "@/core/hooks/queries/useContactInfo";
 
 const SUBJECT_MAPPING: Record<string, string> = {
   general: "General Enquiry",
@@ -41,6 +42,15 @@ export default function Contact() {
 
   const contactMutation = useContact();
   const newsletterMutation = useNewsletter();
+  const { data: contactInfo } = useContactInfo();
+
+  const phone = contactInfo?.phone || "09088855012";
+  const emailAddress = contactInfo?.email || "Info@networkeandp.com";
+  const headOffice =
+    contactInfo?.head_office || "14 Ademola Street, SW Ikoyi, Lagos State";
+  const secondaryPhone = contactInfo?.secondary_phone;
+  const secondaryEmail = contactInfo?.secondary_email;
+  const workingHours = contactInfo?.working_hours || "Mon-Sat Support";
 
   // Newsletter state
   const [newsletterEmail, setNewsletterEmail] = useState("");
@@ -456,10 +466,10 @@ export default function Contact() {
                       PHONE
                     </p>
                     <a
-                      href="tel:09088855012"
+                      href={`tel:${phone.replace(/\s+/g, "")}`}
                       className="text-[15.5px] sm:text-[16.5px] font-semibold hover:text-white/80 transition"
                     >
-                      09088855012
+                      {phone}
                     </a>
                   </div>
                 </div>
@@ -480,10 +490,10 @@ export default function Contact() {
                       EMAIL
                     </p>
                     <a
-                      href="mailto:Info@networkeandp.com"
+                      href={`mailto:${emailAddress}`}
                       className="text-[15.5px] sm:text-[16.5px] font-semibold hover:text-white/80 transition breakdown-all"
                     >
-                      Info@networkeandp.com
+                      {emailAddress}
                     </a>
                   </div>
                 </div>
@@ -504,7 +514,7 @@ export default function Contact() {
                       HEAD OFFICE
                     </p>
                     <p className="text-[14px] sm:text-[14.5px] font-normal leading-relaxed text-white/90">
-                      14 Ademola Street, SW Ikoyi, Lagos State
+                      {headOffice}
                     </p>
                   </div>
                 </div>
@@ -1055,24 +1065,24 @@ export default function Contact() {
                   {/* Contact anchors */}
                   <div className="space-y-4 font-sans">
                     <a
-                      href="mailto:Info@networkeandp.com"
+                      href={`mailto:${emailAddress}`}
                       className="flex items-center gap-3 text-xs sm:text-[13px] text-neutral-600 hover:text-[#173fe3] transition group/item"
                     >
                       <Mail
                         size={16}
                         className="text-[#173fe3] group-hover/item:scale-110 transition duration-200"
                       />
-                      <span>Info@networkeandp.com</span>
+                      <span>{emailAddress}</span>
                     </a>
                     <a
-                      href="tel:09088855012"
+                      href={`tel:${phone.replace(/\s+/g, "")}`}
                       className="flex items-center gap-3 text-xs sm:text-[13px] text-neutral-600 hover:text-[#173fe3] transition group/item"
                     >
                       <Phone
                         size={16}
                         className="text-[#173fe3] group-hover/item:scale-110 transition duration-200"
                       />
-                      <span>09088855012</span>
+                      <span>{phone}</span>
                     </a>
                   </div>
                 </div>
@@ -1081,10 +1091,10 @@ export default function Contact() {
               <div className="px-7 pb-7 pt-4 border-t border-neutral-100 flex items-center justify-between text-[11px] text-neutral-400 font-semibold font-sans">
                 <span className="flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5 text-[#173fe3]" />
-                  <span>Mon-Sat Support</span>
+                  <span>{workingHours}</span>
                 </span>
                 <a
-                  href="mailto:Info@networkeandp.com"
+                  href={`mailto:${emailAddress}`}
                   className="text-[#173fe3] hover:underline flex items-center gap-1"
                 >
                   <span>Send Email</span>
